@@ -77,6 +77,23 @@ Backlog IDs are stable planning references, not issue tracker numbers.
 - [x] `M4-010` Implement catching, experience, level-up, and move learning.
 - [x] `M4-011` Complete first rival and wild battle gates.
 
+## M5 — Violet City vertical slice
+
+- [x] `M5-001` Define the persistent game-session and vertical-slice contract.
+- [ ] `M5-002` Decode and present ROM-owned dialogue for the playable slice.
+- [ ] `M5-003` Add the visible battle scene and command menus.
+- [ ] `M5-004` Bridge world and script requests to native battles.
+- [ ] `M5-005` Expand extracted world data through Violet City.
+- [ ] `M5-006` Implement encounters selected by map and time period.
+- [ ] `M5-007` Implement trainer sight, approach, and trainer battles.
+- [ ] `M5-008` Hand-write Route, Cherrygrove, and Violet event behavior.
+- [ ] `M5-009` Add Pack, party, and Pokédex presentation.
+- [ ] `M5-010` Add Pokémon Center, mart, and PC systems.
+- [ ] `M5-011` Add versioned save/load and RTC persistence.
+- [ ] `M5-012` Add music, SFX, and cry playback for the slice.
+- [ ] `M5-013` Complete Falkner Gym and badge progression.
+- [ ] `M5-014` Complete the introduction-to-first-badge acceptance route.
+
 ## Cross-cutting risks
 
 - [ ] `RISK-001` Inventory complex engine routines required by each map and

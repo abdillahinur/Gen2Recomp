@@ -111,6 +111,8 @@ for M5. M4's exit gate covers the native simulation and its session boundary.
 
 Deliver:
 
+- one persistent runtime game session owning script, party, inventory, phone,
+  clock, Pokédex, money, and player-location state;
 - encounters by time period;
 - trainers and trainer sight;
 - Pack, party, Pokémon Center, mart, PC, and Pokédex foundations;
@@ -121,6 +123,9 @@ Deliver:
 Exit gate:
 
 - a new save can play from the introduction through the first badge.
+
+Detailed checkpoint order and the native session/save boundary are defined in
+[`M5_VERTICAL_SLICE.md`](M5_VERTICAL_SLICE.md).
 
 ## M6 — Johto campaign
 

@@ -1,5 +1,6 @@
 return function(test, equal, truthy)
   local Commands = require("src.script.Commands")
+  local GameSession = require("src.game.GameSession")
   local MapPresentationRuntime =
     require("src.script.MapPresentationRuntime")
   local World = require("src.world.World")
@@ -93,9 +94,13 @@ return function(test, equal, truthy)
     local catalog = {
       all = function() return { definition } end,
     }
+    local gameSession = GameSession.new("test_profile")
     local value = MapPresentationRuntime.new(world(), {
       catalog = catalog,
+      gameSession = gameSession,
     })
+    equal(value.state, gameSession.state)
+    equal(value.party, gameSession.party)
     truthy(value:updateIdle(input("confirm")))
     truthy(value:isBusy())
     equal(value.presentation:model().text, "TEXT · GREETING")

@@ -12,9 +12,9 @@ normal play. A future first-boot UI will invoke this importer.
 
 ## Current status
 
-The repository has completed **M4: Battle slice**, including
-end-to-end verification with canonical English Crystal v1.1. The project
-currently contains:
+The repository has completed **M4: Battle slice** and begun **M5: Violet City
+vertical slice**, including end-to-end M1–M4 verification with canonical
+English Crystal v1.1. The project currently contains:
 
 - a minimal LÖVE 11.x application;
 - a deterministic 60 Hz fixed-step loop;
@@ -42,6 +42,8 @@ currently contains:
   services for the M3 behavior slice;
 - visible dialogue boxes, choices, clock setup, preset/custom naming, New Bark
   interactions, and Elm's Lab scene presentation driven by those M3 services;
+- a profile-bound persistent game-session contract for script, party,
+  inventory, phone, clock, money, player-location, and Pokédex state;
 - normalized battle records and Gen 2 Pokémon instances with integer stats,
   DVs, gender, shiny state, Hidden Power, and growth curves;
 - deterministic battle turns, switching and forced replacements, damage,
@@ -181,6 +183,7 @@ experience awards, and retains no raw ROM ranges.
 - [Private cache format](docs/CACHE_FORMAT.md)
 - [Reference-data generation](docs/REFERENCE_DATA.md)
 - [Battle engine](docs/BATTLE_ENGINE.md)
+- [M5 Violet City slice](docs/M5_VERTICAL_SLICE.md)
 - [Content policy](docs/CONTENT_POLICY.md)
 
 ## ROM support

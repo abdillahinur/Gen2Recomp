@@ -28,8 +28,11 @@ function WorldState.new(worldData, options)
   if options.scripts ~= false then
     self.scripts = MapPresentationRuntime.new(self.world, {
       state = options.scriptState,
+      gameSession = options.gameSession,
     })
   end
+  self.gameSession = options.gameSession
+  if self.gameSession then self.gameSession:captureWorld(self.world) end
   return self
 end
 
@@ -40,6 +43,7 @@ function WorldState:update(dt, input)
     self.world:update(dt, input)
     if self.scripts then self.scripts:updateIdle(input) end
   end
+  if self.gameSession then self.gameSession:captureWorld(self.world) end
 end
 
 function WorldState:draw()

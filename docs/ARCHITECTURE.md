@@ -197,6 +197,14 @@ New Bark and Elm's Lab object/sign interactions and begins Elm's scene when
 the lab is entered. Semantic labels are used until exact text is decoded from
 the supplied ROM; the repository does not embed original dialogue.
 
+M5 begins with `GameSession`, the persistent owner for one running game. It
+binds an exact ROM profile to script state, party, inventory, phone contacts,
+clock, money, player location, and Pokédex seen/caught sets. Its schema-1
+snapshot is data-only and detached from live services. M5-011 will add atomic
+filesystem persistence around this contract; M5-001 does not write saves.
+World and map-script presentation now share the session-owned services rather
+than creating progression state that disappears between maps.
+
 M4 adds normalized species, move, item, and trainer records; Gen 2 integer
 stats, DVs, gender, shiny state, and Hidden Power; deterministic battle state,
 action ordering, switching, damage, status, effect dispatch, AI, catching,

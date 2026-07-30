@@ -30,16 +30,26 @@ end
 
 function MapPresentationRuntime.new(world, options)
   options = options or {}
+  local gameSession = options.gameSession
   local self = setmetatable({
     world = world,
     catalog = options.catalog or ScriptCatalog.load(),
-    state = options.state or ScriptState.new(),
+    state = options.state
+      or (gameSession and gameSession.state)
+      or ScriptState.new(),
     dialogue = options.dialogue or DialogueService.new(),
     audio = options.audio or AudioService.new(),
     battles = options.battles or BattleService.new(),
-    party = options.party or PartyService.new(),
-    inventory = options.inventory or InventoryService.new(),
-    phone = options.phone or PhoneService.new(),
+    party = options.party
+      or (gameSession and gameSession.party)
+      or PartyService.new(),
+    inventory = options.inventory
+      or (gameSession and gameSession.inventory)
+      or InventoryService.new(),
+    phone = options.phone
+      or (gameSession and gameSession.phone)
+      or PhoneService.new(),
+    gameSession = gameSession,
     sessions = {},
     activeSession = nil,
     activeTask = nil,
