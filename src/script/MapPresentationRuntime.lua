@@ -9,6 +9,7 @@ local ScriptCatalog = require("src.script.ScriptCatalog")
 local ScriptState = require("src.script.ScriptState")
 local PresentationController =
   require("src.ui.PresentationController")
+local RomTextProvider = require("src.ui.RomTextProvider")
 
 local MapPresentationRuntime = {}
 MapPresentationRuntime.__index = MapPresentationRuntime
@@ -57,9 +58,16 @@ function MapPresentationRuntime.new(world, options)
     lastCoordKey = nil,
     lastError = nil,
   }, MapPresentationRuntime)
+  local presentationOptions = options.presentationOptions or {}
+  if options.textCatalog and not presentationOptions.textProvider then
+    presentationOptions = {
+      textProvider =
+        RomTextProvider.forState(options.textCatalog, self.state),
+    }
+  end
   self.presentation = PresentationController.new({
     dialogue = self.dialogue,
-  }, options.presentationOptions)
+  }, presentationOptions)
 
   for _, definition in ipairs(self.catalog:all()) do
     if definition.kind == "map" then

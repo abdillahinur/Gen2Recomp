@@ -29,6 +29,7 @@ function WorldState.new(worldData, options)
     self.scripts = MapPresentationRuntime.new(self.world, {
       state = options.scriptState,
       gameSession = options.gameSession,
+      textCatalog = options.textCatalog,
     })
   end
   self.gameSession = options.gameSession

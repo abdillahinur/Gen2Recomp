@@ -80,7 +80,7 @@ Backlog IDs are stable planning references, not issue tracker numbers.
 ## M5 — Violet City vertical slice
 
 - [x] `M5-001` Define the persistent game-session and vertical-slice contract.
-- [ ] `M5-002` Decode and present ROM-owned dialogue for the playable slice.
+- [x] `M5-002` Decode and present ROM-owned dialogue for the playable slice.
 - [ ] `M5-003` Add the visible battle scene and command menus.
 - [ ] `M5-004` Bridge world and script requests to native battles.
 - [ ] `M5-005` Expand extracted world data through Violet City.

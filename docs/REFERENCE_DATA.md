@@ -80,3 +80,11 @@ duplicate mono-type entries, and creates unique semantic IDs containing the
 cartridge record number. Move and species names, stats, power, accuracy, PP,
 catch rates, and experience values are decoded only from the player-supplied
 ROM; they are not committed to the repository.
+
+M5-002 expands both version-specific symbol allowlists with 55 direct text
+labels used by the introduction, New Bark, and Elm's Lab. A shared semantic
+manifest maps native dialogue IDs to those labels and declares the one runtime
+string-buffer substitution required by the slice. The runtime decoder
+normalizes glyphs, line/paragraph controls, terminals, and substitutions;
+neither the generated symbol manifests nor the semantic manifest contains the
+dialogue itself.

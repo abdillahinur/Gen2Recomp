@@ -1,4 +1,5 @@
 local CrystalWorldData = require("src.import.CrystalWorldData")
+local CrystalTextData = require("src.import.CrystalTextData")
 local Rom = require("src.import.Rom")
 local RomIdentifier = require("src.import.RomIdentifier")
 
@@ -24,8 +25,9 @@ function CrystalPreview.load(path)
   local rom = Rom.new(data)
   data = nil
   local world = CrystalWorldData.extract(rom, identity.profile)
+  local text = CrystalTextData.extract(rom, identity.profile)
   rom = nil
-  return world, identity.profile
+  return world, identity.profile, text
 end
 
 return CrystalPreview

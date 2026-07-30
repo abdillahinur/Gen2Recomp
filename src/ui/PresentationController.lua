@@ -34,6 +34,7 @@ function PresentationController.new(services, options)
     nameIndex = 1,
     keyboardX = 1,
     keyboardY = 1,
+    textPage = 1,
   }, PresentationController)
 end
 
@@ -59,11 +60,27 @@ function PresentationController:_reset(request)
   self.nameIndex = 1
   self.keyboardX = 1
   self.keyboardY = 1
+  self.textPage = 1
 end
 
 function PresentationController:_updateDialogue(request, input)
   if request.kind == "text" then
-    if pressed(input, "confirm") then self.dialogue:advance() end
+    if pressed(input, "confirm") then
+      local pages = self.text.resolvePages
+        and self.text:resolvePages(request.id, request.substitutions)
+        or { self.text:resolve(request.id, request.substitutions) }
+      if self.textPage < #pages then
+        self.textPage = self.textPage + 1
+      else
+        self.dialogue:advance()
+      end
+    end
+    return
+  end
+  local promptPages = self.text.choicePromptPages
+    and self.text:choicePromptPages(request.id)
+  if promptPages and self.textPage <= #promptPages then
+    if pressed(input, "confirm") then self.textPage = self.textPage + 1 end
     return
   end
   local count = #request.options
@@ -161,10 +178,29 @@ function PresentationController:model()
   self:_reset(request)
   if self.dialogue and request == self.dialogue.active then
     if request.kind == "text" then
+      local pages = self.text.resolvePages
+        and self.text:resolvePages(request.id, request.substitutions)
+        or { self.text:resolve(request.id, request.substitutions) }
       return {
         kind = "text",
-        text = self.text:resolve(request.id, request.substitutions),
-        footer = "Z / ENTER: NEXT",
+        text = pages[self.textPage],
+        page = self.textPage,
+        pageCount = #pages,
+        footer = self.textPage < #pages
+          and ("Z: NEXT  %d/%d"):format(self.textPage, #pages)
+          or "Z / ENTER: CLOSE",
+      }
+    end
+    local promptPages = self.text.choicePromptPages
+      and self.text:choicePromptPages(request.id)
+    if promptPages and self.textPage <= #promptPages then
+      return {
+        kind = "text",
+        text = promptPages[self.textPage],
+        page = self.textPage,
+        pageCount = #promptPages,
+        footer = ("Z: NEXT  %d/%d"):format(
+          self.textPage, #promptPages),
       }
     end
     local options = {}
@@ -173,7 +209,9 @@ function PresentationController:model()
     end
     return {
       kind = "choice",
-      title = self.text:resolve(request.id),
+      title = self.text.choiceTitle
+        and self.text:choiceTitle(request.id)
+        or self.text:resolve(request.id),
       options = options,
       selected = self.choiceIndex,
     }

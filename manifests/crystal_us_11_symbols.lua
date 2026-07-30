@@ -8,6 +8,16 @@ return {
     rgbdsVersion = "1.0.1",
   },
   symbols = {
+    ["AideText_AlwaysBusy"] = {
+      bank = 0x1e,
+      address = 0x5f65,
+      offset = 0x079f65,
+    },
+    ["AideText_GiveYouPotion"] = {
+      bank = 0x1e,
+      address = 0x5f38,
+      offset = 0x079f38,
+    },
     ["BaseData"] = {
       bank = 0x14,
       address = 0x5424,
@@ -18,15 +28,145 @@ return {
       address = 0x7d84,
       offset = 0x053d84,
     },
+    ["ChoseStarterText"] = {
+      bank = 0x1e,
+      address = 0x5487,
+      offset = 0x079487,
+    },
     ["CollisionPermissionTable"] = {
       bank = 0x13,
       address = 0x4e1f,
       offset = 0x04ce1f,
     },
+    ["DidntChooseStarterText"] = {
+      bank = 0x1e,
+      address = 0x544d,
+      offset = 0x07944d,
+    },
+    ["DifficultBookshelfText"] = {
+      bank = 0x6c,
+      address = 0x435a,
+      offset = 0x1b035a,
+    },
     ["DiplomaPalettes"] = {
       bank = 0x02,
       address = 0x7641,
       offset = 0x00b641,
+    },
+    ["ElmDescribesMrPokemonText"] = {
+      bank = 0x1e,
+      address = 0x560d,
+      offset = 0x07960d,
+    },
+    ["ElmDirectionsText1"] = {
+      bank = 0x1e,
+      address = 0x54c0,
+      offset = 0x0794c0,
+    },
+    ["ElmDirectionsText2"] = {
+      bank = 0x1e,
+      address = 0x5581,
+      offset = 0x079581,
+    },
+    ["ElmDirectionsText3"] = {
+      bank = 0x1e,
+      address = 0x55db,
+      offset = 0x0795db,
+    },
+    ["ElmPokeBallText"] = {
+      bank = 0x1e,
+      address = 0x5668,
+      offset = 0x079668,
+    },
+    ["ElmText_Accepted"] = {
+      bank = 0x1e,
+      address = 0x50fa,
+      offset = 0x0790fa,
+    },
+    ["ElmText_ChooseAPokemon"] = {
+      bank = 0x1e,
+      address = 0x52ff,
+      offset = 0x0792ff,
+    },
+    ["ElmText_GotAnEmail"] = {
+      bank = 0x1e,
+      address = 0x51ae,
+      offset = 0x0791ae,
+    },
+    ["ElmText_Intro"] = {
+      bank = 0x1e,
+      address = 0x4fb6,
+      offset = 0x078fb6,
+    },
+    ["ElmText_LetYourMonBattleIt"] = {
+      bank = 0x1e,
+      address = 0x5375,
+      offset = 0x079375,
+    },
+    ["ElmText_MissionFromMrPokemon"] = {
+      bank = 0x1e,
+      address = 0x51df,
+      offset = 0x0791df,
+    },
+    ["ElmText_Refused"] = {
+      bank = 0x1e,
+      address = 0x511a,
+      offset = 0x07911a,
+    },
+    ["ElmText_ResearchAmbitions"] = {
+      bank = 0x1e,
+      address = 0x513a,
+      offset = 0x07913a,
+    },
+    ["ElmsLabHealingMachineText1"] = {
+      bank = 0x1e,
+      address = 0x5690,
+      offset = 0x079690,
+    },
+    ["ElmsLabHealingMachineText2"] = {
+      bank = 0x1e,
+      address = 0x56aa,
+      offset = 0x0796aa,
+    },
+    ["ElmsLabPCText"] = {
+      bank = 0x1e,
+      address = 0x63a6,
+      offset = 0x07a3a6,
+    },
+    ["ElmsLabTrashcanText"] = {
+      bank = 0x1e,
+      address = 0x6370,
+      offset = 0x07a370,
+    },
+    ["ElmsLabTravelTip1Text"] = {
+      bank = 0x1e,
+      address = 0x624c,
+      offset = 0x07a24c,
+    },
+    ["ElmsLabTravelTip2Text"] = {
+      bank = 0x1e,
+      address = 0x628a,
+      offset = 0x07a28a,
+    },
+    ["ElmsLabTravelTip3Text"] = {
+      bank = 0x1e,
+      address = 0x62c6,
+      offset = 0x07a2c6,
+    },
+    ["ElmsLabTravelTip4Text"] = {
+      bank = 0x1e,
+      address = 0x6315,
+      offset = 0x07a315,
+    },
+    ["ElmsLabWindowText1"] = {
+      bank = 0x1e,
+      address = 0x61fd,
+      offset = 0x07a1fd,
+    },
+    ["ElmsLabWindowText2"] = {
+      bank = 0x1e,
+      address = 0x6231,
+      offset = 0x07a231,
     },
     ["Font"] = {
       bank = 0x3e,
@@ -48,6 +188,16 @@ return {
       address = 0x4800,
       offset = 0x0f8800,
     },
+    ["GotElmsNumberText"] = {
+      bank = 0x1e,
+      address = 0x55f3,
+      offset = 0x0795f3,
+    },
+    ["LabWhereGoingText"] = {
+      bank = 0x1e,
+      address = 0x53a7,
+      offset = 0x0793a7,
+    },
     ["MapGroupPalettes"] = {
       bank = 0x13,
       address = 0x4e05,
@@ -67,6 +217,36 @@ return {
       bank = 0x02,
       address = 0x7469,
       offset = 0x00b469,
+    },
+    ["NewBarkTownElmsHouseSignText"] = {
+      bank = 0x6a,
+      address = 0x4340,
+      offset = 0x1a8340,
+    },
+    ["NewBarkTownElmsLabSignText"] = {
+      bank = 0x6a,
+      address = 0x4332,
+      offset = 0x1a8332,
+    },
+    ["NewBarkTownPlayersHouseSignText"] = {
+      bank = 0x6a,
+      address = 0x4328,
+      offset = 0x1a8328,
+    },
+    ["NewBarkTownRivalText1"] = {
+      bank = 0x6a,
+      address = 0x42a6,
+      offset = 0x1a82a6,
+    },
+    ["NewBarkTownRivalText2"] = {
+      bank = 0x6a,
+      address = 0x42cd,
+      offset = 0x1a82cd,
+    },
+    ["NewBarkTownSignText"] = {
+      bank = 0x6a,
+      address = 0x42e8,
+      offset = 0x1a82e8,
     },
     ["NewBarkTown_Blocks"] = {
       bank = 0x2b,
@@ -93,6 +273,11 @@ return {
       address = 0x7384,
       offset = 0x053384,
     },
+    ["ReceivedStarterText"] = {
+      bank = 0x1e,
+      address = 0x54ad,
+      offset = 0x0794ad,
+    },
     ["RoofPals"] = {
       bank = 0x02,
       address = 0x7569,
@@ -102,6 +287,61 @@ return {
       bank = 0x07,
       address = 0x403c,
       offset = 0x01c03c,
+    },
+    ["TakeChikoritaText"] = {
+      bank = 0x1e,
+      address = 0x541f,
+      offset = 0x07941f,
+    },
+    ["TakeCyndaquilText"] = {
+      bank = 0x1e,
+      address = 0x53c8,
+      offset = 0x0793c8,
+    },
+    ["TakeTotodileText"] = {
+      bank = 0x1e,
+      address = 0x53f3,
+      offset = 0x0793f3,
+    },
+    ["Text_CallMomOnGear"] = {
+      bank = 0x6a,
+      address = 0x4236,
+      offset = 0x1a8236,
+    },
+    ["Text_ElmDiscoveredNewMon"] = {
+      bank = 0x6a,
+      address = 0x4274,
+      offset = 0x1a8274,
+    },
+    ["Text_GearIsImpressive"] = {
+      bank = 0x6a,
+      address = 0x40f7,
+      offset = 0x1a80f7,
+    },
+    ["Text_ItsDangerousToGoAlone"] = {
+      bank = 0x6a,
+      address = 0x415e,
+      offset = 0x1a815e,
+    },
+    ["Text_TellMomIfLeaving"] = {
+      bank = 0x6a,
+      address = 0x41f2,
+      offset = 0x1a81f2,
+    },
+    ["Text_WaitPlayer"] = {
+      bank = 0x6a,
+      address = 0x4134,
+      offset = 0x1a8134,
+    },
+    ["Text_WhatDoYouThinkYoureDoing"] = {
+      bank = 0x6a,
+      address = 0x413e,
+      offset = 0x1a813e,
+    },
+    ["Text_YourMonIsAdorable"] = {
+      bank = 0x6a,
+      address = 0x41c4,
+      offset = 0x1a81c4,
     },
     ["TilesetBGPalette"] = {
       bank = 0x02,
@@ -142,6 +382,41 @@ return {
       bank = 0x13,
       address = 0x5596,
       offset = 0x04d596,
+    },
+    ["_OakText1"] = {
+      bank = 0x70,
+      address = 0x5d35,
+      offset = 0x1c1d35,
+    },
+    ["_OakText2"] = {
+      bank = 0x70,
+      address = 0x5da4,
+      offset = 0x1c1da4,
+    },
+    ["_OakText3"] = {
+      bank = 0x70,
+      address = 0x5de2,
+      offset = 0x1c1de2,
+    },
+    ["_OakText4"] = {
+      bank = 0x70,
+      address = 0x5de5,
+      offset = 0x1c1de5,
+    },
+    ["_OakText5"] = {
+      bank = 0x70,
+      address = 0x5e51,
+      offset = 0x1c1e51,
+    },
+    ["_OakText6"] = {
+      bank = 0x71,
+      address = 0x4000,
+      offset = 0x1c4000,
+    },
+    ["_OakText7"] = {
+      bank = 0x71,
+      address = 0x4026,
+      offset = 0x1c4026,
     },
   },
 }

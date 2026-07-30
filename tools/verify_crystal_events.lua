@@ -1,4 +1,5 @@
 local CrystalWorldData = require("src.import.CrystalWorldData")
+local CrystalTextData = require("src.import.CrystalTextData")
 local IntroductionSession =
   require("src.script.IntroductionSession")
 local MapPresentationRuntime =
@@ -10,6 +11,7 @@ local ScriptCatalog = require("src.script.ScriptCatalog")
 local ScriptState = require("src.script.ScriptState")
 local PresentationController =
   require("src.ui.PresentationController")
+local RomTextProvider = require("src.ui.RomTextProvider")
 local World = require("src.world.World")
 
 local function readRom(path)
@@ -50,11 +52,13 @@ local function input(action)
   }
 end
 
-local function driveIntroduction(session, task)
+local function driveIntroduction(session, task, textCatalog)
   local presentation = PresentationController.new({
     dialogue = session.dialogue,
     clock = session.clock,
     names = session.names,
+  }, {
+    textProvider = RomTextProvider.forState(textCatalog, session.state),
   })
   local visible = {}
   local steps = 0
@@ -136,8 +140,11 @@ local function main()
     "this M3 checkpoint expects canonical Crystal US v1.1")
   requireValue(Profiles.get(identity.profile.id) == identity.profile,
     "profile registry changed during verification")
+  local rom = Rom.new(data)
   local worldData =
-    CrystalWorldData.extract(Rom.new(data), identity.profile)
+    CrystalWorldData.extract(rom, identity.profile)
+  local textCatalog = CrystalTextData.extract(rom, identity.profile)
+  rom = nil
   data = nil
 
   local catalog = ScriptCatalog.load()
@@ -152,7 +159,7 @@ local function main()
     IntroductionSession.new(introduction, { state = state })
   local introductionTask = introductionSession:start()
   local visibleIntroduction =
-    driveIntroduction(introductionSession, introductionTask)
+    driveIntroduction(introductionSession, introductionTask, textCatalog)
   for _, kind in ipairs({
     "choice",
     "clock",
@@ -176,7 +183,10 @@ local function main()
     "clock selection was not retained")
 
   local world = World.new(worldData)
-  local runtime = MapPresentationRuntime.new(world, { state = state })
+  local runtime = MapPresentationRuntime.new(world, {
+    state = state,
+    textCatalog = textCatalog,
+  })
   world:relocate("24:5", 4, 11, "up", "m3_acceptance")
   runtime:updateIdle(input())
   local visibleElm = driveMap(runtime, {
@@ -245,7 +255,7 @@ local function main()
   print("Elm meeting: accepted and starter selection opened")
   print("Starter: Cyndaquil level 5 holding Berry")
   print("Progression: Elm phone registered; Potion received")
-  print("Presentation: text/choice/clock/naming models verified")
+  print("Presentation: ROM text/choice/clock/naming models verified")
   return 0
 end
 

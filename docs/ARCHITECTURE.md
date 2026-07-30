@@ -194,8 +194,7 @@ names, and a custom on-screen keyboard without coupling script behavior to
 LÖVE. The visible ROM preview runs the introduction before entering the world
 and carries its `ScriptState` forward. A map presentation adapter dispatches
 New Bark and Elm's Lab object/sign interactions and begins Elm's scene when
-the lab is entered. Semantic labels are used until exact text is decoded from
-the supplied ROM; the repository does not embed original dialogue.
+the lab is entered.
 
 M5 begins with `GameSession`, the persistent owner for one running game. It
 binds an exact ROM profile to script state, party, inventory, phone contacts,
@@ -204,6 +203,14 @@ snapshot is data-only and detached from live services. M5-011 will add atomic
 filesystem persistence around this contract; M5-001 does not write saves.
 World and map-script presentation now share the session-owned services rather
 than creating progression state that disappears between maps.
+
+M5-002 adds a profile-owned text extraction manifest for 55 introduction,
+New Bark, and Elm's Lab records. `CrystalTextData` reads those records from the
+verified ROM into normalized glyph, layout, and substitution tokens, then
+releases the ROM with the rest of the preview importer. `RomTextProvider`
+resolves player/species values and creates two-line pages for the existing
+presentation controller. Source control contains symbol metadata only; exact
+dialogue exists solely in the player's ROM and private runtime/cache data.
 
 M4 adds normalized species, move, item, and trainer records; Gen 2 integer
 stats, DVs, gender, shiny state, and Hidden Power; deterministic battle state,
@@ -216,10 +223,10 @@ player-ROM-gated M4 route completes deterministic first-rival and Route 29
 wild fixtures with terminal outcomes and experience awards.
 
 The project does not yet contain the first-launch file picker or
-importer-screen wiring. M3's text, choice, clock, and naming services are now
-connected to visible LÖVE UI, but exact ROM dialogue extraction is still
-pending. The M4 battle simulation remains headless: a visible battle scene,
-command menus, broader move-effect coverage, held items, weather, saves, audio
-playback, and campaign progression remain future work. Import, world, event,
-presentation, and battle acceptance are exercised through fixtures and local
-player-ROM-gated verification commands.
+importer-screen wiring. M3's text, choice, clock, and naming services are
+connected to visible LÖVE UI, and the current 55-record slice now uses exact
+ROM-owned dialogue. The M4 battle simulation remains headless: a visible
+battle scene, command menus, broader move-effect coverage, held items, weather,
+saves, audio playback, and campaign progression remain future work. Import,
+world, event, presentation, and battle acceptance are exercised through
+fixtures and local player-ROM-gated verification commands.

@@ -12,9 +12,9 @@ normal play. A future first-boot UI will invoke this importer.
 
 ## Current status
 
-The repository has completed **M4: Battle slice** and begun **M5: Violet City
-vertical slice**, including end-to-end M1–M4 verification with canonical
-English Crystal v1.1. The project currently contains:
+The repository has completed **M4: Battle slice** and the first two checkpoints
+of **M5: Violet City vertical slice**, including end-to-end M1–M4 verification
+with canonical English Crystal v1.1. The project currently contains:
 
 - a minimal LÖVE 11.x application;
 - a deterministic 60 Hz fixed-step loop;
@@ -42,6 +42,8 @@ English Crystal v1.1. The project currently contains:
   services for the M3 behavior slice;
 - visible dialogue boxes, choices, clock setup, preset/custom naming, New Bark
   interactions, and Elm's Lab scene presentation driven by those M3 services;
+- runtime decoding of 55 ROM-owned introduction, New Bark, and Elm's Lab text
+  records, with two-line pagination and player/species substitutions;
 - a profile-bound persistent game-session contract for script, party,
   inventory, phone, clock, money, player-location, and Pokédex state;
 - normalized battle records and Gen 2 Pokémon instances with integer stats,
@@ -57,14 +59,14 @@ English Crystal v1.1. The project currently contains:
 
 There is no first-launch ROM picker or application importer screen yet. With a
 ROM path, the developer preview now visibly runs M3's introduction, gender
-choice, clock setup, dialogue requests, and on-screen naming before entering
+choice, clock setup, ROM-owned dialogue, and on-screen naming before entering
 the world. New Bark NPC/sign interactions and Elm's Lab scene use the same
-visible presentation controller. Text currently uses semantic labels rather
-than bundled dialogue; exact wording must later be decoded from the supplied
-ROM. M4's battle simulation is still headless, and its visible battle scene
-and command menus are not yet wired into the LÖVE preview. Saves, audio
-playback, broader move-effect coverage, broader story progression, and most
-maps remain future milestones.
+visible, paginated presentation controller. Semantic labels remain only as a
+fallback for dialogue outside the current 55-record extraction manifest. M4's
+battle simulation is still headless, and its visible battle scene and command
+menus are not yet wired into the LÖVE preview. Saves, audio playback, broader
+move-effect coverage, broader story progression, and most maps remain future
+milestones.
 
 ## Final deliverable
 
@@ -163,6 +165,15 @@ acceptance route against canonical English Crystal v1.1:
 This executes the source-controlled Lua behavior against decoded real map and
 object data, and verifies visible presentation models for dialogue, choices,
 clock setup, and naming, without writing ROM content into the repository.
+
+To verify M5-002's ROM-owned text catalog and visible pagination:
+
+```powershell
+./scripts/verify-crystal-text.ps1 -RomPath "D:\path\to\your\ROM"
+```
+
+This decodes the 55 currently mapped records, validates substitutions and
+two-line pages, and audits the normalized result for retained raw ROM ranges.
 
 To run M4's deterministic first-rival and ordinary wild-battle gates:
 

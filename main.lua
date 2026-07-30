@@ -41,19 +41,23 @@ function love.load()
     local GameSession = require("src.game.GameSession")
     local IntroductionState = require("src.states.IntroductionState")
     local WorldState = require("src.states.WorldState")
-    local worldData, profile = CrystalPreview.load(romPath)
+    local worldData, profile, textCatalog =
+      CrystalPreview.load(romPath)
     if os.getenv("GEN2RECOMP_SKIP_INTRO") == "1" then
       states:push(WorldState.new(worldData, {
         gameSession = GameSession.new(profile.id),
+        textCatalog = textCatalog,
       }))
     else
       states:push(IntroductionState.new({
+        textCatalog = textCatalog,
         onComplete = function(_, session)
           local gameSession = GameSession.new(profile.id, {
             state = session.state,
           })
           states:replace(WorldState.new(worldData, {
             gameSession = gameSession,
+            textCatalog = textCatalog,
           }))
         end,
       }))

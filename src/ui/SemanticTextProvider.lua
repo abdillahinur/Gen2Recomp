@@ -6,6 +6,8 @@ local OVERRIDES = {
   ["common.text.no"] = "NO",
   ["crystal.text.player_gender.boy"] = "BOY",
   ["crystal.text.player_gender.girl"] = "GIRL",
+  ["crystal.choice.player_gender"] = "CHOOSE YOUR APPEARANCE",
+  ["crystal.choice.elms_lab.help_elm"] = "YES OR NO?",
 }
 
 local function humanize(id)

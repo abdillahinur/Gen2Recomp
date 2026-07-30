@@ -2,6 +2,7 @@ local IntroductionSession =
   require("src.script.IntroductionSession")
 local PresentationController =
   require("src.ui.PresentationController")
+local RomTextProvider = require("src.ui.RomTextProvider")
 
 local definition =
   require("data.scripts.crystal.flows.introduction")
@@ -16,6 +17,13 @@ function IntroductionState.new(options)
       nameOptions = options.nameOptions,
       clockOptions = options.clockOptions,
     })
+  local presentationOptions = options.presentationOptions or {}
+  if options.textCatalog and not presentationOptions.textProvider then
+    presentationOptions = {
+      textProvider =
+        RomTextProvider.forState(options.textCatalog, session.state),
+    }
+  end
   return setmetatable({
     opaque = true,
     session = session,
@@ -23,7 +31,7 @@ function IntroductionState.new(options)
       dialogue = session.dialogue,
       clock = session.clock,
       names = session.names,
-    }, options.presentationOptions),
+    }, presentationOptions),
     onComplete = options.onComplete,
     completed = false,
   }, IntroductionState)

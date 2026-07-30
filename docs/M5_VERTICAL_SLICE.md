@@ -7,7 +7,7 @@ Falkner's Gym, and the first badge.
 ## Checkpoint order
 
 1. Persistent game-session and vertical-slice contract.
-2. ROM-owned dialogue catalog.
+2. ROM-owned dialogue catalog. **Complete.**
 3. Visible battle scene and command menus.
 4. World/script-to-battle bridge.
 5. World extraction through Violet City.
@@ -47,9 +47,15 @@ host-time reconciliation, and migration handling belong to M5-011.
 ## Content boundary
 
 The repository continues to store behavior and extraction metadata only.
-M5-002 will decode exact dialogue from the verified player ROM into the
-private runtime/cache model. Semantic labels remain the fallback when a text
-record is unavailable; original dialogue is never added to source control.
+M5-002 decodes 55 introduction, New Bark, and Elm's Lab dialogue records from
+the verified player ROM into normalized runtime tokens. The visible controller
+paginates those records into the two-line viewport and resolves player/species
+substitutions. Semantic labels remain the fallback when a text record is
+unavailable; original dialogue is never added to source control.
+
+The committed manifest contains stable semantic IDs, audited RGBDS symbol
+names, and substitution metadata—not dialogue bytes or strings. Both Crystal
+US v1.0 and v1.1 use independently generated pinned symbol offsets.
 
 ## Exit gate
 

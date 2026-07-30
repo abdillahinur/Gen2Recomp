@@ -64,9 +64,9 @@ the documented reference behavior. Static map structures and text may be
 decoded from the verified ROM, but original event bytecode is not executed or
 translated. This M3 behavior slice is complete and verified locally against
 canonical English Crystal v1.1 map and object data. Presentation wiring for
-the developer preview is now complete for semantic dialogue, choices, clock
-setup, and on-screen naming. Exact dialogue wording remains ROM-owned static
-content and will replace the semantic preview labels when its importer lands.
+the developer preview is complete for dialogue, choices, clock setup, and
+on-screen naming. M5-002 now decodes the first 55 exact dialogue records from
+the verified player ROM and paginates them without bundling their wording.
 
 ### Pokémon and battle vertical slice
 

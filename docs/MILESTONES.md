@@ -113,6 +113,7 @@ Deliver:
 
 - one persistent runtime game session owning script, party, inventory, phone,
   clock, Pokédex, money, and player-location state;
+- exact ROM-owned dialogue decoding and paginated presentation;
 - encounters by time period;
 - trainers and trainer sight;
 - Pack, party, Pokémon Center, mart, PC, and Pokédex foundations;
@@ -126,6 +127,11 @@ Exit gate:
 
 Detailed checkpoint order and the native session/save boundary are defined in
 [`M5_VERTICAL_SLICE.md`](M5_VERTICAL_SLICE.md).
+
+Completed checkpoints:
+
+- [x] M5-001 persistent game-session contract.
+- [x] M5-002 55-record ROM-owned dialogue catalog and visible pagination.
 
 ## M6 — Johto campaign
 
