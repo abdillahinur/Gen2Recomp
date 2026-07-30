@@ -146,4 +146,34 @@ return function(test, equal, truthy, raises)
       })
     end, "unknown trainer")
   end)
+
+  test("battle request factory builds ROM-backed trainer parties", function()
+    local registry, data, game = fixture()
+    local factory = BattleRequestFactory.new(registry, data, game, {
+      trainers = {
+        records = {
+          {
+            id = "crystal.trainer.22.001",
+            aiProfileId = "battle.ai.basic",
+            party = {
+              {
+                speciesNumber = 16,
+                level = 4,
+                moveNumbers = { 33 },
+              },
+            },
+          },
+        },
+      },
+    })
+    local session = factory:create({
+      kind = "trainer",
+      opponentId = "crystal.trainer.22.001",
+      options = { seed = 4 },
+    })
+    equal(session.state.kind, "trainer")
+    equal(session.state.opponent:active().species.name, "PIDGEY")
+    equal(session.state.opponent:active().level, 4)
+    equal(#session.state.opponent:active().moves, 1)
+  end)
 end

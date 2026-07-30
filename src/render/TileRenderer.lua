@@ -258,6 +258,17 @@ function TileRenderer:drawObjects(world, period)
       world.camera
     )
   end
+  for _, object in ipairs(world:currentObjects()) do
+    if object.visible and object.emote == "shock" then
+      local x = math.floor(object.pixelX - world.camera.x) + 5
+      local y = math.floor(object.pixelY - world.camera.y) - 10
+      love.graphics.setColor(1, 1, 1, 1)
+      love.graphics.rectangle("fill", x, y, 7, 9)
+      love.graphics.setColor(0.08, 0.08, 0.08, 1)
+      love.graphics.rectangle("fill", x + 3, y + 2, 1, 4)
+      love.graphics.rectangle("fill", x + 3, y + 7, 1, 1)
+    end
+  end
 end
 
 function TileRenderer:draw(world)

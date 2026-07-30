@@ -47,6 +47,7 @@ return {
     text = 1,
     world = 1,
     encounters = 1,
+    trainers = 1,
   },
   battle = battle,
   text = text,

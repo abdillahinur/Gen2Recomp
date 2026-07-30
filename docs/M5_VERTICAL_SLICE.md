@@ -12,7 +12,7 @@ Falkner's Gym, and the first badge.
 4. World/script-to-battle bridge. **Complete.**
 5. World extraction through Violet City. **Complete.**
 6. Time-based wild encounters. **Complete.**
-7. Trainer sight and trainer battles.
+7. Trainer sight and trainer battles. **Complete.**
 8. Route, Cherrygrove, and Violet event behavior.
 9. Pack, party, and Pokédex UI.
 10. Pokémon Center, mart, and PC systems.
@@ -111,6 +111,25 @@ scripts, enforces Crystal's five-step map-entry cooldown, checks the destination
 collision, selects the session clock period, and sends a normalized wild
 request through the M5-004 battle bridge. Battles cannot start without a usable
 party, and completing one restores the cooldown.
+
+## Trainer sight and battles
+
+M5-007 decodes only trainer parties referenced by the selected world maps from
+Crystal's `TrainerGroups` table. Trainer names, party types, species, levels,
+held-item IDs, and explicit moves remain player-ROM-owned normalized runtime
+data; no trainer names or party records are committed as content.
+
+Trainer objects retain their static facing, sight range, class/party reference,
+and defeat flag. After a completed player step, `TrainerController` checks an
+unobstructed row or column in the trainer's facing direction, displays a native
+shock emote, walks the trainer to the adjacent cell, faces the player, and
+dispatches a trainer request through the M5-004 battle bridge. A victory stores
+the trainer's stable defeat flag in the profile-bound game session, preventing
+repeat challenges.
+
+The current battle factory uses explicit ROM move lists when a trainer-party
+record supplies them. Ordinary trainer records without explicit moves continue
+to use the M4 baseline default move until learnset decoding is added.
 
 ## Exit gate
 

@@ -94,3 +94,11 @@ version-specific symbol inputs. The importer validates every terminated source
 record, then retains normalized rates, species numbers, levels, and weights
 only for maps selected by the world manifest. Encounter records remain private
 player-ROM-derived cache data.
+
+M5-007 adds `TrainerGroups` from the same two exact symbol inputs. Static
+trainer event descriptors contribute class, party, sight, facing, and defeat
+flag metadata; script and text pointers are not retained. The trainer-party
+decoder follows the referenced class group, validates all four Crystal party
+record layouts, and normalizes only parties used by selected maps. Names,
+species, levels, held items, and explicit moves are decoded at runtime from the
+player's ROM.

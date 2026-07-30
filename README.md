@@ -12,7 +12,7 @@ normal play. A future first-boot UI will invoke this importer.
 
 ## Current status
 
-The repository has completed **M4: Battle slice** and the first six checkpoints
+The repository has completed **M4: Battle slice** and the first seven checkpoints
 of **M5: Violet City vertical slice**, including end-to-end M1–M4 verification
 with canonical English Crystal v1.1. The project currently contains:
 
@@ -36,6 +36,8 @@ with canonical English Crystal v1.1. The project currently contains:
   tilesets and 32 ordinary overworld sprites;
 - player-ROM-backed morning/day/night grass and water encounter tables for
   eight maps in that corridor, with native slot weights and step cooldown;
+- player-ROM-backed trainer parties, native trainer sight lines, visible shock
+  and approach behavior, battle dispatch, and persistent defeat flags;
 - a native coroutine script runner with flags, scenes, variables, text,
   choices, actor movement, objects, maps, battle requests, and audio events;
 - provenance-cited Crystal Lua behavior for the introduction, naming,
@@ -73,8 +75,9 @@ fallback for dialogue outside the current 55-record extraction manifest. The
 M4 simulation now has a standalone visible battle preview, and M5-004 connects
 world/script requests to it. M5-005 expands the traversable ROM-backed world
 from New Bark through Cherrygrove and Violet City. M5-006 now starts visible
-wild battles from eligible steps using the session clock. Saves, audio
-playback, trainer sight, broader move-effect coverage,
+wild battles from eligible steps using the session clock. M5-007 adds
+ROM-backed trainer parties and visible overworld trainer challenges. Saves,
+audio playback, broader move-effect coverage,
 broader story progression, and most maps remain future milestones.
 
 ## Final deliverable
@@ -232,6 +235,16 @@ To verify M5-006's time-based wild encounter selection and battle dispatch:
 This audits the ROM-backed Johto tables, morning/night Route 29 differences,
 encounter grass, five-step cooldown, and creation of a native battle through
 the existing bridge.
+
+To verify M5-007's trainer-party decoding, sight, approach, and persistence:
+
+```powershell
+./scripts/verify-crystal-trainers.ps1 -RomPath "D:\path\to\your\ROM"
+```
+
+This locates Youngster Joey and the Violet Gym trainers in the supplied ROM,
+executes Joey's real Route 30 sight and approach path, creates his native
+battle party, and verifies that victory prevents a repeat challenge.
 
 ## Project direction
 

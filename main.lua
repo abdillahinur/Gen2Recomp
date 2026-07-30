@@ -52,7 +52,9 @@ function love.load()
       local BattleRequestFactory =
         require("src.battle.BattleRequestFactory")
       local factory = BattleRequestFactory.new(
-        registry, battleData, gameSession)
+        registry, battleData, gameSession, {
+          trainers = worldData.trainers,
+        })
       return WorldState.new(worldData, {
         gameSession = gameSession,
         textCatalog = textCatalog,

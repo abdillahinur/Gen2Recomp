@@ -34,6 +34,7 @@ OverworldSprites
 # Johto wild encounter records used by M5 route steps.
 JohtoGrassWildMons
 JohtoWaterWildMons
+TrainerGroups
 
 # ROM-owned text used by the introduction and first playable map slice.
 _OakText1

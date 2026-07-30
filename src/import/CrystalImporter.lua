@@ -165,6 +165,8 @@ local function structuralReport(identity, extracted)
         spriteCount = #(world.sprites or {}),
         encounterMapCount =
           #(world.encounters and world.encounters.maps or {}),
+        trainerCount =
+          #(world.trainers and world.trainers.records or {}),
       },
     }),
     payloads = Json.array({

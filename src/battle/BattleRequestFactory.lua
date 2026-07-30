@@ -45,7 +45,14 @@ function BattleRequestFactory.new(registry, data, gameSession, options)
     gameSession = gameSession,
     scenarios = options.scenarios or SCENARIOS,
     speciesNumbers = speciesNumbers,
+    trainers = options.trainers or { records = {} },
   }, BattleRequestFactory)
+end
+
+function BattleRequestFactory:_trainer(id)
+  for _, trainer in ipairs(self.trainers.records or {}) do
+    if trainer.id == id then return trainer end
+  end
 end
 
 function BattleRequestFactory:_number(speciesId)
@@ -142,6 +149,14 @@ function BattleRequestFactory:_opponentParty(request, playerParty)
     if request.opponentId == "crystal.trainer.rival.lab" then
       return self:_rival(playerParty)
     end
+    local trainer = self:_trainer(request.opponentId)
+    if trainer then
+      local result = {}
+      for index, member in ipairs(trainer.party) do
+        result[index] = self:_pokemon(member)
+      end
+      return result
+    end
     error("battle request factory: unknown trainer "
       .. tostring(request.opponentId), 2)
   end
@@ -165,12 +180,15 @@ function BattleRequestFactory:create(request)
     error("battle request factory: request kind must be wild or trainer", 2)
   end
   local playerParty = self:_playerParty()
+  local trainer = request.kind == "trainer"
+    and self:_trainer(request.opponentId)
   return BattleSession.new(self.registry, {
     kind = request.kind,
     seed = request.options and request.options.seed,
     playerParty = playerParty,
     opponentParty = self:_opponentParty(request, playerParty),
-    aiProfileId = request.options and request.options.aiProfileId,
+    aiProfileId = request.options and request.options.aiProfileId
+      or trainer and trainer.aiProfileId,
   })
 end
 

@@ -393,6 +393,11 @@ return {
       address = 0x5596,
       offset = 0x04d596,
     },
+    ["TrainerGroups"] = {
+      bank = 0x0e,
+      address = 0x5999,
+      offset = 0x039999,
+    },
     ["_OakText1"] = {
       bank = 0x70,
       address = 0x5d35,

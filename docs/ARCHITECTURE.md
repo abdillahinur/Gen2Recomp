@@ -242,6 +242,12 @@ performs deterministic rate, period, weighted-slot, and water-level selection.
 wild requests through `BattleBridge`; no ROM reader or table pointer reaches
 gameplay code.
 
+M5-007 adds ROM-backed trainer-party extraction and native overworld trainer
+behavior. Static trainer objects expose normalized facing, sight, party
+identity, and defeat flags. `TrainerController` performs line-of-sight checks,
+the visible shock/approach sequence, battle dispatch, and persistent defeat
+state without executing cartridge event scripts.
+
 M4 adds normalized species, move, item, and trainer records; Gen 2 integer
 stats, DVs, gender, shiny state, and Hidden Power; deterministic battle state,
 action ordering, switching, damage, status, effect dispatch, AI, catching,
@@ -256,7 +262,7 @@ The project does not yet contain the first-launch file picker or
 importer-screen wiring. M3's text, choice, clock, and naming services are
 connected to visible LÖVE UI, and the current 55-record slice now uses exact
 ROM-owned dialogue. The battle simulation now has a visible standalone scene,
-but broader move-effect coverage, held items, weather, trainer sight, saves,
+but broader move-effect coverage, held-item behavior, weather, saves,
 audio playback, and campaign progression remain future work. Import, world,
 event, presentation, and battle acceptance are exercised through fixtures and
 local player-ROM-gated verification commands.

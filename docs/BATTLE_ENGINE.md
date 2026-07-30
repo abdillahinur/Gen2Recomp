@@ -61,6 +61,11 @@ then commits HP, experience, DVs, moves, PP, and Pokédex state back into the
 game session. M5-006 now originates ordinary, time-selected encounters from
 eligible world steps through the same bridge.
 
+M5-007 adds a second caller through that boundary: unobstructed trainer sight
+triggers an approach, and `BattleRequestFactory` resolves the trainer's
+ROM-backed party catalog into native opponent instances. Victories persist the
+map object's stable defeat flag in `GameSession`.
+
 ## M4 acceptance fixtures
 
 Run:

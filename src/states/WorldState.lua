@@ -4,6 +4,7 @@ local MapPresentationRuntime =
   require("src.script.MapPresentationRuntime")
 local TileRenderer = require("src.render.TileRenderer")
 local TimeOfDay = require("src.world.TimeOfDay")
+local TrainerController = require("src.world.TrainerController")
 local World = require("src.world.World")
 
 local WorldState = {}
@@ -68,20 +69,39 @@ function WorldState.new(worldData, options)
       }
     )
   end
+  if worldData.trainers and options.battleBridge
+      and self.gameSession then
+    self.trainers = TrainerController.new(
+      self.world,
+      options.battleBridge,
+      self.gameSession,
+      {
+        rng = options.trainerRng,
+        seed = options.trainerSeed,
+      }
+    )
+  end
   if self.gameSession then self.gameSession:captureWorld(self.world) end
   return self
 end
 
 function WorldState:update(dt, input)
-  if self.scripts and self.scripts:isBusy() then
+  if self.trainers and self.trainers:isBusy() then
+    self.trainers:update(dt)
+  elseif self.scripts and self.scripts:isBusy() then
     self.scripts:updateActive(dt, input)
   else
     self.world:update(dt, input)
     if self.scripts then self.scripts:updateIdle(input) end
+    local trainerStarted = self.trainers
+      and self.trainers:afterStep(
+        not self.scripts or not self.scripts:isBusy()
+      )
     if self.encounters then
       self.encounters:afterStep(
         self.world,
-        not self.scripts or not self.scripts:isBusy()
+        not trainerStarted
+          and (not self.scripts or not self.scripts:isBusy())
       )
     end
   end

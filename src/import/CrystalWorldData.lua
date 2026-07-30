@@ -1,5 +1,6 @@
 local CgbPalette = require("src.import.CgbPalette")
 local CrystalEncounterData = require("src.import.CrystalEncounterData")
+local CrystalTrainerData = require("src.import.CrystalTrainerData")
 local CrystalTileset = require("src.import.CrystalTileset")
 local Json = require("src.core.Json")
 local TileDecoder = require("src.import.TileDecoder")
@@ -22,6 +23,7 @@ local LAST_POKEMON_SPRITE = 0xa2
 local FIRST_DAY_CARE_SPRITE = 0xe0
 local LAST_DAY_CARE_SPRITE = 0xe1
 local VARIABLE_SPRITE_BASE = 0xf0
+local OBJECT_TYPE_TRAINER = 2
 
 local DIRECTIONS = {
   { name = "north", mask = 0x08 },
@@ -89,6 +91,13 @@ local function spriteKind(id)
     return "variable"
   end
   return "special"
+end
+
+local function initialFacing(movementId)
+  return movementId == 7 and "up"
+    or movementId == 8 and "left"
+    or movementId == 9 and "right"
+    or "down"
 end
 
 local function findGroup(groups, id)
@@ -186,21 +195,39 @@ local function decodeEvents(rom, bank, address)
     local typePalette = rom:readByte(cursor + 7)
     local eventFlag = rom:readWord(cursor + 11)
     local spriteId = rom:readByte(cursor)
+    local movementId = rom:readByte(cursor + 3)
+    local objectType = typePalette % 0x10
+    local trainer
+    if objectType == OBJECT_TYPE_TRAINER then
+      local trainerAddress = rom:readWord(cursor + 9)
+      local trainerOffset = rom:offset(bank, trainerAddress, 12)
+      local defeatFlagId = rom:readWord(trainerOffset)
+      local classId = rom:readByte(trainerOffset + 2)
+      local partyId = rom:readByte(trainerOffset + 3)
+      trainer = {
+        id = CrystalTrainerData.id(classId, partyId),
+        classId = classId,
+        partyId = partyId,
+        defeatFlagId = defeatFlagId,
+      }
+    end
     objects[index] = {
       id = index,
       spriteId = spriteId,
       spriteKind = spriteKind(spriteId),
       y = rom:readByte(cursor + 1) - 4,
       x = rom:readByte(cursor + 2) - 4,
-      movementId = rom:readByte(cursor + 3),
+      movementId = movementId,
+      facing = initialFacing(movementId),
       radiusX = radius % 0x10,
       radiusY = math.floor(radius / 0x10),
       hourStart = signedByte(rom:readByte(cursor + 5)),
       hourEnd = signedByte(rom:readByte(cursor + 6)),
       paletteId = math.floor(typePalette / 0x10),
-      objectType = typePalette % 0x10,
+      objectType = objectType,
       sightRange = rom:readByte(cursor + 8),
       eventFlagId = eventFlag == 0xffff and -1 or eventFlag,
+      trainer = trainer,
     }
     cursor = cursor + OBJECT_EVENT_SIZE
   end
@@ -522,6 +549,7 @@ function CrystalWorldData.extract(rom, profile)
   local groups = Json.array({})
   local groupIds = {}
   local extractedMapIds = {}
+  local trainerReferences = Json.array({})
   local spriteIds = { [1] = true, [96] = true }
   local tilesetIds = {}
   for _, groupProfile in ipairs(worldProfile.groups) do
@@ -539,6 +567,9 @@ function CrystalWorldData.extract(rom, profile)
       tilesetIds[map.tilesetId] = maximumBlock
       for _, object in ipairs(map.objects) do
         spriteIds[object.spriteId] = true
+        if object.trainer then
+          trainerReferences[#trainerReferences + 1] = object.trainer
+        end
       end
     end
   end
@@ -609,6 +640,11 @@ function CrystalWorldData.extract(rom, profile)
       rom,
       profile,
       extractedMapIds
+    ),
+    trainers = CrystalTrainerData.extract(
+      rom,
+      profile,
+      trainerReferences
     ),
   }
 end

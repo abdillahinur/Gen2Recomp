@@ -56,7 +56,7 @@ local function runtimeObjects(repository)
       object.id = source.id or index
       object.pixelX = object.x * 16
       object.pixelY = object.y * 16
-      object.facing = "down"
+      object.facing = source.facing or "down"
       object.moving = nil
       object.visible = true
       objects[#objects + 1] = object
