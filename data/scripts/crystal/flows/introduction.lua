@@ -21,7 +21,9 @@ local function run()
   local gender = genderChoice == GIRL and "female" or "male"
   Commands.setVariable("player.gender", gender)
 
-  Commands.setupClock()
+  local clock = Commands.setupClock()
+  Commands.setVariable("clock.hour", clock.hour)
+  Commands.setVariable("clock.minute", clock.minute)
   Commands.playMusic("crystal.music.route_30")
   Commands.text("crystal.text.introduction.oak_1")
   Commands.text("crystal.text.introduction.oak_2")
