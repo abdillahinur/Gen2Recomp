@@ -1,0 +1,20 @@
+param(
+  [Parameter(Mandatory = $true)]
+  [string]$RomPath
+)
+
+$ErrorActionPreference = "Stop"
+
+$runtime = Get-Command luajit -ErrorAction SilentlyContinue
+if (-not $runtime) {
+  $runtime = Get-Command lua -ErrorAction SilentlyContinue
+}
+if (-not $runtime) {
+  throw "LuaJIT or Lua 5.1+ is required for M3 coverage reporting."
+}
+
+$resolved = (Resolve-Path -LiteralPath $RomPath).Path
+& $runtime.Source "tools/report_script_coverage.lua" $resolved
+if ($LASTEXITCODE -ne 0) {
+  exit $LASTEXITCODE
+}

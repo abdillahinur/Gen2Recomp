@@ -167,6 +167,7 @@ require("tests.crystal_introduction_script_tests")(
   test, equal, truthy, raises)
 require("tests.crystal_map_script_tests")(
   test, equal, truthy, raises)
+require("tests.script_coverage_tests")(test, equal, truthy, raises)
 require("tests.charmap_tests")(test, equal, truthy, raises)
 require("tests.crystal_font_tests")(test, equal, truthy, raises)
 require("tests.crystal_species_tests")(test, equal, truthy, raises)

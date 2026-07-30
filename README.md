@@ -115,6 +115,17 @@ references; exercises every New Bark building warp in both directions; crosses
 the walkable Route 29 boundary; confirms Route 27 is correctly blocked by
 water on foot; and hashes distinct morning, day, and night 160×144 frames.
 
+To compare source-controlled Lua behavior coverage with the static map
+interactions decoded from a supported ROM:
+
+```powershell
+./scripts/report-crystal-coverage.ps1 -RomPath "D:\path\to\your\ROM"
+```
+
+The report separates scripted maps, callbacks, scenes, coordinate events,
+background events, and object interactions. Unimplemented maps and partial
+vertical-slice coverage remain visible.
+
 ## Project direction
 
 - [Project plan](docs/PROJECT_PLAN.md)
