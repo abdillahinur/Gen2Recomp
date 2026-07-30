@@ -137,10 +137,17 @@ M0 provides:
 - the initial Crystal profile registry;
 - headless tests.
 
-M1 has added a bounds-checked ROM reader and streaming SHA-1 implementation.
-Absolute file offsets are zero-based. Banked reads use the Game Boy CPU ROM
-windows: bank 0 addresses `0x0000–0x3fff`, and switchable banks 1+ addresses
-`0x4000–0x7fff`. Banked reads may not cross their address window.
+M1 has added a bounds-checked ROM reader, streaming SHA-1, cartridge-header
+parsing, and exact profile identification. Absolute file offsets are
+zero-based. Banked reads use the Game Boy CPU ROM windows: bank 0 addresses
+`0x0000–0x3fff`, and switchable banks 1+ addresses `0x4000–0x7fff`. Banked
+reads may not cross their address window.
 
-The project does not yet contain cartridge-header parsing, the complete ROM
-verification flow, a cache writer, game content, or gameplay.
+ROM identity is established by exact SHA-1. Header metadata, the header
+checksum, and the declared file size are independent structural checks against
+the matched profile. The legacy global checksum is reported as a warning
+because it is not an identity mechanism and is not enforced by Game Boy
+hardware.
+
+The project does not yet contain the first-launch file picker, a cache writer,
+game content, or gameplay.

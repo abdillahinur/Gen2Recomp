@@ -21,8 +21,8 @@ Backlog IDs are stable planning references, not issue tracker numbers.
 
 - [x] `M1-001` Implement bounds-checked byte/word/bank ROM reader.
 - [x] `M1-002` Implement streaming SHA-1.
-- [ ] `M1-003` Parse and validate cartridge headers.
-- [ ] `M1-004` Match ROMs through the profile registry.
+- [x] `M1-003` Parse and validate cartridge headers.
+- [x] `M1-004` Match ROMs through the profile registry.
 - [ ] `M1-005` Design cache manifest and ownership metadata.
 - [ ] `M1-006` Implement temporary cache and atomic promotion.
 - [ ] `M1-007` Add cancellation and failure recovery.
@@ -32,7 +32,7 @@ Backlog IDs are stable planning references, not issue tracker numbers.
 - [ ] `M1-011` Decode one tileset and palette set.
 - [ ] `M1-012` Add extraction progress and structural report.
 - [ ] `M1-013` Test that large raw ROM ranges are not retained.
-- [ ] `M1-014` Add malformed and truncated ROM fixtures.
+- [x] `M1-014` Add malformed and truncated ROM fixtures.
 
 ## M2 — New Bark world
 

@@ -117,11 +117,15 @@ test("Crystal scaffold profile is found by id and hash", function()
   truthy(byId)
   equal(byHash, byId)
   equal(byId.expectedSize, 2097152)
+  equal(byId.expectedHeader.title, "PM_CRYSTAL")
+  equal(byId.expectedHeader.cartridgeType, 0x10)
   truthy(byId.features.realTimeClock)
 end)
 
 require("tests.rom_tests")(test, equal, truthy, raises)
 require("tests.sha1_tests")(test, equal, truthy, raises)
+require("tests.cartridge_header_tests")(test, equal, truthy, raises)
+require("tests.rom_identifier_tests")(test, equal, truthy, raises)
 
 local failures = 0
 

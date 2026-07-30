@@ -7,6 +7,23 @@ return {
   status = "scaffold",
   sha1 = "f4cd194bdee0d04ca4eac29e09b8e4e9d818c133",
   expectedSize = 2 * 1024 * 1024,
+  -- Header values follow pret/pokecrystal's pinned RGBFIXFLAGS. Field meanings
+  -- and checksum rules follow Pan Docs' cartridge-header specification.
+  expectedHeader = {
+    title = "PM_CRYSTAL",
+    manufacturerCode = "BYTE",
+    cgbFlag = 0xc0,
+    newLicenseeCode = "01",
+    sgbFlag = 0x00,
+    cartridgeType = 0x10,
+    romSizeCode = 0x06,
+    ramSizeCode = 0x03,
+    destinationCode = 0x01,
+    oldLicenseeCode = 0x33,
+    version = 0x00,
+    -- Store only the fingerprint of the standard boot-logo header bytes.
+    logoSha1 = "0745fdef34132d1b3d488cfbdf0379a39fd54b4c",
+  },
   cacheSchema = 1,
   features = {
     color = true,
@@ -19,4 +36,3 @@ return {
   symbols = {},
   schemas = {},
 }
-

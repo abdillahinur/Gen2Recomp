@@ -21,10 +21,12 @@ Crystal importer**. It currently contains:
 - an initial Crystal US v1.0 profile boundary;
 - a bounds-checked reader for absolute and banked ROM addresses;
 - a streaming, LuaJIT-compatible SHA-1 implementation;
+- cartridge-header parsing and exact profile identification;
 - headless unit tests and CI;
 - architecture, milestone, and backlog documentation.
 
-There is no ROM importer or playable game yet.
+There is no cache-building importer, first-launch ROM picker, or playable game
+yet.
 
 ## Final deliverable
 
@@ -79,8 +81,8 @@ To run the LÖVE bootstrap briefly and exit automatically:
 
 ## ROM support
 
-No ROM is supported by the current code. The planned initial target is the
-canonical English Crystal v1.0 ROM with SHA-1:
+The identity layer recognizes the canonical English Crystal v1.0 ROM with
+SHA-1:
 
 ```text
 f4cd194bdee0d04ca4eac29e09b8e4e9d818c133
