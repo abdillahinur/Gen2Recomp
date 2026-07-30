@@ -129,6 +129,7 @@ require("tests.rom_identifier_tests")(test, equal, truthy, raises)
 require("tests.cache_manifest_tests")(test, equal, truthy, raises)
 require("tests.json_tests")(test, equal, truthy, raises)
 require("tests.cache_manifest_codec_tests")(test, equal, truthy, raises)
+require("tests.cache_store_tests")(test, equal, truthy, raises)
 
 local failures = 0
 

@@ -296,6 +296,10 @@ function CacheManifest.directory(profile, buildInfo)
     )
 end
 
+function CacheManifest.validateFilePath(path)
+  return validateRelativePath(path)
+end
+
 CacheManifest.FORMAT = FORMAT
 CacheManifest.FORMAT_VERSION = FORMAT_VERSION
 CacheManifest.MANIFEST_FILENAME = MANIFEST_FILENAME

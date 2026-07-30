@@ -74,9 +74,16 @@ completed cache:
 3. Decode payload files into staging.
 4. Verify every payload and build its sorted inventory.
 5. Write and verify `manifest.json` last.
-6. Promote the completed directory without exposing a partial target.
+6. Promote the completed directory with a same-parent native rename.
 7. Remove obsolete staging data after successful promotion or recovery.
 
 A directory without a valid, complete, matching manifest is never loaded.
-Promotion and interruption recovery are implemented by `M1-006` and
-`M1-007`; this document defines the contract those operations must preserve.
+LÖVE owns reads, writes, directory creation, enumeration, and removal beneath
+its save directory. Since LÖVE 11.x has no rename call, the filesystem adapter
+uses Lua's native `os.rename` only for same-parent cache-directory promotion.
+It never accepts player-controlled paths.
+
+Promotion preserves an already valid matching target instead of replacing it.
+An invalid target is first renamed to a quarantine sibling; if promotion fails,
+that target is restored. Interruption recovery and stale-directory cleanup are
+implemented by `M1-007`.

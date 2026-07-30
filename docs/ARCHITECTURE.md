@@ -132,6 +132,11 @@ file paths are relative and cannot escape the private cache directory. See
 [`CACHE_FORMAT.md`](CACHE_FORMAT.md) for the complete ownership and lifecycle
 contract.
 
+Cache construction occurs in a unique sibling staging directory. The manifest
+is written last and the complete tree is re-read and fingerprint-verified
+before promotion. A valid matching target is immutable and reused. An invalid
+target is quarantined and restored if the staging-directory rename fails.
+
 ## Current implementation
 
 M0 provides:
