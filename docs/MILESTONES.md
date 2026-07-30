@@ -35,10 +35,12 @@ Deliver:
 
 Exit gate:
 
-- the canonical Crystal ROM imports successfully;
-- modified/unknown ROMs are rejected;
-- import failure never damages an existing cache;
-- the cache does not contain a copy of the ROM.
+- [ ] The canonical Crystal ROM imports successfully. This is intentionally
+  local and player-ROM-gated; run
+  `./scripts/verify-crystal-import.ps1 -RomPath "<path>"`.
+- [x] Modified/unknown ROMs are rejected.
+- [x] Import failure never damages an existing cache.
+- [x] The cache does not contain a copy of the ROM.
 
 ## M2 — New Bark world slice
 

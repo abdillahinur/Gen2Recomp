@@ -5,29 +5,34 @@ Gold, Silver, and Crystal. The engine and map behavior are hand-written Lua;
 game data and graphics are decoded from a ROM supplied by the player.
 
 The project does not emulate Game Boy hardware, execute ROM code, transpile
-assembly, or distribute ROMs or pre-extracted game content. A future
-first-boot importer will verify a player-supplied ROM, decode static content
-required by the native engine into a private cache, release the ROM, and use
-only that cache during normal play.
+assembly, or distribute ROMs or pre-extracted game content. The importer
+verifies a player-supplied ROM, decodes static content required by the native
+engine into a private cache, releases the ROM, and uses only that cache during
+normal play. A future first-boot UI will invoke this importer.
 
 ## Current status
 
-The repository has completed **M0: Foundation** and started **M1: Verified
-Crystal importer**. It currently contains:
+The repository has completed all **M1: Verified Crystal importer**
+implementation checkpoints. The canonical-ROM exit check remains local and
+player-ROM-gated. The project currently contains:
 
 - a minimal LÖVE 11.x application;
 - a deterministic 60 Hz fixed-step loop;
 - input and state-stack foundations;
-- an initial Crystal US v1.0 profile boundary;
+- exact Crystal US v1.0 profile identification;
 - a bounds-checked reader for absolute and banked ROM addresses;
 - a streaming, LuaJIT-compatible SHA-1 implementation;
-- cartridge-header parsing and exact profile identification;
-- a versioned private-cache manifest and ownership contract;
+- transactional private caches with cancellation and recovery;
+- a pinned RGBDS symbol-manifest generator;
+- normalized Crystal font, charmap, species, Johto tileset, collision, and
+  palette extraction;
+- monotonic import progress, a structural report, and raw-ROM retention guard;
 - headless unit tests and CI;
 - architecture, milestone, and backlog documentation.
 
-There is no cache-building importer, first-launch ROM picker, or playable game
-yet.
+There is no first-launch ROM picker, application importer screen, or playable
+game yet. The importer is currently exercised through tests and the local
+ROM-gated verification command below.
 
 ## Final deliverable
 
@@ -71,6 +76,16 @@ To run the LÖVE bootstrap briefly and exit automatically:
 ```powershell
 ./scripts/smoke.ps1
 ```
+
+To run M1's end-to-end acceptance check with your own canonical English
+Crystal v1.0 ROM:
+
+```powershell
+./scripts/verify-crystal-import.ps1 -RomPath "D:\path\to\your\ROM"
+```
+
+This verifies and imports into an in-memory cache, prints structural counts,
+and exits without writing the ROM or decoded content into the repository.
 
 ## Project direction
 
