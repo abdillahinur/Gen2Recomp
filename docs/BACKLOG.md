@@ -63,7 +63,7 @@ Backlog IDs are stable planning references, not issue tracker numbers.
 
 ## M4 — Pokémon and battles
 
-- [ ] `M4-001` Define normalized species, move, item, and trainer records.
+- [x] `M4-001` Define normalized species, move, item, and trainer records.
 - [ ] `M4-002` Implement Gen 2 Pokémon instances and integer stat calculations.
 - [ ] `M4-003` Implement DVs, gender, shiny state, and Hidden Power.
 - [ ] `M4-004` Implement deterministic battle state and RNG injection.
