@@ -21,6 +21,8 @@ function MoveRecord.normalize(source)
     pp = Validation.integer(kind, source.pp, 1, 63, "pp"),
     priority = Validation.optionalInteger(
       kind, source.priority, -7, 7, "priority", 0),
+    criticalLevel = Validation.optionalInteger(
+      kind, source.criticalLevel, 0, 6, "criticalLevel", 0),
     effectId = Validation.id(
       kind, source.effectId or "battle.effect.none", "effectId"),
     effectChance = Validation.optionalInteger(

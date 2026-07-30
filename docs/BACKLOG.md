@@ -68,7 +68,7 @@ Backlog IDs are stable planning references, not issue tracker numbers.
 - [x] `M4-003` Implement DVs, gender, shiny state, and Hidden Power.
 - [x] `M4-004` Implement deterministic battle state and RNG injection.
 - [x] `M4-005` Implement action selection, priority, speed, and switching.
-- [ ] `M4-006` Implement damage, accuracy, critical hits, and type effects.
+- [x] `M4-006` Implement damage, accuracy, critical hits, and type effects.
 - [ ] `M4-007` Implement major and volatile status framework.
 - [ ] `M4-008` Implement effect-command registry.
 - [ ] `M4-009` Implement trainer AI foundations.
