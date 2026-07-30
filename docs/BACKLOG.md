@@ -101,7 +101,7 @@ Backlog IDs are stable planning references, not issue tracker numbers.
   bindings for every supported map object and background event.
 - [x] `M5-018` Decode every live-slice dialogue record and prohibit semantic
   fallbacks throughout the supported first-badge maps.
-- [ ] `M5-019` Decode compact music, SFX, wave, and cry channel programs from
+- [x] `M5-019` Decode compact music, SFX, wave, and cry channel programs from
   the verified player ROM.
 - [ ] `M5-020` Implement native Game Boy channel synthesis, sequencing,
   looping, fades, stereo routing, SFX priority, and cry modifiers.

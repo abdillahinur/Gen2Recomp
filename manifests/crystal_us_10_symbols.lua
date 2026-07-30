@@ -183,6 +183,11 @@ return {
       address = 0x4e1f,
       offset = 0x04ce1f,
     },
+    ["Cries"] = {
+      bank = 0x3a,
+      address = 0x51b0,
+      offset = 0x0e91b0,
+    },
     ["DarkCaveSignText"] = {
       bank = 0x69,
       address = 0x5a6e,
@@ -628,6 +633,56 @@ return {
       address = 0x73de,
       offset = 0x1973de,
     },
+    ["Music_CherrygroveCity"] = {
+      bank = 0x3d,
+      address = 0x5b03,
+      offset = 0x0f5b03,
+    },
+    ["Music_JohtoTrainerBattle"] = {
+      bank = 0x3d,
+      address = 0x6096,
+      offset = 0x0f6096,
+    },
+    ["Music_LookRival"] = {
+      bank = 0x3d,
+      address = 0x4f79,
+      offset = 0x0f4f79,
+    },
+    ["Music_Mom"] = {
+      bank = 0x3d,
+      address = 0x6bf2,
+      offset = 0x0f6bf2,
+    },
+    ["Music_NewBarkTown"] = {
+      bank = 0x3a,
+      address = 0x72d3,
+      offset = 0x0eb2d3,
+    },
+    ["Music_ProfOak"] = {
+      bank = 0x3d,
+      address = 0x4dea,
+      offset = 0x0f4dea,
+    },
+    ["Music_Route29"] = {
+      bank = 0x3c,
+      address = 0x4386,
+      offset = 0x0f0386,
+    },
+    ["Music_Route30"] = {
+      bank = 0x3b,
+      address = 0x7c01,
+      offset = 0x0efc01,
+    },
+    ["Music_ShowMeAround"] = {
+      bank = 0x3b,
+      address = 0x5bd8,
+      offset = 0x0edbd8,
+    },
+    ["Music_VioletCity"] = {
+      bank = 0x3c,
+      address = 0x4000,
+      offset = 0x0f0000,
+    },
     ["MysticWaterGuyTextBefore"] = {
       bank = 0x67,
       address = 0x4766,
@@ -692,6 +747,11 @@ return {
       bank = 0x6c,
       address = 0x457f,
       offset = 0x1b057f,
+    },
+    ["PokemonCries"] = {
+      bank = 0x3c,
+      address = 0x6787,
+      offset = 0x0f2787,
     },
     ["PokemonNames"] = {
       bank = 0x14,
@@ -892,6 +952,46 @@ return {
       bank = 0x65,
       address = 0x47aa,
       offset = 0x1947aa,
+    },
+    ["Sfx_CaughtMon"] = {
+      bank = 0x3c,
+      address = 0x4c89,
+      offset = 0x0f0c89,
+    },
+    ["Sfx_GetBadge"] = {
+      bank = 0x3c,
+      address = 0x517d,
+      offset = 0x0f117d,
+    },
+    ["Sfx_GlassTing"] = {
+      bank = 0x3c,
+      address = 0x6769,
+      offset = 0x0f2769,
+    },
+    ["Sfx_Menu"] = {
+      bank = 0x3c,
+      address = 0x494d,
+      offset = 0x0f094d,
+    },
+    ["Sfx_RegisterPhoneNumber"] = {
+      bank = 0x3c,
+      address = 0x4dc7,
+      offset = 0x0f0dc7,
+    },
+    ["Sfx_Sandstorm"] = {
+      bank = 0x3c,
+      address = 0x4b2a,
+      offset = 0x0f0b2a,
+    },
+    ["Sfx_Tackle"] = {
+      bank = 0x3c,
+      address = 0x4a76,
+      offset = 0x0f0a76,
+    },
+    ["Sfx_WarpFrom"] = {
+      bank = 0x3c,
+      address = 0x496e,
+      offset = 0x0f096e,
     },
     ["Shrink1Pic"] = {
       bank = 0x13,

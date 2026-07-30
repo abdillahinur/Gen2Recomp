@@ -281,7 +281,9 @@ never serialized.
 M5-012 turns semantic audio events into playback through `AudioRuntime`.
 Scheduling remains service-owned and deterministic; `LoveAudioSink` alone owns
 LÖVE sound data and Sources. The first slice uses generated, non-ROM waveforms
-for map music, UI SFX, and species cries. This preserves the no-bundled-content
+for map music, UI SFX, and species cries. M5-019 replaces generated IDs with
+verified headers, four private runtime program banks, and all 251 species cry
+modifiers decoded from the player ROM. This preserves the no-bundled-content
 boundary while leaving exact ROM channel decoding as a separate fidelity layer.
 
 M5-013 adds the Violet Gym map definition and one explicit leader-party
