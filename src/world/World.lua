@@ -1,4 +1,5 @@
 local Camera = require("src.world.Camera")
+local ActorSystem = require("src.world.ActorSystem")
 local Collision = require("src.world.Collision")
 local MapGrid = require("src.world.MapGrid")
 local MapRepository = require("src.world.MapRepository")
@@ -45,6 +46,26 @@ local function findConnection(map, direction)
   end
 end
 
+local function runtimeObjects(repository)
+  local byMap = {}
+  for id, map in pairs(repository.maps) do
+    local objects = {}
+    for index, source in ipairs(map.objects or {}) do
+      local object = {}
+      for key, value in pairs(source) do object[key] = value end
+      object.id = source.id or index
+      object.pixelX = object.x * 16
+      object.pixelY = object.y * 16
+      object.facing = "down"
+      object.moving = nil
+      object.visible = true
+      objects[#objects + 1] = object
+    end
+    byMap[id] = objects
+  end
+  return byMap
+end
+
 function World.new(worldData, options)
   options = options or {}
   local repository = options.repository or MapRepository.new(worldData)
@@ -65,10 +86,13 @@ function World.new(worldData, options)
     currentMapId = initial.mapId,
     currentMap = nil,
     grid = nil,
+    objectStates = runtimeObjects(repository),
     warpCooldown = false,
     lastTransition = nil,
   }, World)
+  self.STEP_SECONDS = STEP_SECONDS
   self:loadMap(initial.mapId)
+  self.actors = ActorSystem.new(self)
   self.warpCooldown = findByPosition(
     self.currentMap.warps,
     self.player.x,
@@ -91,9 +115,20 @@ function World:loadMap(id)
   self.grid = MapGrid.new(map, tileset)
 end
 
-function World:isObjectAt(x, y)
-  for _, object in ipairs(self.currentMap.objects or {}) do
-    if object.x == x and object.y == y then
+function World:getObject(mapId, objectId)
+  for _, object in ipairs(self.objectStates[mapId] or {}) do
+    if object.id == objectId then return object end
+  end
+end
+
+function World:currentObjects()
+  return self.objectStates[self.currentMapId] or {}
+end
+
+function World:isObjectAt(x, y, ignored)
+  for _, object in ipairs(self:currentObjects()) do
+    if object ~= ignored and object.visible
+        and object.x == x and object.y == y then
       return true
     end
   end
@@ -232,7 +267,7 @@ function World:update(dt, input)
     if move.elapsed >= STEP_SECONDS then
       self:finishMove()
     end
-  else
+  elseif not self.actors:isControlled("common.actor.player") then
     for _, direction in ipairs({ "up", "down", "left", "right" }) do
       if input:down(direction) then
         self:startMove(direction)
@@ -240,6 +275,8 @@ function World:update(dt, input)
       end
     end
   end
+
+  self.actors:update(dt)
 
   self.camera:follow(
     self.player.pixelX + 8,

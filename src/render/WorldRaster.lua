@@ -137,15 +137,17 @@ end
 
 local function drawObjects(frame, world, period)
   local entries = {}
-  for _, object in ipairs(world.currentMap.objects or {}) do
-    entries[#entries + 1] = {
-      spriteId = object.spriteId,
-      x = object.x * 16,
-      y = object.y * 16,
-      facing = "down",
-      paletteId = object.paletteId,
-      order = #entries + 1,
-    }
+  for _, object in ipairs(world:currentObjects()) do
+    if object.visible then
+      entries[#entries + 1] = {
+        spriteId = object.spriteId,
+        x = object.pixelX,
+        y = object.pixelY,
+        facing = object.facing,
+        paletteId = object.paletteId,
+        order = #entries + 1,
+      }
+    end
   end
   entries[#entries + 1] = {
     spriteId = world.player.spriteId,

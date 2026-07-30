@@ -61,4 +61,39 @@ function Commands.choice(id, options)
   })
 end
 
+function Commands.move(id, directions)
+  return Commands.request("actor.move", {
+    id = id,
+    directions = directions,
+  })
+end
+
+function Commands.face(id, direction)
+  return Commands.request("actor.face", {
+    id = id,
+    direction = direction,
+  })
+end
+
+function Commands.follow(follower, leader)
+  return Commands.request("actor.follow.start", {
+    follower = follower,
+    leader = leader,
+  })
+end
+
+function Commands.stopFollowing(follower)
+  return Commands.request("actor.follow.stop", {
+    follower = follower,
+  })
+end
+
+function Commands.emote(id, emote, duration)
+  return Commands.request("actor.emote", {
+    id = id,
+    emote = emote,
+    duration = duration,
+  })
+end
+
 return Commands
