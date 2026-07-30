@@ -20,6 +20,10 @@ return function(test, equal, truthy)
     "audio.cry.play",
     "audio.music.play",
     "audio.sfx.play",
+    "inventory.item.give",
+    "party.pokemon.give",
+    "phone.contact.register",
+    "world.object.hide",
     "world.object.place",
   }
 
@@ -32,6 +36,13 @@ return function(test, equal, truthy)
       state = state,
       dialogue = dialogue,
     })
+    runner:register("actor.state.get", function(arguments)
+      commands[#commands + 1] = {
+        name = "actor.state.get",
+        arguments = arguments,
+      }
+      return { x = 6, y = 4, facing = "up", visible = true }
+    end)
     for _, name in ipairs(immediateCommands) do
       local commandName = name
       runner:register(commandName, function(arguments)
@@ -135,19 +146,42 @@ return function(test, equal, truthy)
     truthy(sawRefusal)
   end)
 
-  test("Elm starter objects return a confirmed semantic species", function()
-    local runner, _, dialogue = setup()
-    local task = runner:start(
-      "inspect-cyndaquil",
-      elmsLab.behavior.objects[
-        "crystal.elms_lab.object.cyndaquil_ball"
-      ]
-    )
-    drive(runner, dialogue, task, function(active)
-      equal(active.id, "crystal.choice.elms_lab.take_cyndaquil")
-      return "common.choice.yes"
-    end)
-    equal(task.state, "completed")
-    equal(task.result, "cyndaquil")
+  test("all Elm starters grant the selected level-five Pokemon", function()
+    for _, species in ipairs({
+      "cyndaquil",
+      "totodile",
+      "chikorita",
+    }) do
+      local runner, state, dialogue, commands = setup()
+      local task = runner:start(
+        "inspect-" .. species,
+        elmsLab.behavior.objects[
+          "crystal.elms_lab.object." .. species .. "_ball"
+        ]
+      )
+      drive(runner, dialogue, task, function(active)
+        equal(
+          active.id,
+          "crystal.choice.elms_lab.take_" .. species
+        )
+        return "common.choice.yes"
+      end)
+      equal(task.state, "completed")
+      equal(task.result, species)
+      truthy(state:hasFlag("crystal.story.got_starter"))
+      truthy(state:hasFlag(
+        "crystal.story.got_" .. species .. "_from_elm"
+      ))
+
+      local granted
+      for _, command in ipairs(commands) do
+        if command.name == "party.pokemon.give" then
+          granted = command.arguments
+        end
+      end
+      equal(granted.speciesId, "crystal.species." .. species)
+      equal(granted.level, 5)
+      equal(granted.heldItemId, "crystal.item.berry")
+    end
   end)
 end

@@ -6,6 +6,11 @@ local ELM = "crystal.elms_lab.actor.elm"
 local AIDE = "crystal.elms_lab.actor.aide"
 
 local YES = "common.choice.yes"
+local BALL_ACTORS = {
+  cyndaquil = "crystal.elms_lab.actor.cyndaquil_ball",
+  totodile = "crystal.elms_lab.actor.totodile_ball",
+  chikorita = "crystal.elms_lab.actor.chikorita_ball",
+}
 
 local function objectsCallback()
   local scene = Commands.getScene("crystal.map.elms_lab")
@@ -92,7 +97,78 @@ local function inspectStarter(species)
     Commands.text("crystal.text.elms_lab.did_not_choose_starter")
     return nil
   end
+
+  Commands.hideObject(BALL_ACTORS[species])
+  Commands.setFlag("crystal.story.got_" .. species .. "_from_elm")
+  Commands.text("crystal.text.elms_lab.chose_starter")
+  Commands.text("crystal.text.elms_lab.received_starter", {
+    species = "crystal.species." .. species,
+  })
+  Commands.playSfx("crystal.sfx.caught_pokemon")
+  Commands.givePokemon(
+    "crystal.species." .. species,
+    5,
+    "crystal.item.berry"
+  )
+
+  local player = Commands.actorState(PLAYER)
+  if species == "cyndaquil" then
+    if player.facing ~= "right" then
+      Commands.move(PLAYER, { "left", "up" })
+    end
+  elseif species == "totodile" then
+    Commands.move(PLAYER, { "left", "left", "up" })
+  else
+    Commands.move(PLAYER, { "left", "left", "left", "up" })
+  end
+
+  Commands.face(PLAYER, "up")
+  Commands.text("crystal.text.elms_lab.directions_to_mr_pokemon")
+  Commands.registerPhoneContact("crystal.phone.professor_elm")
+  Commands.text("crystal.text.elms_lab.got_elm_phone_number")
+  Commands.playSfx("crystal.sfx.register_phone_number")
+  Commands.face(ELM, "left")
+  Commands.text("crystal.text.elms_lab.healing_machine_directions")
+  Commands.face(ELM, "down")
+  Commands.text("crystal.text.elms_lab.elm_is_counting_on_you")
+
+  Commands.setFlag("crystal.story.got_starter")
+  Commands.setFlag("crystal.story.rival_cherrygrove_active")
+  Commands.setScene(
+    "crystal.map.elms_lab",
+    "crystal.scene.elms_lab.aide_gives_potion"
+  )
+  Commands.setScene(
+    "crystal.map.new_bark",
+    "crystal.scene.new_bark.noop"
+  )
   return species
+end
+
+local function aideGivesPotion(extraStep)
+  local movement = { "right", "right" }
+  if extraStep then movement[#movement + 1] = "right" end
+  Commands.move(AIDE, movement)
+  Commands.face(PLAYER, "down")
+  Commands.text("crystal.text.elms_lab.aide_gives_potion")
+  Commands.giveItem("crystal.item.potion", 1)
+  Commands.text("crystal.text.elms_lab.aide_always_busy")
+  Commands.setScene(
+    "crystal.map.elms_lab",
+    "crystal.scene.elms_lab.noop"
+  )
+  local returnMovement = { "left", "left" }
+  if extraStep then returnMovement[#returnMovement + 1] = "left" end
+  Commands.move(AIDE, returnMovement)
+  Commands.face(AIDE, "down")
+end
+
+local function aidePotionLeft()
+  aideGivesPotion(false)
+end
+
+local function aidePotionRight()
+  aideGivesPotion(true)
 end
 
 local function text(id)
@@ -185,9 +261,13 @@ return {
         "CyndaquilPokeBallScript",
         "TotodilePokeBallScript",
         "ChikoritaPokeBallScript",
+        "ElmDirectionsScript",
+        "AideScript_WalkPotion1",
+        "AideScript_WalkPotion2",
+        "AideScript_GivePotion",
         "ElmsAideScript",
       },
-      "Used to reproduce the initial Elm meeting, exit guard, starter inspection, lab actors, and background interactions."
+      "Used to reproduce the initial Elm meeting, exit guard, starter selection, phone registration, Potion handoff, lab actors, and background interactions."
     ),
   },
   coverage = {
@@ -199,6 +279,8 @@ return {
     coordEvents = {
       "crystal.elms_lab.coord.cant_leave_left",
       "crystal.elms_lab.coord.cant_leave_right",
+      "crystal.elms_lab.coord.aide_potion_left",
+      "crystal.elms_lab.coord.aide_potion_right",
     },
     bgEvents = {
       "crystal.elms_lab.bg.healing_machine",
@@ -237,6 +319,8 @@ return {
     coordEvents = {
       ["crystal.elms_lab.coord.cant_leave_left"] = cannotLeave,
       ["crystal.elms_lab.coord.cant_leave_right"] = cannotLeave,
+      ["crystal.elms_lab.coord.aide_potion_left"] = aidePotionLeft,
+      ["crystal.elms_lab.coord.aide_potion_right"] = aidePotionRight,
     },
     bgEvents = bg,
     objects = {

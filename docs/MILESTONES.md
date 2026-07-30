@@ -74,8 +74,11 @@ Deliver:
 
 Exit gate:
 
-- the introduction, player naming, Elm sequence, and starter selection execute
-  entirely through source-controlled Lua behavior, with reference citations.
+- [x] The introduction, player naming, Elm sequence, all three starter
+  branches, Elm's phone registration, and the aide's Potion handoff execute
+  entirely through source-controlled Lua behavior with reference citations.
+  Canonical English Crystal v1.1 was verified through
+  `./scripts/verify-crystal-events.ps1 -RomPath "<path>"`.
 
 ## M4 — Battle slice
 

@@ -180,8 +180,19 @@ and can be explored. The west connection can be crossed on foot into Route 29;
 the east Route 27 connection resolves but remains correctly blocked by water
 until a future traversal system supplies Surf.
 
-The project does not yet contain the first-launch file picker, importer-screen
-wiring, or source-controlled event/story behavior. Dialogue, scenes, battles,
-menus, saving, audio, and campaign progression are not implemented. Import and
-world acceptance are currently exercised through headless fixtures and local
+M3 adds source-controlled, provenance-cited Crystal behavior for the
+introduction, profile naming, New Bark Town, Elm's Lab, all three starter
+choices, Elm's phone registration, and the aide's Potion handoff. Native
+coroutine commands now cover state, dialogue requests, actor movement,
+following, emotes, map/object changes, battle requests, audio events, party
+grants, inventory grants, and phone contacts. Coverage reports compare these
+definitions with decoded static map interactions.
+
+The project does not yet contain the first-launch file picker or
+importer-screen wiring. M3's text, choice, clock, and naming requests have
+headless presentation services, but they are not yet connected to visible
+LÖVE UI in the New Bark developer preview. Battles remain adapters rather
+than the Gen 2 simulation planned for M4; menus, saves, rendered dialogue,
+audio playback, and broader campaign progression remain future work. Import,
+world, and event acceptance are exercised through headless fixtures and local
 player-ROM-gated verification commands.

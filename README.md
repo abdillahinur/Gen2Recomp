@@ -12,7 +12,7 @@ normal play. A future first-boot UI will invoke this importer.
 
 ## Current status
 
-The repository has completed **M2: New Bark world slice**, including
+The repository has completed **M3: Hand-written event slice**, including
 end-to-end verification with canonical English Crystal v1.1. The project
 currently contains:
 
@@ -33,13 +33,22 @@ currently contains:
   connections, and reciprocal warps;
 - a verified New Bark slice containing eight extracted maps, four tilesets,
   and sixteen referenced overworld sprites;
+- a native coroutine script runner with flags, scenes, variables, text,
+  choices, actor movement, objects, maps, battle requests, and audio events;
+- provenance-cited Crystal Lua behavior for the introduction, naming,
+  New Bark Town, Elm's Lab, all three starter choices, Elm's phone
+  registration, and the aide's Potion handoff;
+- party, inventory, phone, clock, naming, dialogue, and coverage-report
+  services for the M3 behavior slice;
 - headless unit tests and CI;
 - architecture, milestone, and backlog documentation.
 
 There is no first-launch ROM picker or application importer screen yet. The
-developer preview is a traversable world slice, not the complete game:
-dialogue, events, story progression, battles, menus, saves, audio, and most
-maps remain future milestones.
+developer preview remains a traversable world slice: M3 behavior is verified
+headlessly but its dialogue, choices, clock, and naming presentation are not
+yet wired into visible LÖVE UI. The Gen 2 battle simulation, menus, saves,
+audio playback, broader story progression, and most maps remain future
+milestones.
 
 ## Final deliverable
 
@@ -125,6 +134,16 @@ interactions decoded from a supported ROM:
 The report separates scripted maps, callbacks, scenes, coordinate events,
 background events, and object interactions. Unimplemented maps and partial
 vertical-slice coverage remain visible.
+
+To run M3's introduction, naming, Elm meeting, starter, phone, and Potion
+acceptance route against canonical English Crystal v1.1:
+
+```powershell
+./scripts/verify-crystal-events.ps1 -RomPath "D:\path\to\your\ROM"
+```
+
+This executes the source-controlled Lua behavior against decoded real map and
+object data without writing the ROM or extracted content into the repository.
 
 ## Project direction
 

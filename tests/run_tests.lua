@@ -163,6 +163,8 @@ require("tests.script_runner_tests")(test, equal, truthy, raises)
 require("tests.script_state_command_tests")(test, equal, truthy, raises)
 require("tests.actor_command_tests")(test, equal, truthy, raises)
 require("tests.gameplay_command_tests")(test, equal, truthy, raises)
+require("tests.progression_service_tests")(
+  test, equal, truthy, raises)
 require("tests.crystal_introduction_script_tests")(
   test, equal, truthy, raises)
 require("tests.crystal_map_script_tests")(

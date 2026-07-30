@@ -83,6 +83,18 @@ function ActorSystem:face(id, direction)
   actor.facing = direction
 end
 
+function ActorSystem:state(id)
+  local binding = self:binding(id)
+  local actor = binding.entity
+  return {
+    x = actor.x,
+    y = actor.y,
+    facing = actor.facing,
+    mapId = binding.player and self.world.currentMapId or binding.mapId,
+    visible = binding.player or actor.visible,
+  }
+end
+
 function ActorSystem:setVisible(id, visible)
   local binding = self:binding(id)
   if binding.player then

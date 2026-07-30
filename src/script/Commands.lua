@@ -75,6 +75,10 @@ function Commands.face(id, direction)
   })
 end
 
+function Commands.actorState(id)
+  return Commands.request("actor.state.get", { id = id })
+end
+
 function Commands.follow(follower, leader)
   return Commands.request("actor.follow.start", {
     follower = follower,
@@ -183,6 +187,25 @@ end
 
 function Commands.pause(seconds)
   return Commands.request("system.wait", { seconds = seconds })
+end
+
+function Commands.givePokemon(speciesId, level, heldItemId)
+  return Commands.request("party.pokemon.give", {
+    speciesId = speciesId,
+    level = level,
+    heldItemId = heldItemId,
+  })
+end
+
+function Commands.giveItem(itemId, count)
+  return Commands.request("inventory.item.give", {
+    itemId = itemId,
+    count = count,
+  })
+end
+
+function Commands.registerPhoneContact(id)
+  return Commands.request("phone.contact.register", { id = id })
 end
 
 return Commands

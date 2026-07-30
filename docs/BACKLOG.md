@@ -59,7 +59,7 @@ Backlog IDs are stable planning references, not issue tracker numbers.
 - [x] `M3-007` Hand-write New Bark Town and Elm's Lab behavior in Lua.
 - [x] `M3-008` Create map/scene/callback/interaction coverage reports.
 - [x] `M3-009` Complete introduction and naming flow.
-- [ ] `M3-010` Complete Elm and starter sequence.
+- [x] `M3-010` Complete Elm and starter sequence.
 
 ## M4 — Pokémon and battles
 
