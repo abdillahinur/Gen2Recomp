@@ -103,7 +103,7 @@ Backlog IDs are stable planning references, not issue tracker numbers.
   fallbacks throughout the supported first-badge maps.
 - [x] `M5-019` Decode compact music, SFX, wave, and cry channel programs from
   the verified player ROM.
-- [ ] `M5-020` Implement native Game Boy channel synthesis, sequencing,
+- [x] `M5-020` Implement native Game Boy channel synthesis, sequencing,
   looping, fades, stereo routing, SFX priority, and cry modifiers.
 - [ ] `M5-021` Pass a clean-save visible fidelity route from gender selection
   through Zephyr Badge with screenshot, audio, interaction, and save gates.

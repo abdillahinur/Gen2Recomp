@@ -2,6 +2,7 @@ local AudioRuntime = require("src.audio.AudioRuntime")
 local AudioService = require("src.script.AudioService")
 local CrystalBattleData = require("src.import.CrystalBattleData")
 local CrystalAudioData = require("src.import.CrystalAudioData")
+local CrystalSoundSynth = require("src.audio.CrystalSoundSynth")
 local Rom = require("src.import.Rom")
 local RomIdentifier = require("src.import.RomIdentifier")
 
@@ -45,6 +46,46 @@ local function main()
   requireValue(
     programs.cries["crystal.species.cyndaquil"].speciesNumber == 155,
     "species cry aliases are not normalized")
+  local signatures = {}
+  for id, header in pairs(programs.music) do
+    local rendered = CrystalSoundSynth.render(programs, header, {
+      kind = "music",
+      maximumSeconds = 2,
+    })
+    requireValue(rendered.duration == 2 and #rendered.channels >= 2,
+      id .. " did not decode into audible channels")
+    local event = rendered.channels[1][1]
+    signatures[id] = event and (
+      event.kind .. ":" .. tostring(event.register or event.instrument))
+  end
+  requireValue(
+    signatures["crystal.music.route_30"]
+      ~= signatures["crystal.music.new_bark_town"],
+    "different ROM songs decoded to the same opening signature")
+  for id, header in pairs(programs.sfx) do
+    local rendered = CrystalSoundSynth.render(programs, header, {
+      kind = "sfx",
+      maximumSeconds = 5,
+      allowLoops = false,
+    })
+    requireValue(rendered.duration > 0, id .. " decoded as silence")
+  end
+  for _, id in ipairs({
+    "crystal.species.chikorita",
+    "crystal.species.cyndaquil",
+    "crystal.species.totodile",
+    "crystal.species.wooper",
+  }) do
+    local cry = programs.cries[id]
+    local rendered = CrystalSoundSynth.render(programs, cry, {
+      kind = "cry",
+      maximumSeconds = 4,
+      allowLoops = false,
+      frequencyOffset = cry.frequencyOffset,
+      frameTicks = 0x100 + cry.length,
+    })
+    requireValue(rendered.duration > 0, id .. " cry decoded as silence")
+  end
   local calls = {}
   local sink = {}
   for _, method in ipairs({

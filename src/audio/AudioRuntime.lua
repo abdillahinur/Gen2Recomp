@@ -23,6 +23,7 @@ function AudioRuntime:update()
     end
     self.cursor = index
   end
+  if self.sink.update then self.sink:update() end
 end
 
 return AudioRuntime

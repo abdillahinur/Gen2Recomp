@@ -56,8 +56,15 @@ function love.load()
     local AudioService = require("src.script.AudioService")
     local LoveAudioSink = require("src.audio.LoveAudioSink")
     local audio = AudioService.new()
-    local audioRuntime =
-      AudioRuntime.new(audio, LoveAudioSink.new())
+    local audioSink = LoveAudioSink.new(presentationData.audio)
+    local audioRuntime = AudioRuntime.new(audio, audioSink)
+    if os.getenv("GEN2RECOMP_AUDIO_SMOKE_TEST") == "1" then
+      audioSink:playMusic("crystal.music.route_30")
+      audioSink:playSfx("crystal.sfx.menu_open")
+      audioSink:playCry("crystal.species.cyndaquil")
+      audioSink:stopMusic()
+      print("Gen2Recomp Crystal audio smoke test passed.")
+    end
     local function worldState(gameSession)
       local BattleBridge = require("src.battle.BattleBridge")
       local BattleRequestFactory =

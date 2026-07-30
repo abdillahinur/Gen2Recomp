@@ -1,54 +1,50 @@
+local CrystalSoundSynth = require("src.audio.CrystalSoundSynth")
+
 local LoveAudioSink = {}
 LoveAudioSink.__index = LoveAudioSink
 
-local RATE = 22050
-
-local function hash(id)
-  local value = 2166136261
-  for index = 1, #id do
-    value = (value * 16777619 + id:byte(index)) % 4294967296
+function LoveAudioSink.new(programs, loveAudio, loveSound)
+  if type(programs) ~= "table" or programs.schema ~= 1 then
+    error("LÖVE audio sink requires decoded Crystal audio programs", 2)
   end
-  return value
-end
-
-local function wave(loveAudio, loveSound, id, kind)
-  local duration = kind == "music" and 2
-    or kind == "cry" and 0.45 or 0.12
-  local samples = math.floor(RATE * duration)
-  local data = loveSound.newSoundData(samples, RATE, 16, 1)
-  local seed = hash(id)
-  local base = 110 + seed % 330
-  for index = 0, samples - 1 do
-    local time = index / RATE
-    local frequency = base
-    if kind == "music" then
-      local step = math.floor(time * 8) % 4
-      frequency = base * ({ 1, 1.25, 1.5, 1.25 })[step + 1]
-    elseif kind == "cry" then
-      frequency = base * (1.5 - time)
-    end
-    local phase = (time * frequency) % 1
-    local raw = phase < 0.5 and 1 or -1
-    local envelope = kind == "music" and 0.10
-      or math.max(0, 1 - time / duration) * 0.18
-    data:setSample(index, raw * envelope)
-  end
-  return loveAudio.newSource(data, "static")
-end
-
-function LoveAudioSink.new(loveAudio, loveSound)
   return setmetatable({
+    programs = programs,
     audio = loveAudio or love.audio,
     sound = loveSound or love.sound,
     cache = {},
     music = nil,
+    oneShots = {},
   }, LoveAudioSink)
 end
 
 function LoveAudioSink:_source(id, kind)
   local key = kind .. ":" .. id
   if not self.cache[key] then
-    self.cache[key] = wave(self.audio, self.sound, id, kind)
+    local header
+    local options = { kind = kind, allowLoops = kind == "music" }
+    if kind == "music" then
+      header = self.programs.music[id]
+    elseif kind == "sfx" then
+      header = self.programs.sfx[id]
+      options.maximumSeconds = 5
+      options.allowLoops = false
+    else
+      local cry = self.programs.cries[id]
+      if cry then
+        header = cry
+        options.maximumSeconds = 4
+        options.allowLoops = false
+        options.frequencyOffset = cry.frequencyOffset
+        options.frameTicks = 0x100 + cry.length
+      end
+    end
+    if not header then
+      error("Crystal " .. kind .. " is not extracted for " .. id, 2)
+    end
+    local rendered = CrystalSoundSynth.render(
+      self.programs, header, options)
+    local soundData = CrystalSoundSynth.soundData(rendered, self.sound)
+    self.cache[key] = self.audio.newSource(soundData, "static")
   end
   return self.cache[key]:clone()
 end
@@ -65,12 +61,26 @@ function LoveAudioSink:stopMusic()
   self.music = nil
 end
 
+function LoveAudioSink:_playOneShot(id, kind)
+  local source = self:_source(id, kind)
+  self.oneShots[#self.oneShots + 1] = source
+  source:play()
+end
+
 function LoveAudioSink:playSfx(id)
-  self:_source(id, "sfx"):play()
+  self:_playOneShot(id, "sfx")
 end
 
 function LoveAudioSink:playCry(id)
-  self:_source(id, "cry"):play()
+  self:_playOneShot(id, "cry")
+end
+
+function LoveAudioSink:update()
+  local active = {}
+  for _, source in ipairs(self.oneShots) do
+    if source:isPlaying() then active[#active + 1] = source end
+  end
+  self.oneShots = active
 end
 
 return LoveAudioSink
