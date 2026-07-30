@@ -71,3 +71,12 @@ connections, warps, coordinate/BG event locations, object metadata, graphics,
 and palettes. Original script pointers are deliberately omitted from the
 normalized cache. Event behavior will be hand-written in source-controlled Lua
 during M3 rather than executing or translating ROM bytecode.
+
+M4 adds a compact, shared Crystal battle manifest for the `Moves` and
+`MoveNames` boundaries from the same pinned reference revision. The runtime
+adapter combines those 251 records with the existing 251 normalized species
+records. It maps numeric type and effect enums to stable native IDs, removes
+duplicate mono-type entries, and creates unique semantic IDs containing the
+cartridge record number. Move and species names, stats, power, accuracy, PP,
+catch rates, and experience values are decoded only from the player-supplied
+ROM; they are not committed to the repository.

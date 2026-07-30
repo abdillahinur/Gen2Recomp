@@ -1,4 +1,5 @@
 local generatedSymbols = require("manifests.crystal_us_10_symbols")
+local battle = require("manifests.crystal_battle")
 local world = require("manifests.crystal_world")
 
 return {
@@ -40,8 +41,10 @@ return {
     font = 1,
     charmap = 1,
     species = 1,
+    battle = 1,
     tileset = 1,
     world = 1,
   },
+  battle = battle,
   world = world,
 }

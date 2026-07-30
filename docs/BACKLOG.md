@@ -73,7 +73,7 @@ Backlog IDs are stable planning references, not issue tracker numbers.
 - [x] `M4-008` Implement effect-command registry.
 - [x] `M4-009` Implement trainer AI foundations.
 - [x] `M4-010` Implement catching, experience, level-up, and move learning.
-- [ ] `M4-011` Complete first rival and wild battle gates.
+- [x] `M4-011` Complete first rival and wild battle gates.
 
 ## Cross-cutting risks
 

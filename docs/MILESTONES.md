@@ -87,12 +87,18 @@ Deliver:
 - Gen 2 Pokémon instance/stat model;
 - deterministic battle state and turn resolver;
 - core damage, accuracy, critical, status, switching, and AI behavior;
-- battle UI;
+- presentation-independent battle-session API;
 - experience, level-up, move learning, and basic catching.
 
 Exit gate:
 
-- first rival and ordinary wild battles complete with verified outcomes.
+- [x] First rival and ordinary wild battles complete with deterministic,
+  verified outcomes. Canonical English Crystal v1.1 was verified through
+  `./scripts/verify-crystal-battles.ps1 -RomPath "<path>"`; both fixtures use
+  species and move records decoded from the supplied ROM.
+
+Visible battle presentation remains part of the application-integration work
+for M5. M4's exit gate covers the native simulation and its session boundary.
 
 ## M5 — Violet City vertical slice
 

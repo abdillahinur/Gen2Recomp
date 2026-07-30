@@ -12,7 +12,7 @@ normal play. A future first-boot UI will invoke this importer.
 
 ## Current status
 
-The repository has completed **M3: Hand-written event slice**, including
+The repository has completed **M4: Battle slice**, including
 end-to-end verification with canonical English Crystal v1.1. The project
 currently contains:
 
@@ -40,15 +40,24 @@ currently contains:
   registration, and the aide's Potion handoff;
 - party, inventory, phone, clock, naming, dialogue, and coverage-report
   services for the M3 behavior slice;
+- normalized battle records and Gen 2 Pokémon instances with integer stats,
+  DVs, gender, shiny state, Hidden Power, and growth curves;
+- deterministic battle turns, switching and forced replacements, damage,
+  accuracy, critical hits, type effects, major/volatile status, effect
+  dispatch, and trainer AI foundations;
+- catching, experience, level-up, move learning, and terminal battle outcomes;
+- a player-ROM-gated first-rival and Route 29 wild-battle verification route
+  using all 251 species and 251 moves decoded from Crystal;
 - headless unit tests and CI;
 - architecture, milestone, and backlog documentation.
 
 There is no first-launch ROM picker or application importer screen yet. The
 developer preview remains a traversable world slice: M3 behavior is verified
 headlessly but its dialogue, choices, clock, and naming presentation are not
-yet wired into visible LÖVE UI. The Gen 2 battle simulation, menus, saves,
-audio playback, broader story progression, and most maps remain future
-milestones.
+yet wired into visible LÖVE UI. M4's battle simulation is likewise verified
+headlessly; the visible battle scene and command menus are not yet wired into
+the LÖVE preview. Saves, audio playback, broader move-effect coverage, broader
+story progression, and most maps remain future milestones.
 
 ## Final deliverable
 
@@ -145,6 +154,16 @@ acceptance route against canonical English Crystal v1.1:
 This executes the source-controlled Lua behavior against decoded real map and
 object data without writing the ROM or extracted content into the repository.
 
+To run M4's deterministic first-rival and ordinary wild-battle gates:
+
+```powershell
+./scripts/verify-crystal-battles.ps1 -RomPath "D:\path\to\your\ROM"
+```
+
+This decodes normalized species and move records directly from the supplied
+ROM, completes both headless battle fixtures, verifies their outcomes and
+experience awards, and retains no raw ROM ranges.
+
 ## Project direction
 
 - [Project plan](docs/PROJECT_PLAN.md)
@@ -153,6 +172,7 @@ object data without writing the ROM or extracted content into the repository.
 - [Backlog](docs/BACKLOG.md)
 - [Private cache format](docs/CACHE_FORMAT.md)
 - [Reference-data generation](docs/REFERENCE_DATA.md)
+- [Battle engine](docs/BATTLE_ENGINE.md)
 - [Content policy](docs/CONTENT_POLICY.md)
 
 ## ROM support

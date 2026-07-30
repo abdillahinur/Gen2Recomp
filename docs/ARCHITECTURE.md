@@ -188,11 +188,22 @@ following, emotes, map/object changes, battle requests, audio events, party
 grants, inventory grants, and phone contacts. Coverage reports compare these
 definitions with decoded static map interactions.
 
+M4 adds normalized species, move, item, and trainer records; Gen 2 integer
+stats, DVs, gender, shiny state, and Hidden Power; deterministic battle state,
+action ordering, switching, damage, status, effect dispatch, AI, catching,
+experience, and move learning; and a presentation-independent battle session.
+Battle completion now settles player wins, opponent wins, draws, catches, and
+forced party replacements. A compact battle-data manifest locates the 251
+species and 251 move records decoded from a verified Crystal ROM. The
+player-ROM-gated M4 route completes deterministic first-rival and Route 29
+wild fixtures with terminal outcomes and experience awards.
+
 The project does not yet contain the first-launch file picker or
 importer-screen wiring. M3's text, choice, clock, and naming requests have
 headless presentation services, but they are not yet connected to visible
-LÖVE UI in the New Bark developer preview. Battles remain adapters rather
-than the Gen 2 simulation planned for M4; menus, saves, rendered dialogue,
-audio playback, and broader campaign progression remain future work. Import,
-world, and event acceptance are exercised through headless fixtures and local
-player-ROM-gated verification commands.
+LÖVE UI in the New Bark developer preview. The M4 battle simulation is also
+headless: a visible battle scene, command menus, broader move-effect coverage,
+held items, weather, saves, rendered dialogue, audio playback, and campaign
+progression remain future work. Import, world, event, and battle acceptance
+are exercised through headless fixtures and local player-ROM-gated
+verification commands.

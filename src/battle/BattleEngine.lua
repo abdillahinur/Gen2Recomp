@@ -123,6 +123,7 @@ function BattleEngine:_orderedActions()
 end
 
 function BattleEngine:_execute(action)
+  if self.state.phase == "complete" then return end
   local side = self:_side(action.sideId)
   if action.kind == "switch" then
     local previous = side.activeIndex
@@ -136,10 +137,18 @@ function BattleEngine:_execute(action)
     return
   end
   local actor = side:active()
+  local targetSide = otherSide(self.state, action.sideId)
   if actor:isFainted() then
     self.state:emit("battle.action_skipped", {
       sideId = action.sideId,
       reason = "fainted",
+    })
+    return
+  end
+  if targetSide:active():isFainted() then
+    self.state:emit("battle.action_skipped", {
+      sideId = action.sideId,
+      reason = "no_target",
     })
     return
   end
@@ -161,10 +170,48 @@ function BattleEngine:_execute(action)
       self.state,
       action.sideId,
       actor,
-      otherSide(self.state, action.sideId):active(),
+      targetSide:active(),
       action.move
     )
   end
+end
+
+function BattleEngine:_complete(outcome)
+  self.state.outcome = outcome
+  self.state.phase = "complete"
+  self.state.pendingActions = {}
+  self.state:emit("battle.ended", { outcome = outcome })
+  return outcome
+end
+
+function BattleEngine:_settle(allowForcedSwitch)
+  if self.state.phase == "complete" then return self.state.outcome end
+  local playerUsable = self.state.player:hasUsablePokemon()
+  local opponentUsable = self.state.opponent:hasUsablePokemon()
+  if not playerUsable and not opponentUsable then
+    return self:_complete("draw")
+  elseif not opponentUsable then
+    return self:_complete("player_win")
+  elseif not playerUsable then
+    return self:_complete("opponent_win")
+  end
+
+  if not allowForcedSwitch then return nil end
+  for _, sideId in ipairs({ "player", "opponent" }) do
+    local side = self:_side(sideId)
+    if side:active():isFainted() then
+      local previous = side.activeIndex
+      local replacement = side:firstAvailable(previous)
+      self.statusSystem.clearVolatile(side:active())
+      side.activeIndex = replacement
+      self.state:emit("battle.forced_switch", {
+        sideId = sideId,
+        from = previous,
+        to = replacement,
+      })
+    end
+  end
+  return nil
 end
 
 function BattleEngine:submit(sideId, source)
@@ -190,15 +237,29 @@ end
 function BattleEngine:resolveTurn()
   self.state.phase = "resolving"
   local order = self:_orderedActions()
-  for _, action in ipairs(order) do self:_execute(action) end
-  self.statusSystem.endTurn(
-    self.state, "player", self.state.player:active())
-  self.statusSystem.endTurn(
-    self.state, "opponent", self.state.opponent:active())
+  for _, action in ipairs(order) do
+    self:_execute(action)
+    self:_settle(false)
+  end
+  if self.state.phase ~= "complete" then
+    self.statusSystem.endTurn(
+      self.state, "player", self.state.player:active())
+    self:_settle(false)
+  end
+  if self.state.phase ~= "complete" then
+    self.statusSystem.endTurn(
+      self.state, "opponent", self.state.opponent:active())
+    self:_settle(false)
+  end
+  if self.state.phase ~= "complete" then
+    self:_settle(true)
+  end
   self.state.pendingActions = {}
   self.state.turn = self.state.turn + 1
-  self.state.phase = "command"
-  self.state:emit("battle.turn_complete")
+  if self.state.phase ~= "complete" then
+    self.state.phase = "command"
+    self.state:emit("battle.turn_complete")
+  end
   return order
 end
 
