@@ -126,6 +126,7 @@ require("tests.rom_tests")(test, equal, truthy, raises)
 require("tests.sha1_tests")(test, equal, truthy, raises)
 require("tests.cartridge_header_tests")(test, equal, truthy, raises)
 require("tests.rom_identifier_tests")(test, equal, truthy, raises)
+require("tests.cache_manifest_tests")(test, equal, truthy, raises)
 
 local failures = 0
 

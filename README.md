@@ -22,6 +22,7 @@ Crystal importer**. It currently contains:
 - a bounds-checked reader for absolute and banked ROM addresses;
 - a streaming, LuaJIT-compatible SHA-1 implementation;
 - cartridge-header parsing and exact profile identification;
+- a versioned private-cache manifest and ownership contract;
 - headless unit tests and CI;
 - architecture, milestone, and backlog documentation.
 
@@ -77,6 +78,7 @@ To run the LÖVE bootstrap briefly and exit automatically:
 - [Architecture](docs/ARCHITECTURE.md)
 - [Milestones](docs/MILESTONES.md)
 - [Backlog](docs/BACKLOG.md)
+- [Private cache format](docs/CACHE_FORMAT.md)
 - [Content policy](docs/CONTENT_POLICY.md)
 
 ## ROM support
