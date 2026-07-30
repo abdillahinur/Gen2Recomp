@@ -277,6 +277,12 @@ filesystem adapter. RTC restore applies elapsed host seconds to a detached
 snapshot before `GameSession` validation; runtime services and ROM readers are
 never serialized.
 
+M5-012 turns semantic audio events into playback through `AudioRuntime`.
+Scheduling remains service-owned and deterministic; `LoveAudioSink` alone owns
+LÖVE sound data and Sources. The first slice uses generated, non-ROM waveforms
+for map music, UI SFX, and species cries. This preserves the no-bundled-content
+boundary while leaving exact ROM channel decoding as a separate fidelity layer.
+
 M4 adds normalized species, move, item, and trainer records; Gen 2 integer
 stats, DVs, gender, shiny state, and Hidden Power; deterministic battle state,
 action ordering, switching, damage, status, effect dispatch, AI, catching,

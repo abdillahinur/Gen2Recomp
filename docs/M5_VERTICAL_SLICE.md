@@ -17,7 +17,7 @@ Falkner's Gym, and the first badge.
 9. Pack, party, and Pokédex UI. **Complete.**
 10. Pokémon Center, mart, and PC systems. **Complete.**
 11. Save/load and RTC persistence. **Complete.**
-12. Music, SFX, and cries.
+12. Music, SFX, and cries. **Complete.**
 13. Falkner Gym and badge progression.
 14. Automated introduction-to-first-badge acceptance route.
 
@@ -191,6 +191,19 @@ restores the profile-matching save before showing the introduction. Player map,
 position, and facing resume in the decoded world. RTC reconciliation advances
 the in-game hour, minute, and weekday by host elapsed seconds; a backward host
 clock is reported and contributes zero elapsed time.
+
+## Slice audio
+
+M5-012 connects the existing semantic audio commands to a runtime dispatcher
+and LÖVE audio sink. Introduction, overworld map groups, battles, field/facility
+menus, and ROM-derived battle species now schedule music, SFX, and cries with
+correct state transitions; resuming the world restores its map music.
+
+The current sink generates small native square-wave cues from semantic IDs.
+This makes every audio category audible without bundling cartridge audio and
+keeps event timing testable headlessly. Exact ROM-decoded channel sequences,
+instruments, and cry parameters remain a fidelity upgrade after the first-badge
+vertical slice rather than being misrepresented as complete audio emulation.
 
 ## Exit gate
 

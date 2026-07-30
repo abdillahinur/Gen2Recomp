@@ -141,6 +141,7 @@ Completed checkpoints:
 - [x] M5-009 visible Pack, party, and ROM-backed Pokédex presentation.
 - [x] M5-010 visible Pokémon Center, mart, and PC systems.
 - [x] M5-011 versioned atomic saves, backup recovery, and RTC restore.
+- [x] M5-012 native music, SFX, and species-cry playback scheduling.
 
 ## M6 — Johto campaign
 

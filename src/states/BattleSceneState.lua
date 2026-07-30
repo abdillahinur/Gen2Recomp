@@ -9,11 +9,24 @@ function BattleSceneState.new(session, options)
     opaque = true,
     session = session,
     presentation = BattlePresentation.new(session, options),
+    audio = options.audio,
+    audioRuntime = options.audioRuntime,
   }, BattleSceneState)
+end
+
+function BattleSceneState:enter()
+  if self.audio then
+    self.audio:playMusic("crystal.music.battle")
+    self.audio:playCry(
+      self.session.state.opponent:active().speciesId)
+    self.audio:playCry(
+      self.session.state.player:active().speciesId)
+  end
 end
 
 function BattleSceneState:update(_, input)
   self.presentation:update(input)
+  if self.audioRuntime then self.audioRuntime:update() end
 end
 
 local function hpBar(x, y, pokemon, width)

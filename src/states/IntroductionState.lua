@@ -16,6 +16,7 @@ function IntroductionState.new(options)
     or IntroductionSession.new(definition, {
       nameOptions = options.nameOptions,
       clockOptions = options.clockOptions,
+      audio = options.audio,
     })
   local presentationOptions = options.presentationOptions or {}
   if options.textCatalog and not presentationOptions.textProvider then
@@ -34,6 +35,7 @@ function IntroductionState.new(options)
     }, presentationOptions),
     onComplete = options.onComplete,
     completed = false,
+    audioRuntime = options.audioRuntime,
   }, IntroductionState)
 end
 
@@ -44,6 +46,7 @@ end
 function IntroductionState:update(dt, input)
   self.session:update(dt)
   self.presentation:update(input)
+  if self.audioRuntime then self.audioRuntime:update() end
   local task = self.session.task
   if task and task.state == "completed" and not self.completed then
     self.completed = true

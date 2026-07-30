@@ -19,6 +19,8 @@ function BattleBridge.new(stateStack, factory, options)
     states = stateStack,
     factory = factory,
     items = options.items or {},
+    audio = options.audio,
+    audioRuntime = options.audioRuntime,
     active = nil,
   }, BattleBridge)
 end
@@ -34,6 +36,8 @@ function BattleBridge:start(request, resolve)
   local bridge = self
   local scene = BattleSceneState.new(session, {
     items = self.items,
+    audio = self.audio,
+    audioRuntime = self.audioRuntime,
     onComplete = function()
       local result = bridge.factory:commit(session)
       bridge.active = nil

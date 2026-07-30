@@ -13,6 +13,12 @@ local World = require("src.world.World")
 local WorldState = {}
 WorldState.__index = WorldState
 
+local MAP_MUSIC = {
+  ["24"] = "crystal.music.new_bark_and_route_29",
+  ["26"] = "crystal.music.cherrygrove_and_routes",
+  ["10"] = "crystal.music.violet_city_and_routes",
+}
+
 local FACILITIES = {
   ["26:4"] = { kind = "mart", catalogId = "cherrygrove" },
   ["26:5"] = { kind = "center" },
@@ -53,6 +59,8 @@ function WorldState.new(worldData, options)
     ),
     stateStack = options.stateStack,
     battleData = options.battleData,
+    audio = options.audio,
+    audioRuntime = options.audioRuntime,
   }, WorldState)
   if savedPlayer then
     self.world.player.facing = savedPlayer.facing
@@ -63,10 +71,12 @@ function WorldState.new(worldData, options)
       gameSession = options.gameSession,
       textCatalog = options.textCatalog,
       battleBridge = options.battleBridge,
+      audio = options.audio,
     })
   end
   self.gameSession = options.gameSession
   self.onSave = options.onSave
+  self.musicMapId = nil
   if worldData.encounters and options.battleBridge then
     self.encounters = EncounterController.new(
       worldData.encounters,
@@ -127,6 +137,9 @@ function WorldState:_openFacility()
     end
   end
   if not clerk then return false end
+  if self.audio then
+    self.audio:playSfx("crystal.sfx.menu_open")
+  end
   local catalogId = facility.catalogId
   if catalogId == "cherrygrove"
       and self.gameSession.state:hasFlag(
@@ -155,6 +168,9 @@ function WorldState:_openFieldMenu()
     return false
   end
   local stack = self.stateStack
+  if self.audio then
+    self.audio:playSfx("crystal.sfx.menu_open")
+  end
   local menu
   menu = FieldMenuState.new(
     self.gameSession,
@@ -170,7 +186,18 @@ function WorldState:_openFieldMenu()
   return true
 end
 
+function WorldState:resume()
+  self.musicMapId = nil
+end
+
 function WorldState:update(dt, input)
+  if self.audio and self.musicMapId ~= self.world.currentMapId then
+    self.musicMapId = self.world.currentMapId
+    local group = self.world.currentMapId:match("^(%d+):")
+    self.audio:playMusic(
+      MAP_MUSIC[group] or "crystal.music.johto_overworld")
+  end
+  if self.audioRuntime then self.audioRuntime:update() end
   if self.trainers and self.trainers:isBusy() then
     self.trainers:update(dt)
   elseif self.scripts and self.scripts:isBusy() then

@@ -50,6 +50,12 @@ function love.load()
     local LoveFilesystem = require("src.core.LoveFilesystem")
     local SaveStore = require("src.save.SaveStore")
     local saveStore = SaveStore.new(LoveFilesystem.new())
+    local AudioRuntime = require("src.audio.AudioRuntime")
+    local AudioService = require("src.script.AudioService")
+    local LoveAudioSink = require("src.audio.LoveAudioSink")
+    local audio = AudioService.new()
+    local audioRuntime =
+      AudioRuntime.new(audio, LoveAudioSink.new())
     local function worldState(gameSession)
       local BattleBridge = require("src.battle.BattleBridge")
       local BattleRequestFactory =
@@ -61,9 +67,14 @@ function love.load()
       return WorldState.new(worldData, {
         gameSession = gameSession,
         textCatalog = textCatalog,
-        battleBridge = BattleBridge.new(states, factory),
+        battleBridge = BattleBridge.new(states, factory, {
+          audio = audio,
+          audioRuntime = audioRuntime,
+        }),
         stateStack = states,
         battleData = battleData,
+        audio = audio,
+        audioRuntime = audioRuntime,
         onSave = function()
           return saveStore:save(
             profile.id, gameSession:snapshot(), os.time())
@@ -76,7 +87,10 @@ function love.load()
         require("src.battle.CrystalBattleGates")
       local session = CrystalBattleGates.route29Wild(
         registry, battleData, 152)
-      states:push(BattleSceneState.new(session))
+      states:push(BattleSceneState.new(session, {
+        audio = audio,
+        audioRuntime = audioRuntime,
+      }))
     else
       local loaded = saveStore:load(profile.id, os.time())
       if loaded then
@@ -88,6 +102,8 @@ function love.load()
       else
         states:push(IntroductionState.new({
           textCatalog = textCatalog,
+          audio = audio,
+          audioRuntime = audioRuntime,
           onComplete = function(_, session)
             local gameSession = GameSession.new(profile.id, {
               state = session.state,
