@@ -65,7 +65,10 @@ function MapPresentationRuntime.new(world, options)
     presentationOptions = {
       textProvider =
         RomTextProvider.forState(options.textCatalog, self.state),
+      font = options.font,
     }
+  elseif options.font and not presentationOptions.font then
+    presentationOptions.font = options.font
   end
   self.presentation = PresentationController.new({
     dialogue = self.dialogue,

@@ -149,3 +149,4 @@ BirdKeeperAbeSeenText
 BirdKeeperAbeAfterBattleText
 VioletGymGuideText
 VioletGymGuideWinText
+_AreYouABoyOrAreYouAGirlText

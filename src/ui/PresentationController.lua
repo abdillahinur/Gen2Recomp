@@ -23,6 +23,12 @@ end
 
 function PresentationController.new(services, options)
   options = options or {}
+  local renderer = options.renderer
+  if not renderer and options.font and love then
+    local CrystalFontRenderer =
+      require("src.render.CrystalFontRenderer")
+    renderer = CrystalFontRenderer.new(options.font)
+  end
   return setmetatable({
     dialogue = services.dialogue,
     clock = services.clock,
@@ -35,6 +41,7 @@ function PresentationController.new(services, options)
     keyboardX = 1,
     keyboardY = 1,
     textPage = 1,
+    renderer = renderer,
   }, PresentationController)
 end
 
@@ -209,6 +216,8 @@ function PresentationController:model()
     end
     return {
       kind = "choice",
+      id = request.id,
+      prompt = promptPages and promptPages[#promptPages],
       title = self.text.choiceTitle
         and self.text:choiceTitle(request.id)
         or self.text:resolve(request.id),
@@ -266,6 +275,63 @@ end
 function PresentationController:draw()
   local model = self:model()
   if not model then return end
+  if self.renderer then
+    local renderer = self.renderer
+    if model.kind == "text" then
+      renderer:drawDialogue(model.text, true)
+    elseif model.kind == "choice" then
+      if model.prompt then renderer:drawDialogue(model.prompt, false) end
+      local x, y, width, height = 72, 48, 80, 48
+      if model.id == "crystal.choice.player_gender" then
+        x, y, width, height = 48, 32, 56, 48
+      end
+      renderer:drawBox(x, y, width, height)
+      for index, option in ipairs(model.options) do
+        renderer:drawText(
+          (index == model.selected and ">" or " ") .. option,
+          x + 8,
+          y + 8 + (index - 1) * 16
+        )
+      end
+    elseif model.kind == "clock" then
+      renderer:drawBox(16, 32, 128, 80)
+      renderer:drawText("SET THE CLOCK", 24, 40)
+      renderer:drawText(
+        (model.selected == 1 and ">" or " ")
+          .. ("%02d"):format(model.hour) .. ":"
+          .. (model.selected == 2 and ">" or " ")
+          .. ("%02d"):format(model.minute),
+        40,
+        64
+      )
+    elseif model.kind == "name_choice" then
+      renderer:drawBox(64, 16, 88, 112)
+      for index, option in ipairs(model.options) do
+        renderer:drawText(
+          (index == model.selected and ">" or " ") .. option,
+          72,
+          24 + (index - 1) * 16
+        )
+      end
+    else
+      renderer:drawBox(0, 0, 160, 144)
+      renderer:drawText("YOUR NAME", 8, 8)
+      renderer:drawText(model.value or "", 88, 8)
+      for rowIndex, row in ipairs(model.keyboard) do
+        for columnIndex, key in ipairs(row) do
+          local marker = rowIndex == model.selectedY
+            and columnIndex == model.selectedX and ">" or " "
+          renderer:drawText(
+            marker .. key,
+            4 + (columnIndex - 1) * 22,
+            36 + (rowIndex - 1) * 20,
+            { spacing = 7 }
+          )
+        end
+      end
+    end
+    return
+  end
   love.graphics.setFont(love.graphics.getFont())
   if model.kind == "text" then
     panel(3, 96, 154, 45)

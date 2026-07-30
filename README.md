@@ -12,9 +12,10 @@ normal play. A future first-boot UI will invoke this importer.
 
 ## Current status
 
-The repository has completed **M5: Violet City vertical slice**, including
-end-to-end M1–M5 verification
-with canonical English Crystal v1.1. The project currently contains:
+The repository has completed M5's functional first-badge route and has
+**reopened M5 for live cartridge fidelity** after hands-on preview testing
+exposed placeholder presentation and audio. Canonical English Crystal v1.1
+continues to pass the functional M1–M5 gates. The project currently contains:
 
 - a minimal LÖVE 11.x application;
 - a deterministic 60 Hz fixed-step loop;
@@ -45,9 +46,9 @@ with canonical English Crystal v1.1. The project currently contains:
   registration, and the aide's Potion handoff;
 - party, inventory, phone, clock, naming, dialogue, and coverage-report
   services for the M3 behavior slice;
-- visible dialogue boxes, choices, clock setup, preset/custom naming, New Bark
-  interactions, and Elm's Lab scene presentation driven by those M3 services;
-- runtime decoding of 108 ROM-owned introduction, New Bark, Elm's Lab,
+- ROM-font dialogue boxes and an exact ROM-owned gender prompt, plus visible
+  clock setup, naming, New Bark interactions, and Elm's Lab presentation;
+- runtime decoding of 109 ROM-owned introduction, New Bark, Elm's Lab,
   Cherrygrove, route, and Violet text records, with two-line pagination and
   player/species substitutions;
 - a visible native battle scene with HP HUDs, messages, Fight, Pack, Pokémon,
@@ -65,8 +66,8 @@ with canonical English Crystal v1.1. The project currently contains:
   PC Pokémon storage;
 - versioned, checksummed native saves with atomic replacement, backup recovery,
   exact-ROM profile binding, player-location restore, and elapsed-time RTC;
-- audible native map/battle music cues, menu SFX, and species cry scheduling
-  through a LÖVE audio sink;
+- audible placeholder map/battle cues, menu SFX, and species cry scheduling
+  through a LÖVE audio sink; exact ROM channel-program playback is in progress;
 - complete Violet Gym interaction behavior, ROM-backed Falkner battle, Zephyr
   Badge and TM31 rewards, and Route 32 progression unlock;
 - normalized battle records and Gen 2 Pokémon instances with integer stats,
@@ -85,7 +86,7 @@ ROM path, the developer preview now visibly runs M3's introduction, gender
 choice, clock setup, ROM-owned dialogue, and on-screen naming before entering
 the world. New Bark NPC/sign interactions and Elm's Lab scene use the same
 visible, paginated presentation controller. Semantic labels remain only as a
-fallback for dialogue outside the current 108-record extraction manifest. The
+fallback for dialogue outside the current 109-record extraction manifest. The
 M4 simulation now has a standalone visible battle preview, and M5-004 connects
 world/script requests to it. M5-005 expands the traversable ROM-backed world
 from New Bark through Cherrygrove and Violet City. M5-006 now starts visible
@@ -97,10 +98,12 @@ M5-010 adds visible Pokémon Center, mart, and PC flows.
 M5-011 adds visible native saving and automatic profile-bound restore.
 M5-012 connects introduction, world, battle, and menu audio playback.
 M5-013 completes Falkner's Gym and first-badge progression.
-M5-014 closes the slice with a ROM-gated introduction-to-Zephyr-Badge route,
-108 decoded dialogue records, and verified save/reload. Broader move-effect
-coverage, exact cartridge audio, campaign progression, and most maps remain
-future milestones.
+M5-014 closes the functional slice with a ROM-gated
+introduction-to-Zephyr-Badge route, 109 decoded dialogue records, and verified
+save/reload. M5-015 begins the reopened live-fidelity pass with the decoded
+Crystal font and exact gender-screen text/menu geometry. Faithful professor
+art/timing, object-dialogue auditing, and ROM channel audio remain required
+before M5 can be called complete again.
 
 ## Final deliverable
 
@@ -129,7 +132,14 @@ That command currently opens the content-free bootstrap. To import a supported
 ROM into memory and run the New Bark developer preview:
 
 ```powershell
-./scripts/run-m2.ps1 -RomPath "D:\path\to\your\ROM"
+./scripts/run-crystal-preview.ps1 -RomPath "D:\path\to\your\ROM"
+```
+
+Add `-Fresh` to ignore an existing native save for that run and begin at the
+gender screen without deleting or moving the save:
+
+```powershell
+./scripts/run-crystal-preview.ps1 -RomPath "D:\path\to\your\ROM" -Fresh
 ```
 
 Use the arrow keys to move. The preview does not write the ROM or decoded
@@ -206,7 +216,7 @@ To verify M5-002's ROM-owned text catalog and visible pagination:
 ./scripts/verify-crystal-text.ps1 -RomPath "D:\path\to\your\ROM"
 ```
 
-This decodes the 108 currently mapped records, validates substitutions and
+This decodes the 109 currently mapped records, validates substitutions and
 two-line pages, and audits the normalized result for retained raw ROM ranges.
 
 To run M4's deterministic first-rival and ordinary wild-battle gates:
@@ -276,7 +286,7 @@ To verify M5-008's native route and city behavior:
 
 This checks 19 scripted maps against decoded event metadata, executes the
 Mystery Egg and Pokédex meeting, guide gift, rival battle gate, and Route 32
-pre-badge boundary on the real ROM-backed world, and verifies the 108-record
+pre-badge boundary on the real ROM-backed world, and verifies the 109-record
 dialogue catalog.
 
 To verify M5-009's Pack, party, and Pokédex field menu:

@@ -3,6 +3,8 @@
 return {
   schema = 1,
   aliases = {
+    ["crystal.choice.player_gender"] =
+      "crystal.text.introduction.gender_prompt",
     ["crystal.choice.elms_lab.take_cyndaquil"] =
       "crystal.text.elms_lab.take_cyndaquil",
     ["crystal.choice.elms_lab.take_totodile"] =
@@ -11,6 +13,8 @@ return {
       "crystal.text.elms_lab.take_chikorita",
   },
   entries = {
+    ["crystal.text.introduction.gender_prompt"] =
+      { symbol = "_AreYouABoyOrAreYouAGirlText" },
     ["crystal.text.introduction.oak_1"] = { symbol = "_OakText1" },
     ["crystal.text.introduction.oak_2"] = { symbol = "_OakText2" },
     ["crystal.text.introduction.oak_3"] = { symbol = "_OakText3" },

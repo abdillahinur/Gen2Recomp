@@ -23,7 +23,10 @@ function IntroductionState.new(options)
     presentationOptions = {
       textProvider =
         RomTextProvider.forState(options.textCatalog, session.state),
+      font = options.font,
     }
+  elseif options.font and not presentationOptions.font then
+    presentationOptions.font = options.font
   end
   return setmetatable({
     opaque = true,
@@ -57,19 +60,15 @@ function IntroductionState:update(dt, input)
 end
 
 function IntroductionState:draw()
-  love.graphics.setColor(0.06, 0.09, 0.16, 1)
+  local request = self.session.dialogue.active
+  local gender = request
+    and request.id == "crystal.choice.player_gender"
+  if gender then
+    love.graphics.setColor(9 / 31, 30 / 31, 1, 1)
+  else
+    love.graphics.setColor(1, 1, 1, 1)
+  end
   love.graphics.rectangle("fill", 0, 0, 160, 144)
-  love.graphics.setColor(0.25, 0.58, 0.82, 1)
-  love.graphics.rectangle("fill", 0, 0, 160, 20)
-  love.graphics.setColor(0.96, 0.98, 1, 1)
-  love.graphics.printf("GEN2RECOMP", 0, 6, 160, "center")
-  love.graphics.setColor(0.65, 0.75, 0.88, 1)
-  love.graphics.printf(
-    "CRYSTAL INTRODUCTION", 0, 38, 160, "center")
-  love.graphics.setColor(0.22, 0.29, 0.4, 1)
-  love.graphics.circle("fill", 80, 73, 22)
-  love.graphics.setColor(0.8, 0.88, 0.96, 1)
-  love.graphics.circle("line", 80, 73, 22)
 
   local task = self.session.task
   if task and task.state == "failed" then

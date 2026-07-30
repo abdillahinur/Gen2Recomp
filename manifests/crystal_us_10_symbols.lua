@@ -663,6 +663,11 @@ return {
       address = 0x46dc,
       offset = 0x1a86dc,
     },
+    ["_AreYouABoyOrAreYouAGirlText"] = {
+      bank = 0x70,
+      address = 0x4ca3,
+      offset = 0x1c0ca3,
+    },
     ["_OakText1"] = {
       bank = 0x70,
       address = 0x5d35,

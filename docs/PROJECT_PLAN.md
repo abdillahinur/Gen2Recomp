@@ -66,7 +66,8 @@ translated. This M3 behavior slice is complete and verified locally against
 canonical English Crystal v1.1 map and object data. Presentation wiring for
 the developer preview is complete for dialogue, choices, clock setup, and
 on-screen naming. M5-002 began with 55 exact dialogue records from the
-verified player ROM; M5-008 expands that catalog to 96 and M5-014 to 108 while
+verified player ROM; M5-008 expands that catalog to 96, M5-014 to 108, and
+M5-015 to 109 while
 preserving pagination and the no-bundled-wording boundary.
 
 ### Pokémon and battle vertical slice

@@ -43,7 +43,9 @@ function love.load()
     local WorldState = require("src.states.WorldState")
     local battlePreview =
       os.getenv("GEN2RECOMP_BATTLE_PREVIEW") == "1"
-    local worldData, profile, textCatalog, battleData =
+    local freshPreview =
+      os.getenv("GEN2RECOMP_FRESH_PREVIEW") == "1"
+    local worldData, profile, textCatalog, battleData, presentationData =
       CrystalPreview.load(romPath, { battle = true })
     local DataRegistry = require("src.pokemon.DataRegistry")
     local registry = DataRegistry.new(battleData)
@@ -67,6 +69,7 @@ function love.load()
       return WorldState.new(worldData, {
         gameSession = gameSession,
         textCatalog = textCatalog,
+        font = presentationData.font,
         battleBridge = BattleBridge.new(states, factory, {
           audio = audio,
           audioRuntime = audioRuntime,
@@ -92,7 +95,8 @@ function love.load()
         audioRuntime = audioRuntime,
       }))
     else
-      local loaded = saveStore:load(profile.id, os.time())
+      local loaded = not freshPreview
+        and saveStore:load(profile.id, os.time()) or nil
       if loaded then
         states:push(worldState(GameSession.new(profile.id, {
           snapshot = loaded,
@@ -102,6 +106,7 @@ function love.load()
       else
         states:push(IntroductionState.new({
           textCatalog = textCatalog,
+          font = presentationData.font,
           audio = audio,
           audioRuntime = audioRuntime,
           onComplete = function(_, session)

@@ -20,10 +20,18 @@ Falkner's Gym, and the first badge.
 12. Music, SFX, and cries. **Complete.**
 13. Falkner Gym and badge progression. **Complete.**
 14. Automated introduction-to-first-badge acceptance route. **Complete.**
+15. Decoded Crystal font and exact gender screen. **Complete.**
+16. Faithful clock, professor, naming, and shrink presentation.
+17. Explicit verified object/background-event bindings.
+18. Complete live-slice ROM dialogue with no semantic fallback.
+19. Compact ROM audio-program extraction.
+20. Native channel synthesis and exact audio routing.
+21. Visible clean-save fidelity acceptance.
 
-Each checkpoint is one local commit. M5 is complete only when the final route
-is playable through visible application states and passes its ROM-gated
-acceptance driver.
+Each checkpoint is one local commit. The original functional route exposed
+presentation placeholders during hands-on testing, so M5 is reopened. It is
+complete only when the route is faithful through visible application states
+and passes both its ROM-gated functional and live-fidelity acceptance drivers.
 
 ## Runtime ownership
 
@@ -199,11 +207,11 @@ and LÖVE audio sink. Introduction, overworld map groups, battles, field/facilit
 menus, and ROM-derived battle species now schedule music, SFX, and cries with
 correct state transitions; resuming the world restores its map music.
 
-The current sink generates small native square-wave cues from semantic IDs.
-This makes every audio category audible without bundling cartridge audio and
-keeps event timing testable headlessly. Exact ROM-decoded channel sequences,
-instruments, and cry parameters remain a fidelity upgrade after the first-badge
-vertical slice rather than being misrepresented as complete audio emulation.
+The M5-012 sink generates small placeholder square-wave cues from semantic IDs.
+This keeps event timing testable headlessly, but it is not cartridge audio.
+M5-019 and M5-020 must replace it with compact channel programs decoded from
+the verified player ROM and native synthesis of Crystal's music, SFX, and cry
+parameters.
 
 ## Falkner Gym
 
@@ -242,6 +250,7 @@ constructs Falkner's native ROM-backed battle session.
 
 The driver records every dialogue request it encounters and fails immediately
 if the exact entry is absent from the player-ROM catalog. Adding twelve Violet
-Gym records brings that catalog to 108 and closes all 37 distinct dialogue
+Gym records plus the gender prompt bring that catalog to 109 and close all 37
+distinct route dialogue
 requests exercised by the acceptance path. Source control retains only stable
 IDs and pinned symbol offsets.

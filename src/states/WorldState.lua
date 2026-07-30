@@ -70,6 +70,7 @@ function WorldState.new(worldData, options)
       state = options.scriptState,
       gameSession = options.gameSession,
       textCatalog = options.textCatalog,
+      font = options.font,
       battleBridge = options.battleBridge,
       audio = options.audio,
     })

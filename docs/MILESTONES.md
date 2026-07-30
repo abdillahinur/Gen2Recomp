@@ -144,11 +144,19 @@ Completed checkpoints:
 - [x] M5-012 native music, SFX, and species-cry playback scheduling.
 - [x] M5-013 Falkner Gym, Zephyr Badge, TM31, and Route 32 unlock.
 - [x] M5-014 ROM-gated introduction-to-first-badge acceptance route.
+- [x] M5-015 decoded Crystal font and exact gender prompt/menu geometry.
+- [ ] M5-016 faithful clock, professor, naming, and shrink presentation.
+- [ ] M5-017 explicit verified object/background-event bindings.
+- [ ] M5-018 complete live-slice ROM dialogue with no semantic fallbacks.
+- [ ] M5-019 compact ROM audio-program extraction.
+- [ ] M5-020 native channel synthesis and exact audio routing.
+- [ ] M5-021 visible clean-save fidelity acceptance route.
 
-M5 is complete. The canonical Crystal v1.1 gate executes introduction, Elm and
-starter, Mr. Pokémon and Pokédex, Cherrygrove rival, Violet Gym, Zephyr Badge,
-TM31, and save/reload while rejecting any semantic dialogue fallback on the
-required route.
+M5's functional route is complete, but live fidelity is reopened. The
+canonical Crystal v1.1 gate executes introduction, Elm and starter,
+Mr. Pokémon and Pokédex, Cherrygrove rival, Violet Gym, Zephyr Badge, TM31,
+and save/reload. M5 is complete only after M5-021 also proves the visible
+presentation, every supported interaction, and ROM-derived audio.
 
 ## M6 — Johto campaign
 
