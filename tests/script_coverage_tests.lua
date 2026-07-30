@@ -10,7 +10,7 @@ return function(test, equal, truthy)
 
   test("ScriptCatalog validates and indexes every native definition", function()
     local catalog = ScriptCatalog.load()
-    equal(#catalog:all(), 20)
+    equal(#catalog:all(), 21)
     truthy(catalog:get("crystal.flows.introduction"))
     equal(
       catalog:forMap("24:4").id,
@@ -23,6 +23,10 @@ return function(test, equal, truthy)
     equal(
       catalog:forMap("10:5").id,
       "crystal.maps.violet_city"
+    )
+    equal(
+      catalog:forMap("10:7").id,
+      "crystal.maps.violet_gym"
     )
     equal(catalog:forMap("24:6"), nil)
   end)
@@ -65,9 +69,9 @@ return function(test, equal, truthy)
     }
     local report =
       CoverageReport.generate(worldData, ScriptCatalog.load())
-    equal(report.summary.definitions, 20)
+    equal(report.summary.definitions, 21)
     equal(report.summary.flowScripts, 1)
-    equal(report.summary.mapScripts, 19)
+    equal(report.summary.mapScripts, 20)
     equal(report.summary.maps.covered, 2)
     equal(report.summary.maps.available, 3)
     equal(report.summary.maps.percent, 66.7)

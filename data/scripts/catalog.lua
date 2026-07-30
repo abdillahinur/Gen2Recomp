@@ -16,6 +16,7 @@ return {
   "data.scripts.crystal.maps.route_32",
   "data.scripts.crystal.maps.route_36",
   "data.scripts.crystal.maps.violet_city",
+  "data.scripts.crystal.maps.violet_gym",
   "data.scripts.crystal.maps.earls_pokemon_academy",
   "data.scripts.crystal.maps.violet_nickname_speech_house",
   "data.scripts.crystal.maps.violet_kyles_house",

@@ -95,8 +95,8 @@ local function main()
   local battleData = CrystalBattleData.extract(rom, identity.profile)
   rom = nil
 
-  requireValue(#worldData.trainers.records == 28,
-    "first-badge world must reference 28 unique trainer parties")
+  requireValue(#worldData.trainers.records == 29,
+    "first-badge world must reference 29 unique trainer parties")
   local joeyId = "crystal.trainer.22.001"
   local joey = findTrainer(worldData, joeyId)
   requireValue(joey and joey.name == "JOEY",
@@ -193,7 +193,7 @@ local function main()
 
   print("Crystal M5-007 trainer verification passed.")
   print("Profile: " .. identity.profile.id)
-  print("Trainer parties: 28")
+  print("Trainer parties: 29")
   print(("Route 30 sight: Joey range %d, approach %d cells")
     :format(sourceObject.sightRange, sightDistance - 1))
   print("Battle party: species 19 level 4")

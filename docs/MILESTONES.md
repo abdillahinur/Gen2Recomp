@@ -142,6 +142,7 @@ Completed checkpoints:
 - [x] M5-010 visible Pokémon Center, mart, and PC systems.
 - [x] M5-011 versioned atomic saves, backup recovery, and RTC restore.
 - [x] M5-012 native music, SFX, and species-cry playback scheduling.
+- [x] M5-013 Falkner Gym, Zephyr Badge, TM31, and Route 32 unlock.
 
 ## M6 — Johto campaign
 

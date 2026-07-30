@@ -79,11 +79,11 @@ local function main()
 
   local catalog = ScriptCatalog.load()
   local coverage = CoverageReport.generate(worldData, catalog)
-  requireValue(coverage.summary.definitions == 20,
+  requireValue(coverage.summary.definitions == 21,
     "native definition count changed")
-  requireValue(coverage.summary.mapScripts == 19,
+  requireValue(coverage.summary.mapScripts == 20,
     "map definition count changed")
-  requireValue(coverage.summary.maps.covered == 19,
+  requireValue(coverage.summary.maps.covered == 20,
     "first-badge scripted map count changed")
   requireValue(coverage.summary.callbacks.implemented == 10,
     "callback coverage changed")
@@ -199,7 +199,7 @@ local function main()
 
   print("Crystal M5-008 Violet event verification passed.")
   print("Profile: " .. identity.profile.id)
-  print("Definitions/maps: 20/19 (19 of 29 extracted maps scripted)")
+  print("Definitions/maps: 21/20 (20 of 29 extracted maps scripted)")
   print("ROM dialogue: 96 semantic mappings")
   print("Story: Mystery Egg + Pokedex -> rival battle -> Violet")
   print("Boundary: Route 32 pre-badge guard verified on real collision")

@@ -12,7 +12,7 @@ normal play. A future first-boot UI will invoke this importer.
 
 ## Current status
 
-The repository has completed **M4: Battle slice** and the first twelve checkpoints
+The repository has completed **M4: Battle slice** and the first thirteen checkpoints
 of **M5: Violet City vertical slice**, including end-to-end M1–M4 verification
 with canonical English Crystal v1.1. The project currently contains:
 
@@ -67,6 +67,8 @@ with canonical English Crystal v1.1. The project currently contains:
   exact-ROM profile binding, player-location restore, and elapsed-time RTC;
 - audible native map/battle music cues, menu SFX, and species cry scheduling
   through a LÖVE audio sink;
+- complete Violet Gym interaction behavior, ROM-backed Falkner battle, Zephyr
+  Badge and TM31 rewards, and Route 32 progression unlock;
 - normalized battle records and Gen 2 Pokémon instances with integer stats,
   DVs, gender, shiny state, Hidden Power, and growth curves;
 - deterministic battle turns, switching and forced replacements, damage,
@@ -94,6 +96,7 @@ to 96 records. M5-009 adds the visible Pack, party, and Pokédex field menu.
 M5-010 adds visible Pokémon Center, mart, and PC flows.
 M5-011 adds visible native saving and automatic profile-bound restore.
 M5-012 connects introduction, world, battle, and menu audio playback.
+M5-013 completes Falkner's Gym and first-badge progression.
 Saves, audio playback, broader move-effect coverage,
 broader story progression, and most maps remain future milestones.
 
@@ -312,6 +315,15 @@ To verify M5-012's music, SFX, and cry scheduling:
 This checks ordered one-shot scheduling and a cry keyed by a species identity
 decoded from the supplied ROM. LÖVE smoke verification covers the playback
 sink itself.
+
+To verify M5-013's Falkner and badge progression:
+
+```powershell
+./scripts/verify-crystal-falkner.ps1 -RomPath "D:\path\to\your\ROM"
+```
+
+This verifies Falkner's exact ROM-backed party, native battle construction,
+the winning reward path, Zephyr Badge persistence, and TM31.
 
 ## Project direction
 

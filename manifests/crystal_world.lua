@@ -1,5 +1,8 @@
 return {
   initialMap = { group = 24, map = 4, x = 13, y = 6 },
+  trainerReferences = {
+    { classId = 1, partyId = 1 }, -- Falkner
+  },
   groups = {
     {
       id = 24,

@@ -550,6 +550,9 @@ function CrystalWorldData.extract(rom, profile)
   local groupIds = {}
   local extractedMapIds = {}
   local trainerReferences = Json.array({})
+  for _, reference in ipairs(worldProfile.trainerReferences or {}) do
+    trainerReferences[#trainerReferences + 1] = reference
+  end
   local spriteIds = { [1] = true, [96] = true }
   local tilesetIds = {}
   for _, groupProfile in ipairs(worldProfile.groups) do

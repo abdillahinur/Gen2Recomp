@@ -283,6 +283,12 @@ LÖVE sound data and Sources. The first slice uses generated, non-ROM waveforms
 for map music, UI SFX, and species cries. This preserves the no-bundled-content
 boundary while leaving exact ROM channel decoding as a separate fidelity layer.
 
+M5-013 adds the Violet Gym map definition and one explicit leader-party
+reference to ROM trainer extraction. Ordinary Gym trainers remain driven by
+the sight controller; Falkner is an interaction script that suspends on the
+same visible battle bridge and commits badge/TM progression only after a win.
+The Zephyr flag is shared directly with Route 32's source-controlled guard.
+
 M4 adds normalized species, move, item, and trainer records; Gen 2 integer
 stats, DVs, gender, shiny state, and Hidden Power; deterministic battle state,
 action ordering, switching, damage, status, effect dispatch, AI, catching,

@@ -18,7 +18,7 @@ Falkner's Gym, and the first badge.
 10. Pokémon Center, mart, and PC systems. **Complete.**
 11. Save/load and RTC persistence. **Complete.**
 12. Music, SFX, and cries. **Complete.**
-13. Falkner Gym and badge progression.
+13. Falkner Gym and badge progression. **Complete.**
 14. Automated introduction-to-first-badge acceptance route.
 
 Each checkpoint is one local commit. M5 is complete only when the final route
@@ -204,6 +204,19 @@ This makes every audio category audible without bundling cartridge audio and
 keeps event timing testable headlessly. Exact ROM-decoded channel sequences,
 instruments, and cry parameters remain a fidelity upgrade after the first-badge
 vertical slice rather than being misrepresented as complete audio emulation.
+
+## Falkner Gym
+
+M5-013 adds the 20th map definition and full Violet Gym interaction coverage:
+both sight trainers, Falkner, guide, and statues. Falkner's two-member party is
+decoded from the player's ROM as an explicit leader reference and dispatched
+through the existing native smart-AI battle bridge.
+
+Victory persists the story completion and Zephyr Badge flags, marks both Gym
+trainers complete as in the reference behavior, plays the badge cue, grants
+TM31, and changes repeat dialogue. A loss grants nothing. Route 32's existing
+badge guard now observes this same persistent flag and stops returning the
+player to Violet.
 
 ## Exit gate
 
