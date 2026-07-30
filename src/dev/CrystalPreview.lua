@@ -15,7 +15,8 @@ local function readFile(path)
   return data
 end
 
-function CrystalPreview.load(path)
+function CrystalPreview.load(path, options)
+  options = options or {}
   local data = readFile(path)
   local identity = RomIdentifier.inspect(data)
   if not identity.accepted then
@@ -26,8 +27,14 @@ function CrystalPreview.load(path)
   data = nil
   local world = CrystalWorldData.extract(rom, identity.profile)
   local text = CrystalTextData.extract(rom, identity.profile)
+  local battle
+  if options.battle then
+    local CrystalBattleData =
+      require("src.import.CrystalBattleData")
+    battle = CrystalBattleData.extract(rom, identity.profile)
+  end
   rom = nil
-  return world, identity.profile, text
+  return world, identity.profile, text, battle
 end
 
 return CrystalPreview

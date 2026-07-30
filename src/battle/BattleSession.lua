@@ -85,6 +85,24 @@ function BattleSession:catch(itemId)
   return result
 end
 
+function BattleSession:run()
+  if self.state.phase == "complete" then
+    error("battle session: battle is already complete", 2)
+  end
+  if self.state.kind ~= "wild" then
+    self.state:emit("battle.run_failed", {
+      reason = "trainer_battle",
+    })
+    return false
+  end
+  self.state.outcome = "escaped"
+  self.state.phase = "complete"
+  self.state.pendingActions = {}
+  self.state:emit("battle.escaped")
+  self.state:emit("battle.ended", { outcome = "escaped" })
+  return true
+end
+
 function BattleSession:runToCompletion(maximumTurns)
   maximumTurns = maximumTurns or 100
   while self.state.phase ~= "complete"

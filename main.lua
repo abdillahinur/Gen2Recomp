@@ -41,9 +41,20 @@ function love.load()
     local GameSession = require("src.game.GameSession")
     local IntroductionState = require("src.states.IntroductionState")
     local WorldState = require("src.states.WorldState")
-    local worldData, profile, textCatalog =
-      CrystalPreview.load(romPath)
-    if os.getenv("GEN2RECOMP_SKIP_INTRO") == "1" then
+    local battlePreview =
+      os.getenv("GEN2RECOMP_BATTLE_PREVIEW") == "1"
+    local worldData, profile, textCatalog, battleData =
+      CrystalPreview.load(romPath, { battle = battlePreview })
+    if battlePreview then
+      local BattleSceneState = require("src.states.BattleSceneState")
+      local CrystalBattleGates =
+        require("src.battle.CrystalBattleGates")
+      local DataRegistry = require("src.pokemon.DataRegistry")
+      local registry = DataRegistry.new(battleData)
+      local session = CrystalBattleGates.route29Wild(
+        registry, battleData, 152)
+      states:push(BattleSceneState.new(session))
+    elseif os.getenv("GEN2RECOMP_SKIP_INTRO") == "1" then
       states:push(WorldState.new(worldData, {
         gameSession = GameSession.new(profile.id),
         textCatalog = textCatalog,

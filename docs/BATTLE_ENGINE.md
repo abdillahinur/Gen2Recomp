@@ -1,8 +1,8 @@
 # Battle engine
 
-M4 is a presentation-independent Gen 2 battle slice. It supplies the native
-simulation and a session API; it does not yet draw a battle scene or command
-menus in LÖVE.
+M4 is a presentation-independent Gen 2 battle slice. M5-003 now layers a
+visible LÖVE battle scene and command menus over that unchanged native session
+API.
 
 ## Data boundary
 
@@ -35,9 +35,26 @@ The battle core owns:
 - forced replacements and terminal player-win, opponent-win, draw, and caught
   outcomes.
 
-`BattleSession` joins these systems without depending on rendering. A later UI
-can submit the same move, switch, and catch commands and consume the emitted
-semantic events.
+`BattleSession` joins these systems without depending on rendering. The UI
+submits the same move, switch, catch, and escape commands and consumes the
+emitted semantic events.
+
+## M5 presentation adapter
+
+`BattlePresentation` converts the session state and semantic event stream into
+testable view models for:
+
+- opponent/player HP, level, and status HUDs;
+- turn messages and terminal outcomes;
+- Fight, Pack, Pokémon, and Run;
+- move names, types, and current/maximum PP;
+- party HP, active slot, switching, and disabled choices;
+- catching, wild escape, and rejected trainer escape.
+
+`BattleSceneState` draws those models on the 160×144 native canvas. The current
+scene uses source-authored silhouettes rather than bundled Pokémon pictures.
+M5-004 will push this state from overworld encounters and hand-written script
+battle requests.
 
 ## M4 acceptance fixtures
 
@@ -69,8 +86,8 @@ The implementation was checked against `pret/pokecrystal` source revision
 - `data/types/type_matchups.asm` and
   `data/battle/critical_hit_chances.asm`.
 
-M4 is not full battle parity. The visible battle UI, Struggle/no-PP fallback,
-the complete move-effect catalog, held-item activation, weather, multi-battle
-formats, animations, audio, and differential emulator coverage remain later
-work. Each complex cartridge routine should enter the native engine as a
-named, directly tested Lua implementation.
+M4/M5-003 are not full battle parity. Struggle/no-PP fallback, the complete
+move-effect catalog, held-item activation, weather, multi-battle formats,
+Pokémon picture extraction, animations, audio, and differential emulator
+coverage remain later work. Each complex cartridge routine should enter the
+native engine as a named, directly tested Lua implementation.

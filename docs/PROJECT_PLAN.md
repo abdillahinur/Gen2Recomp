@@ -74,8 +74,8 @@ Implement the Gen 2 domain model and a presentation-independent deterministic
 battle simulation. Use the first rival and wild encounters as the initial
 end-to-end battle gates. This M4 simulation slice is complete and verified
 locally against species and move data decoded from canonical English Crystal
-v1.1. Visible battle-scene and command-menu wiring belongs to the next
-application-integration slice.
+v1.1. M5-003 now supplies the standalone visible battle scene and command
+menus; M5-004 connects world and script battle requests to that state.
 
 ### Systems and content expansion
 

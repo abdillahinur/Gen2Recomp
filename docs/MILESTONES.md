@@ -104,8 +104,8 @@ Exit gate:
   `./scripts/verify-crystal-battles.ps1 -RomPath "<path>"`; both fixtures use
   species and move records decoded from the supplied ROM.
 
-Visible battle presentation remains part of the application-integration work
-for M5. M4's exit gate covers the native simulation and its session boundary.
+M5-003 now supplies visible battle presentation. M4's exit gate continues to
+cover the native simulation and its session boundary.
 
 ## M5 — Violet City vertical slice
 
@@ -132,6 +132,7 @@ Completed checkpoints:
 
 - [x] M5-001 persistent game-session contract.
 - [x] M5-002 55-record ROM-owned dialogue catalog and visible pagination.
+- [x] M5-003 visible battle scene, messages, and command menus.
 
 ## M6 — Johto campaign
 

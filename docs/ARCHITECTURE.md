@@ -212,6 +212,13 @@ resolves player/species values and creates two-line pages for the existing
 presentation controller. Source control contains symbol metadata only; exact
 dialogue exists solely in the player's ROM and private runtime/cache data.
 
+M5-003 adds a `BattleSceneState` and `BattlePresentation` adapter over the
+presentation-independent M4 session. The adapter consumes semantic battle
+events and exposes HUD, messages, root commands, moves/PP, party switches,
+catching, escape attempts, and terminal acknowledgement. It does not mutate
+the deterministic battle core outside its public session API. The scene has a
+standalone ROM-backed developer preview; overworld dispatch belongs to M5-004.
+
 M4 adds normalized species, move, item, and trainer records; Gen 2 integer
 stats, DVs, gender, shiny state, and Hidden Power; deterministic battle state,
 action ordering, switching, damage, status, effect dispatch, AI, catching,
@@ -225,8 +232,8 @@ wild fixtures with terminal outcomes and experience awards.
 The project does not yet contain the first-launch file picker or
 importer-screen wiring. M3's text, choice, clock, and naming services are
 connected to visible LÖVE UI, and the current 55-record slice now uses exact
-ROM-owned dialogue. The M4 battle simulation remains headless: a visible
-battle scene, command menus, broader move-effect coverage, held items, weather,
-saves, audio playback, and campaign progression remain future work. Import,
-world, event, presentation, and battle acceptance are exercised through
-fixtures and local player-ROM-gated verification commands.
+ROM-owned dialogue. The battle simulation now has a visible standalone scene,
+but broader move-effect coverage, held items, weather, world dispatch, saves,
+audio playback, and campaign progression remain future work. Import, world,
+event, presentation, and battle acceptance are exercised through fixtures and
+local player-ROM-gated verification commands.

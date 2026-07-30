@@ -94,4 +94,27 @@ return function(test, equal, truthy)
     equal(session:runToCompletion(4), "opponent_win")
     truthy(state.player:active():isFainted())
   end)
+
+  test("battle session escapes wilds but not trainers", function()
+    local registry = records()
+    local function value(kind)
+      return BattleSession.new(registry, {
+        state = BattleState.new({
+          kind = kind,
+          rng = SequenceRng.new({ 255 }),
+          playerParty = { mon(registry, "hero", 100, "finish") },
+          opponentParty = { mon(registry, "foe", 2, "tap") },
+        }),
+      })
+    end
+    local wild = value("wild")
+    truthy(wild:run())
+    equal(wild.state.phase, "complete")
+    equal(wild.state.outcome, "escaped")
+
+    local trainer = value("trainer")
+    truthy(not trainer:run())
+    equal(trainer.state.phase, "command")
+    equal(trainer.state.events[1].kind, "battle.run_failed")
+  end)
 end

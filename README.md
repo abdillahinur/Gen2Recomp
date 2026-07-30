@@ -12,7 +12,7 @@ normal play. A future first-boot UI will invoke this importer.
 
 ## Current status
 
-The repository has completed **M4: Battle slice** and the first two checkpoints
+The repository has completed **M4: Battle slice** and the first three checkpoints
 of **M5: Violet City vertical slice**, including end-to-end M1–M4 verification
 with canonical English Crystal v1.1. The project currently contains:
 
@@ -44,6 +44,8 @@ with canonical English Crystal v1.1. The project currently contains:
   interactions, and Elm's Lab scene presentation driven by those M3 services;
 - runtime decoding of 55 ROM-owned introduction, New Bark, and Elm's Lab text
   records, with two-line pagination and player/species substitutions;
+- a visible native battle scene with HP HUDs, messages, Fight, Pack, Pokémon,
+  Run, move selection, party switching, catching, and terminal outcomes;
 - a profile-bound persistent game-session contract for script, party,
   inventory, phone, clock, money, player-location, and Pokédex state;
 - normalized battle records and Gen 2 Pokémon instances with integer stats,
@@ -62,11 +64,11 @@ ROM path, the developer preview now visibly runs M3's introduction, gender
 choice, clock setup, ROM-owned dialogue, and on-screen naming before entering
 the world. New Bark NPC/sign interactions and Elm's Lab scene use the same
 visible, paginated presentation controller. Semantic labels remain only as a
-fallback for dialogue outside the current 55-record extraction manifest. M4's
-battle simulation is still headless, and its visible battle scene and command
-menus are not yet wired into the LÖVE preview. Saves, audio playback, broader
-move-effect coverage, broader story progression, and most maps remain future
-milestones.
+fallback for dialogue outside the current 55-record extraction manifest. The
+M4 simulation now has a standalone visible battle preview, but world and script
+battle requests are not connected to it until M5-004. Saves, audio playback,
+broader move-effect coverage, broader story progression, and most maps remain
+future milestones.
 
 ## Final deliverable
 
@@ -184,6 +186,18 @@ To run M4's deterministic first-rival and ordinary wild-battle gates:
 This decodes normalized species and move records directly from the supplied
 ROM, completes both headless battle fixtures, verifies their outcomes and
 experience awards, and retains no raw ROM ranges.
+
+To open M5-003's standalone Route 29 battle scene:
+
+```powershell
+./scripts/run-battle-preview.ps1 -RomPath "D:\path\to\your\ROM"
+```
+
+To drive that visible presentation model to a verified terminal result:
+
+```powershell
+./scripts/verify-crystal-battle-ui.ps1 -RomPath "D:\path\to\your\ROM"
+```
 
 ## Project direction
 

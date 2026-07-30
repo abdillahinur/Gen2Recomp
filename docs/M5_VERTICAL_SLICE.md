@@ -8,7 +8,7 @@ Falkner's Gym, and the first badge.
 
 1. Persistent game-session and vertical-slice contract.
 2. ROM-owned dialogue catalog. **Complete.**
-3. Visible battle scene and command menus.
+3. Visible battle scene and command menus. **Complete.**
 4. World/script-to-battle bridge.
 5. World extraction through Violet City.
 6. Time-based wild encounters.
@@ -56,6 +56,19 @@ unavailable; original dialogue is never added to source control.
 The committed manifest contains stable semantic IDs, audited RGBDS symbol
 names, and substitution metadata—not dialogue bytes or strings. Both Crystal
 US v1.0 and v1.1 use independently generated pinned symbol offsets.
+
+## Battle presentation boundary
+
+M5-003 adds a native `BattleSceneState` and presentation controller over the
+M4 `BattleSession`. It exposes HP/status HUDs, event messages, Fight, Pack,
+Pokémon, Run, move/PP details, party switching, catching, escaping, failed
+trainer escape, and acknowledged terminal outcomes. The standalone ROM-backed
+battle preview uses normalized species and move names from the supplied ROM.
+
+The scene is not dispatched by the overworld yet; that adapter is M5-004.
+Species are represented by native silhouettes until battle-picture extraction
+is added, while all battle state and menu behavior already use the real native
+simulation.
 
 ## Exit gate
 
