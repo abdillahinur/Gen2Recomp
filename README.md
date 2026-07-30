@@ -79,6 +79,7 @@ To run the LÖVE bootstrap briefly and exit automatically:
 - [Milestones](docs/MILESTONES.md)
 - [Backlog](docs/BACKLOG.md)
 - [Private cache format](docs/CACHE_FORMAT.md)
+- [Reference-data generation](docs/REFERENCE_DATA.md)
 - [Content policy](docs/CONTENT_POLICY.md)
 
 ## ROM support

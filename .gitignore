@@ -38,9 +38,10 @@ portable.txt
 .luarc.json
 .vscode/
 .idea/
+__pycache__/
+*.py[cod]
 
 # OS noise
 .DS_Store
 Thumbs.db
 desktop.ini
-

@@ -14,3 +14,12 @@ if ($LASTEXITCODE -ne 0) {
   exit $LASTEXITCODE
 }
 
+$python = Get-Command python -ErrorAction SilentlyContinue
+if (-not $python) {
+  throw "Python 3 is required to run the developer-tool tests."
+}
+
+& $python.Source -m unittest discover -s "tools/tests"
+if ($LASTEXITCODE -ne 0) {
+  exit $LASTEXITCODE
+}

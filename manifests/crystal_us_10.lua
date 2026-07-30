@@ -1,5 +1,5 @@
--- This profile contains identity and engine-capability metadata only.
--- ROM addresses and table schemas will be generated and audited during M1.
+local generatedSymbols = require("manifests.crystal_us_10_symbols")
+
 return {
   id = "crystal_us_10",
   family = "crystal",
@@ -33,6 +33,7 @@ return {
     crystalStory = true,
     realTimeClock = true,
   },
-  symbols = {},
+  reference = generatedSymbols.source,
+  symbols = generatedSymbols.symbols,
   schemas = {},
 }

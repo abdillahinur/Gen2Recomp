@@ -1,0 +1,19 @@
+# Static data boundaries needed by the first Crystal importer slice.
+BaseData
+PokemonNames
+BetaMonPicBanks
+
+FontExtra
+Font
+FontBattleExtra
+Frames
+
+Tilesets
+TilesetJohtoGFX
+TilesetJohtoMeta
+TilesetJohtoColl
+TilesetIcePathGFX
+TilesetJohtoPalMap
+TilesetJohtoModernPalMap
+MapGroupPalettes
+CollisionPermissionTable
