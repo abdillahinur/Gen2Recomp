@@ -85,5 +85,18 @@ It never accepts player-controlled paths.
 
 Promotion preserves an already valid matching target instead of replacing it.
 An invalid target is first renamed to a quarantine sibling; if promotion fails,
-that target is restored. Interruption recovery and stale-directory cleanup are
-implemented by `M1-007`.
+that target is restored.
+
+Cancellation is cooperative at payload-write and commit boundaries. It removes
+the active staging directory without touching a valid target. At startup,
+recovery classifies same-owner siblings:
+
+- a valid target wins and stale staging/quarantine siblings are removed;
+- a complete staging cache may be promoted when the target is absent or
+  invalid;
+- incomplete staging directories are removed;
+- a quarantined prior directory is restored if neither a target nor a usable
+  staging cache survived.
+
+Recovery never selects directories whose names do not match the internally
+generated transaction-token grammar.

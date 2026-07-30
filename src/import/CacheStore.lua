@@ -36,6 +36,10 @@ local function parent(path)
   return path:match("^(.*)/[^/]+$")
 end
 
+local function basename(path)
+  return path:match("([^/]+)$")
+end
+
 local function appendUnique(result, seen, message)
   if not seen[message] then
     seen[message] = true
@@ -177,7 +181,8 @@ function CacheStore:validate(path, profile)
   return #errors == 0, errors, manifest
 end
 
-function CacheStore:begin(profile)
+function CacheStore:begin(profile, options)
+  options = options or {}
   local target = CacheManifest.directory(profile, self.buildInfo)
   local token
   local staging
@@ -209,13 +214,24 @@ function CacheStore:begin(profile)
     files = {},
     paths = {},
     state = "building",
+    cancellationToken = options.cancellationToken,
   }, Transaction)
+end
+
+function Transaction:checkCancellation()
+  local token = self.cancellationToken
+  if token and token:isCancelled() then
+    local reason = token:getReason() or "cancelled"
+    self:abort()
+    error("cache transaction cancelled: " .. tostring(reason), 2)
+  end
 end
 
 function Transaction:write(path, kind, data)
   if self.state ~= "building" then
     error("cache transaction is not writable", 2)
   end
+  self:checkCancellation()
   local pathOk, pathError = CacheManifest.validateFilePath(path)
   if not pathOk then
     error("invalid cache payload path: " .. pathError, 2)
@@ -255,6 +271,7 @@ function Transaction:commit()
   if self.state ~= "building" then
     error("cache transaction cannot be committed from state " .. self.state, 2)
   end
+  self:checkCancellation()
 
   local manifest = CacheManifest.new(
     self.profile,
@@ -274,6 +291,7 @@ function Transaction:commit()
     error("staged cache validation failed: "
       .. table.concat(validationErrors, "; "), 2)
   end
+  self:checkCancellation()
 
   local existingInfo = self.store.filesystem:info(self.target)
   if existingInfo then
@@ -338,6 +356,189 @@ function Transaction:abort()
     requireSuccess(ok, message, "could not remove cache staging directory")
   end
   self.state = "aborted"
+end
+
+function CacheStore:recover(profile)
+  local filesystem = self.filesystem
+  local target = CacheManifest.directory(profile, self.buildInfo)
+  local targetParent = parent(target)
+  local targetName = basename(target)
+  local report = {
+    target = target,
+    status = "missing",
+    actions = {},
+    errors = {},
+  }
+
+  local function record(action, path)
+    report.actions[#report.actions + 1] = {
+      action = action,
+      path = path,
+    }
+  end
+
+  local function remove(path, action)
+    local ok, message = filesystem:removeTree(path)
+    if ok then
+      record(action, path)
+      return true
+    end
+    report.errors[#report.errors + 1] =
+      "could not remove " .. path .. ": " .. tostring(message)
+    return false
+  end
+
+  local parentInfo = filesystem:info(targetParent)
+  if not parentInfo then
+    return report
+  end
+  if parentInfo.type ~= "directory" then
+    report.status = "blocked"
+    report.errors[#report.errors + 1] =
+      "cache target parent is not a directory"
+    return report
+  end
+
+  local items, listError = filesystem:list(targetParent)
+  if not items then
+    report.status = "blocked"
+    report.errors[#report.errors + 1] =
+      "could not enumerate cache siblings: " .. tostring(listError)
+    return report
+  end
+
+  local staging = {}
+  local quarantines = {}
+  local stagingPrefix = targetName .. ".staging-"
+  local quarantinePrefix = targetName .. ".invalid-"
+  for _, item in ipairs(items) do
+    if item:sub(1, #stagingPrefix) == stagingPrefix then
+      local token = item:sub(#stagingPrefix + 1)
+      if validateToken(token) then
+        staging[#staging + 1] = targetParent .. "/" .. item
+      end
+    elseif item:sub(1, #quarantinePrefix) == quarantinePrefix then
+      local token = item:sub(#quarantinePrefix + 1)
+      if validateToken(token) then
+        quarantines[#quarantines + 1] = targetParent .. "/" .. item
+      end
+    end
+  end
+  table.sort(staging)
+  table.sort(quarantines)
+
+  local targetInfo = filesystem:info(target)
+  local targetValid = false
+  if targetInfo then
+    targetValid = self:validate(target, profile)
+  end
+
+  if targetValid then
+    report.status = "ready"
+    for _, path in ipairs(staging) do
+      remove(path, "removed-staging")
+    end
+    for _, path in ipairs(quarantines) do
+      remove(path, "removed-quarantine")
+    end
+    return report
+  end
+
+  local validStaging = {}
+  for _, path in ipairs(staging) do
+    local valid = self:validate(path, profile)
+    if valid then
+      validStaging[#validStaging + 1] = path
+    else
+      remove(path, "removed-incomplete-staging")
+    end
+  end
+
+  if #validStaging > 0 then
+    local selected = validStaging[1]
+    local recoveryQuarantine
+    if targetInfo then
+      for _ = 1, 32 do
+        local token = self.tokenFactory()
+        if not validateToken(token) then
+          report.status = "blocked"
+          report.errors[#report.errors + 1] =
+            "cache recovery token is unsafe"
+          return report
+        end
+        recoveryQuarantine = target .. ".invalid-" .. token
+        if not filesystem:info(recoveryQuarantine) then
+          break
+        end
+        recoveryQuarantine = nil
+      end
+      if not recoveryQuarantine then
+        report.status = "blocked"
+        report.errors[#report.errors + 1] =
+          "could not allocate recovery quarantine"
+        return report
+      end
+
+      local moved, moveError =
+        filesystem:rename(target, recoveryQuarantine)
+      if not moved then
+        report.status = "blocked"
+        report.errors[#report.errors + 1] =
+          "could not quarantine invalid target: " .. tostring(moveError)
+        return report
+      end
+      record("quarantined-invalid-target", recoveryQuarantine)
+    end
+
+    local promoted, promoteError = filesystem:rename(selected, target)
+    if not promoted then
+      if recoveryQuarantine and not filesystem:info(target) then
+        local restored, restoreError =
+          filesystem:rename(recoveryQuarantine, target)
+        if restored then
+          record("restored-invalid-target", target)
+        else
+          report.errors[#report.errors + 1] =
+            "recovery rollback failed: " .. tostring(restoreError)
+        end
+      end
+      report.status = "blocked"
+      report.errors[#report.errors + 1] =
+        "could not promote recovered staging cache: "
+          .. tostring(promoteError)
+      return report
+    end
+    record("promoted-staging", target)
+    report.status = "recovered"
+
+    for index = 2, #validStaging do
+      remove(validStaging[index], "removed-redundant-staging")
+    end
+    for _, path in ipairs(quarantines) do
+      remove(path, "removed-quarantine")
+    end
+    if recoveryQuarantine then
+      remove(recoveryQuarantine, "removed-quarantine")
+    end
+    return report
+  end
+
+  if not targetInfo and #quarantines > 0 then
+    local restored, restoreError =
+      filesystem:rename(quarantines[1], target)
+    if restored then
+      record("restored-quarantine", target)
+      report.status = "restored"
+    else
+      report.status = "blocked"
+      report.errors[#report.errors + 1] =
+        "could not restore quarantined target: " .. tostring(restoreError)
+    end
+    return report
+  end
+
+  report.status = targetInfo and "invalid" or "missing"
+  return report
 end
 
 return CacheStore

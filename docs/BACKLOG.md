@@ -25,7 +25,7 @@ Backlog IDs are stable planning references, not issue tracker numbers.
 - [x] `M1-004` Match ROMs through the profile registry.
 - [x] `M1-005` Design cache manifest and ownership metadata.
 - [x] `M1-006` Implement temporary cache and atomic promotion.
-- [ ] `M1-007` Add cancellation and failure recovery.
+- [x] `M1-007` Add cancellation and failure recovery.
 - [ ] `M1-008` Generate Crystal symbols from pinned RGBDS output.
 - [ ] `M1-009` Decode Crystal font and charmap.
 - [ ] `M1-010` Decode species/base-stat records.

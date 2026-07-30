@@ -136,6 +136,10 @@ Cache construction occurs in a unique sibling staging directory. The manifest
 is written last and the complete tree is re-read and fingerprint-verified
 before promotion. A valid matching target is immutable and reused. An invalid
 target is quarantined and restored if the staging-directory rename fails.
+Cooperative cancellation removes only the active staging directory. Startup
+recovery prefers a valid target, can finish promotion of a complete staged
+cache, removes incomplete staging data, and restores a quarantined prior
+directory when promotion was interrupted.
 
 ## Current implementation
 

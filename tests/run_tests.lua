@@ -130,6 +130,8 @@ require("tests.cache_manifest_tests")(test, equal, truthy, raises)
 require("tests.json_tests")(test, equal, truthy, raises)
 require("tests.cache_manifest_codec_tests")(test, equal, truthy, raises)
 require("tests.cache_store_tests")(test, equal, truthy, raises)
+require("tests.cancellation_token_tests")(test, equal, truthy, raises)
+require("tests.cache_recovery_tests")(test, equal, truthy, raises)
 
 local failures = 0
 
