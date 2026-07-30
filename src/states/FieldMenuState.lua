@@ -41,7 +41,10 @@ function FieldMenuState:draw()
       local suffix = option.disabled and " ---" or ""
       love.graphics.print(
         marker .. " " .. option.name .. suffix,
-        38, 38 + (index - 1) * 18)
+        38, 30 + (index - 1) * 16)
+    end
+    if model.notice then
+      love.graphics.printf(model.notice, 16, 114, 128, "center")
     end
   elseif model.kind == "pack" then
     if model.empty then

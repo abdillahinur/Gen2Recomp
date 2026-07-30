@@ -8,6 +8,7 @@ local ROOT = {
   { id = "pokedex", label = "POKéDEX" },
   { id = "party", label = "POKéMON" },
   { id = "pack", label = "PACK" },
+  { id = "save", label = "SAVE" },
   { id = "close", label = "CLOSE" },
 }
 
@@ -69,6 +70,8 @@ function FieldMenuPresentation.new(gameSession, battleData, options)
     species = battleData.species,
     bySlug = bySlug,
     onClose = options.onClose,
+    onSave = options.onSave,
+    notice = nil,
     mode = "root",
     rootIndex = 1,
     listIndex = 1,
@@ -102,6 +105,9 @@ function FieldMenuPresentation:update(input)
       local selected = ROOT[self.rootIndex].id
       if selected == "close" then
         if self.onClose then self.onClose() end
+      elseif selected == "save" then
+        local ok = self.onSave and self.onSave()
+        self.notice = ok and "GAME SAVED." or "SAVE FAILED."
       elseif selected ~= "pokedex" or self:_hasPokedex() then
         self.mode = selected
         self.listIndex = 1
@@ -198,6 +204,7 @@ function FieldMenuPresentation:model()
     return {
       kind = "root",
       title = "MENU",
+      notice = self.notice,
       options = options,
       selected = self.rootIndex,
     }

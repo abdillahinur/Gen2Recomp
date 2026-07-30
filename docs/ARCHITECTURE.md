@@ -270,6 +270,13 @@ service headless-testable. Facility entry is selected from decoded map ID and
 the nurse/clerk object in front of the player; no cartridge script VM is
 executed. PC contents are detached session data and participate in snapshots.
 
+M5-011 adds `NativeSaveCodec`, `SaveStore`, and `RtcPersistence`. The codec
+binds schema-1 snapshots to an exact ROM profile and payload checksum. The
+store uses staging, primary, and backup files through the existing restricted
+filesystem adapter. RTC restore applies elapsed host seconds to a detached
+snapshot before `GameSession` validation; runtime services and ROM readers are
+never serialized.
+
 M4 adds normalized species, move, item, and trainer records; Gen 2 integer
 stats, DVs, gender, shiny state, and Hidden Power; deterministic battle state,
 action ordering, switching, damage, status, effect dispatch, AI, catching,

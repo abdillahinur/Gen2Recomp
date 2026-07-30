@@ -37,11 +37,14 @@ function WorldState.new(worldData, options)
   options = options or {}
   local repository = MapRepository.new(worldData)
   local timeProvider = createTimeProvider(options)
+  local savedPlayer = options.gameSession
+    and options.gameSession.player
   local self = setmetatable({
     opaque = true,
     world = World.new(worldData, {
       repository = repository,
       playerSpriteId = options.playerSpriteId,
+      initialMap = savedPlayer or worldData.initialMap,
     }),
     renderer = TileRenderer.new(
       repository,
@@ -51,6 +54,9 @@ function WorldState.new(worldData, options)
     stateStack = options.stateStack,
     battleData = options.battleData,
   }, WorldState)
+  if savedPlayer then
+    self.world.player.facing = savedPlayer.facing
+  end
   if options.scripts ~= false then
     self.scripts = MapPresentationRuntime.new(self.world, {
       state = options.scriptState,
@@ -60,6 +66,7 @@ function WorldState.new(worldData, options)
     })
   end
   self.gameSession = options.gameSession
+  self.onSave = options.onSave
   if worldData.encounters and options.battleBridge then
     self.encounters = EncounterController.new(
       worldData.encounters,
@@ -156,6 +163,7 @@ function WorldState:_openFieldMenu()
       onClose = function()
         if stack:current() == menu then stack:pop() end
       end,
+      onSave = self.onSave,
     }
   )
   stack:push(menu)

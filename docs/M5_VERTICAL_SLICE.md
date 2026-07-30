@@ -16,7 +16,7 @@ Falkner's Gym, and the first badge.
 8. Route, Cherrygrove, and Violet event behavior. **Complete.**
 9. Pack, party, and Pokédex UI. **Complete.**
 10. Pokémon Center, mart, and PC systems. **Complete.**
-11. Save/load and RTC persistence.
+11. Save/load and RTC persistence. **Complete.**
 12. Music, SFX, and cries.
 13. Falkner Gym and badge progression.
 14. Automated introduction-to-first-badge acceptance route.
@@ -178,6 +178,19 @@ changes, and money updates. The underlying facility service also provides
 Potion use with calculated HP limits. Item IDs and labels remain semantic at
 this checkpoint; a complete ROM-derived item record catalog is campaign work
 beyond this first-badge slice.
+
+## Native saves and RTC
+
+M5-011 wraps the detached `GameSession` snapshot in a versioned, checksummed
+native-save envelope bound to the exact ROM profile. Saving stages a new file,
+rotates the previous primary to a backup, and promotes only the complete staged
+file. Loading falls back to the backup when the primary is corrupt.
+
+Start-menu Save writes through LÖVE's application save directory, and launch
+restores the profile-matching save before showing the introduction. Player map,
+position, and facing resume in the decoded world. RTC reconciliation advances
+the in-game hour, minute, and weekday by host elapsed seconds; a backward host
+clock is reported and contributes zero elapsed time.
 
 ## Exit gate
 

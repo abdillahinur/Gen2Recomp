@@ -47,6 +47,9 @@ function love.load()
       CrystalPreview.load(romPath, { battle = true })
     local DataRegistry = require("src.pokemon.DataRegistry")
     local registry = DataRegistry.new(battleData)
+    local LoveFilesystem = require("src.core.LoveFilesystem")
+    local SaveStore = require("src.save.SaveStore")
+    local saveStore = SaveStore.new(LoveFilesystem.new())
     local function worldState(gameSession)
       local BattleBridge = require("src.battle.BattleBridge")
       local BattleRequestFactory =
@@ -61,6 +64,10 @@ function love.load()
         battleBridge = BattleBridge.new(states, factory),
         stateStack = states,
         battleData = battleData,
+        onSave = function()
+          return saveStore:save(
+            profile.id, gameSession:snapshot(), os.time())
+        end,
       })
     end
     if battlePreview then
@@ -70,18 +77,25 @@ function love.load()
       local session = CrystalBattleGates.route29Wild(
         registry, battleData, 152)
       states:push(BattleSceneState.new(session))
-    elseif os.getenv("GEN2RECOMP_SKIP_INTRO") == "1" then
-      states:push(worldState(GameSession.new(profile.id)))
     else
-      states:push(IntroductionState.new({
-        textCatalog = textCatalog,
-        onComplete = function(_, session)
-          local gameSession = GameSession.new(profile.id, {
-            state = session.state,
-          })
-          states:replace(worldState(gameSession))
-        end,
-      }))
+      local loaded = saveStore:load(profile.id, os.time())
+      if loaded then
+        states:push(worldState(GameSession.new(profile.id, {
+          snapshot = loaded,
+        })))
+      elseif os.getenv("GEN2RECOMP_SKIP_INTRO") == "1" then
+        states:push(worldState(GameSession.new(profile.id)))
+      else
+        states:push(IntroductionState.new({
+          textCatalog = textCatalog,
+          onComplete = function(_, session)
+            local gameSession = GameSession.new(profile.id, {
+              state = session.state,
+            })
+            states:replace(worldState(gameSession))
+          end,
+        }))
+      end
     end
   else
     states:push(BootstrapState.new())

@@ -140,6 +140,7 @@ Completed checkpoints:
 - [x] M5-008 Route, Cherrygrove, and Violet native event behavior.
 - [x] M5-009 visible Pack, party, and ROM-backed Pokédex presentation.
 - [x] M5-010 visible Pokémon Center, mart, and PC systems.
+- [x] M5-011 versioned atomic saves, backup recovery, and RTC restore.
 
 ## M6 — Johto campaign
 

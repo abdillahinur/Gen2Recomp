@@ -125,4 +125,20 @@ return function(test, equal, truthy)
       menu:update(input("down"))
       equal(menu:model().selected, 2)
     end)
+
+  test("field menu exposes visible native saving", function()
+    local game, data = fixture()
+    local saves = 0
+    local menu = FieldMenuPresentation.new(game, data, {
+      onSave = function()
+        saves = saves + 1
+        return true
+      end,
+    })
+    menu:update(input("up"))
+    menu:update(input("up"))
+    menu:update(input("confirm"))
+    equal(saves, 1)
+    equal(menu:model().notice, "GAME SAVED.")
+  end)
 end
