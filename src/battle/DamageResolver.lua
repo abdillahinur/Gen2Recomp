@@ -1,3 +1,4 @@
+local StatusSystem = require("src.battle.StatusSystem")
 local TypeChart = require("src.battle.TypeChart")
 
 local DamageResolver = {}
@@ -29,10 +30,14 @@ end
 
 local function calculateBase(actor, target, move, critical)
   local special = TypeChart.isSpecial(move.type)
-  local attack = special
-    and actor.stats.specialAttack or actor.stats.attack
-  local defense = special
-    and target.stats.specialDefense or target.stats.defense
+  local attackStat = special and "specialAttack" or "attack"
+  local defenseStat = special and "specialDefense" or "defense"
+  local attack = critical
+    and actor.stats[attackStat]
+    or StatusSystem.modifiedStat(actor, attackStat)
+  local defense = critical
+    and target.stats[defenseStat]
+    or StatusSystem.modifiedStat(target, defenseStat)
   defense = math.max(1, defense)
   local damage = math.floor(actor.level * 2 / 5) + 2
   damage = damage * move.power

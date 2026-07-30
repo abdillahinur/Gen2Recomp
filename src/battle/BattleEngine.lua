@@ -1,3 +1,5 @@
+local StatusSystem = require("src.battle.StatusSystem")
+
 local BattleEngine = {}
 BattleEngine.__index = BattleEngine
 
@@ -24,6 +26,7 @@ function BattleEngine.new(state, registry, options)
     state = state,
     registry = registry,
     moveExecutor = options.moveExecutor,
+    statusSystem = options.statusSystem or StatusSystem,
   }, BattleEngine)
 end
 
@@ -54,7 +57,7 @@ function BattleEngine:_normalizeAction(sideId, source)
       moveIndex = index,
       move = move,
       priority = move.priority,
-      speed = side:active().stats.speed,
+      speed = self.statusSystem.modifiedStat(side:active(), "speed"),
     }
   elseif source.kind == "switch" then
     local index = source.partyIndex
@@ -105,6 +108,7 @@ function BattleEngine:_execute(action)
   local side = self:_side(action.sideId)
   if action.kind == "switch" then
     local previous = side.activeIndex
+    self.statusSystem.clearVolatile(side:active())
     side.activeIndex = action.partyIndex
     self.state:emit("battle.switched", {
       sideId = action.sideId,
@@ -121,6 +125,12 @@ function BattleEngine:_execute(action)
     })
     return
   end
+  local canAct = self.statusSystem.beforeAction(
+    self.state,
+    action.sideId,
+    actor
+  )
+  if not canAct then return end
   local slot = actor.moves[action.moveIndex]
   slot.pp = slot.pp - 1
   self.state:emit("battle.move_used", {
@@ -163,6 +173,10 @@ function BattleEngine:resolveTurn()
   self.state.phase = "resolving"
   local order = self:_orderedActions()
   for _, action in ipairs(order) do self:_execute(action) end
+  self.statusSystem.endTurn(
+    self.state, "player", self.state.player:active())
+  self.statusSystem.endTurn(
+    self.state, "opponent", self.state.opponent:active())
   self.state.pendingActions = {}
   self.state.turn = self.state.turn + 1
   self.state.phase = "command"

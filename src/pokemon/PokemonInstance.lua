@@ -60,7 +60,17 @@ function PokemonInstance.new(species, options)
     moves = moveSlots(options.moves or {}),
     heldItemId = options.heldItemId,
     status = nil,
-    volatile = {},
+    volatile = {
+      stages = {
+        attack = 0,
+        defense = 0,
+        speed = 0,
+        specialAttack = 0,
+        specialDefense = 0,
+        accuracy = 0,
+        evasion = 0,
+      },
+    },
   }, PokemonInstance)
   requireInteger(self.experience, 0, 16777215, "experience")
   self:recalculateStats()
@@ -110,6 +120,7 @@ end
 function PokemonInstance:restore()
   self.currentHP = self.stats.hp
   self.status = nil
+  self.volatile = {}
   for _, move in ipairs(self.moves) do move.pp = move.maxPP end
 end
 
