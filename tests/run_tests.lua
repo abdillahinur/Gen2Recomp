@@ -163,6 +163,8 @@ require("tests.script_runner_tests")(test, equal, truthy, raises)
 require("tests.script_state_command_tests")(test, equal, truthy, raises)
 require("tests.actor_command_tests")(test, equal, truthy, raises)
 require("tests.gameplay_command_tests")(test, equal, truthy, raises)
+require("tests.crystal_introduction_script_tests")(
+  test, equal, truthy, raises)
 require("tests.charmap_tests")(test, equal, truthy, raises)
 require("tests.crystal_font_tests")(test, equal, truthy, raises)
 require("tests.crystal_species_tests")(test, equal, truthy, raises)

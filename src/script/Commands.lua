@@ -173,4 +173,12 @@ function Commands.playCry(id, options)
   })
 end
 
+function Commands.setupClock()
+  return Commands.request("system.clock.setup")
+end
+
+function Commands.selectName(gender)
+  return Commands.request("ui.name.select", { gender = gender })
+end
+
 return Commands
