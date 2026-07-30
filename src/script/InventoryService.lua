@@ -21,4 +21,19 @@ function InventoryService:count(itemId)
   return self.items[itemId] or 0
 end
 
+function InventoryService:remove(itemId, count)
+  if type(itemId) ~= "string" or itemId == "" then
+    error("inventory service: item id is required", 2)
+  end
+  count = count or 1
+  if type(count) ~= "number" or count % 1 ~= 0 or count < 1 then
+    error("inventory service: count must be a positive integer", 2)
+  end
+  local available = self:count(itemId)
+  if available < count then return nil, "not_enough_items" end
+  local remaining = available - count
+  self.items[itemId] = remaining > 0 and remaining or nil
+  return remaining
+end
+
 return InventoryService

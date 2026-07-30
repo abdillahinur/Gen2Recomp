@@ -15,7 +15,7 @@ Falkner's Gym, and the first badge.
 7. Trainer sight and trainer battles. **Complete.**
 8. Route, Cherrygrove, and Violet event behavior. **Complete.**
 9. Pack, party, and Pokédex UI. **Complete.**
-10. Pokémon Center, mart, and PC systems.
+10. Pokémon Center, mart, and PC systems. **Complete.**
 11. Save/load and RTC persistence.
 12. Music, SFX, and cries.
 13. Falkner Gym and badge progression.
@@ -164,6 +164,20 @@ remain hidden, and the Pokédex cannot be selected before Oak's feature flag is
 granted. Pack item labels remain semantic runtime labels at this checkpoint;
 ROM-owned item naming, consuming items, buying/selling, healing, and storage
 belong to M5-010.
+
+## Facilities
+
+M5-010 recognizes the nurse and clerk objects decoded from the Cherrygrove and
+Violet Center/Mart maps and opens native visible facility states. Centers
+restore calculated maximum HP for the full persistent party and provide
+access to PC deposit/withdrawal. The PC refuses to deposit the final usable
+party member and its detached contents are included in session snapshots.
+
+Marts provide source-defined early-game catalogs, buy/sell prices, quantity
+changes, and money updates. The underlying facility service also provides
+Potion use with calculated HP limits. Item IDs and labels remain semantic at
+this checkpoint; a complete ROM-derived item record catalog is campaign work
+beyond this first-badge slice.
 
 ## Exit gate
 

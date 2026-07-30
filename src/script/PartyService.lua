@@ -48,4 +48,24 @@ function PartyService:give(speciesId, level, heldItemId, options)
   return member
 end
 
+function PartyService:remove(index, allowEmpty)
+  if type(index) ~= "number" or index % 1 ~= 0
+      or index < 1 or index > #self.members then
+    return nil, "invalid_party_index"
+  end
+  if #self.members == 1 and not allowEmpty then
+    return nil, "last_party_member"
+  end
+  return table.remove(self.members, index)
+end
+
+function PartyService:store(member)
+  if type(member) ~= "table" or type(member.speciesId) ~= "string" then
+    error("party service: stored member is invalid", 2)
+  end
+  if #self.members >= self.capacity then return nil, "party_full" end
+  self.members[#self.members + 1] = copy(member)
+  return self.members[#self.members]
+end
+
 return PartyService

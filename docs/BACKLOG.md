@@ -88,7 +88,7 @@ Backlog IDs are stable planning references, not issue tracker numbers.
 - [x] `M5-007` Implement trainer sight, approach, and trainer battles.
 - [x] `M5-008` Hand-write Route, Cherrygrove, and Violet event behavior.
 - [x] `M5-009` Add Pack, party, and Pokédex presentation.
-- [ ] `M5-010` Add Pokémon Center, mart, and PC systems.
+- [x] `M5-010` Add Pokémon Center, mart, and PC systems.
 - [ ] `M5-011` Add versioned save/load and RTC persistence.
 - [ ] `M5-012` Add music, SFX, and cry playback for the slice.
 - [ ] `M5-013` Complete Falkner Gym and badge progression.

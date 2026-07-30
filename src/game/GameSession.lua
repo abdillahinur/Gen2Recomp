@@ -2,6 +2,7 @@ local InventoryService = require("src.script.InventoryService")
 local PartyService = require("src.script.PartyService")
 local PhoneService = require("src.script.PhoneService")
 local ScriptState = require("src.script.ScriptState")
+local StorageService = require("src.game.StorageService")
 
 local GameSession = {}
 GameSession.__index = GameSession
@@ -141,6 +142,8 @@ function GameSession.new(profileId, options)
       or restoreInventory(snapshot and snapshot.inventory),
     phone = options.phone
       or restorePhone(snapshot and snapshot.phone),
+    storage = options.storage
+      or StorageService.new(snapshot and snapshot.storage),
     clock = clock,
     money = snapshot and snapshot.money or options.money or 0,
     player = normalizeLocation(
@@ -199,6 +202,7 @@ function GameSession:snapshot()
     party = copyArray(self.party.members),
     inventory = copy(self.inventory.items),
     phone = copyArray(self.phone.order),
+    storage = self.storage:snapshot(),
     clock = copy(self.clock),
     money = self.money,
     player = self.player and copy(self.player) or nil,

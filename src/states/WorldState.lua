@@ -1,4 +1,6 @@
 local EncounterController = require("src.world.EncounterController")
+local FacilityService = require("src.game.FacilityService")
+local FacilityState = require("src.states.FacilityState")
 local FieldMenuState = require("src.states.FieldMenuState")
 local MapRepository = require("src.world.MapRepository")
 local MapPresentationRuntime =
@@ -10,6 +12,13 @@ local World = require("src.world.World")
 
 local WorldState = {}
 WorldState.__index = WorldState
+
+local FACILITIES = {
+  ["26:4"] = { kind = "mart", catalogId = "cherrygrove" },
+  ["26:5"] = { kind = "center" },
+  ["10:6"] = { kind = "mart", catalogId = "violet" },
+  ["10:10"] = { kind = "center" },
+}
 
 local function createTimeProvider(options)
   if options.timeProvider then return options.timeProvider end
@@ -88,6 +97,51 @@ function WorldState.new(worldData, options)
   return self
 end
 
+function WorldState:_openFacility()
+  local facility = FACILITIES[self.world.currentMapId]
+  if not facility or not self.stateStack or not self.gameSession
+      or not self.battleData then
+    return false
+  end
+  local vector = ({
+    up = { x = 0, y = -1 },
+    down = { x = 0, y = 1 },
+    left = { x = -1, y = 0 },
+    right = { x = 1, y = 0 },
+  })[self.world.player.facing]
+  local targetX = self.world.player.x + vector.x
+  local targetY = self.world.player.y + vector.y
+  local clerk
+  for _, object in ipairs(self.world:currentObjects()) do
+    if object.id == 1 and object.visible
+        and object.x == targetX and object.y == targetY then
+      clerk = object
+      break
+    end
+  end
+  if not clerk then return false end
+  local catalogId = facility.catalogId
+  if catalogId == "cherrygrove"
+      and self.gameSession.state:hasFlag(
+        "crystal.story.gave_mystery_egg_to_elm") then
+    catalogId = "cherrygrove_dex"
+  end
+  local stack = self.stateStack
+  local state
+  state = FacilityState.new(
+    facility.kind,
+    FacilityService.new(self.gameSession, self.battleData),
+    {
+      catalogId = catalogId,
+      onClose = function()
+        if stack:current() == state then stack:pop() end
+      end,
+    }
+  )
+  stack:push(state)
+  return true
+end
+
 function WorldState:_openFieldMenu()
   if not self.stateStack or not self.gameSession
       or not self.battleData then
@@ -115,6 +169,9 @@ function WorldState:update(dt, input)
     self.scripts:updateActive(dt, input)
   elseif input and input:wasPressed("start")
       and self:_openFieldMenu() then
+    return
+  elseif input and input:wasPressed("confirm")
+      and self:_openFacility() then
     return
   else
     self.world:update(dt, input)

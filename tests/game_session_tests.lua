@@ -12,7 +12,9 @@ return function(test, equal, truthy, raises)
       5,
       "crystal.item.berry"
     )
+    session.party:give("crystal.species.pidgey", 3)
     session.inventory:give("crystal.item.potion", 2)
+    session.storage:depositPokemon(session.party, 2)
     session.phone:register("crystal.phone.professor_elm")
     session:setClock(10, 30, 2)
     session:markSeen("crystal.species.pidgey")
@@ -27,6 +29,8 @@ return function(test, equal, truthy, raises)
     equal(snapshot.profileId, "crystal_us_11")
     equal(snapshot.party[1].level, 5)
     equal(snapshot.inventory["crystal.item.potion"], 2)
+    equal(snapshot.storage.pokemon[1].speciesId,
+      "crystal.species.pidgey")
     equal(snapshot.phone[1], "crystal.phone.professor_elm")
     equal(snapshot.clock.weekday, 2)
     equal(snapshot.player.mapId, "24:4")
@@ -44,6 +48,8 @@ return function(test, equal, truthy, raises)
     truthy(restored.phone:has("crystal.phone.professor_elm"))
     truthy(restored.pokedex.seen["crystal.species.pidgey"])
     truthy(restored.pokedex.caught["crystal.species.cyndaquil"])
+    equal(restored.storage.pokemon[1].speciesId,
+      "crystal.species.pidgey")
 
     restored.inventory:give("crystal.item.potion", 1)
     equal(snapshot.inventory["crystal.item.potion"], 2)

@@ -12,7 +12,7 @@ normal play. A future first-boot UI will invoke this importer.
 
 ## Current status
 
-The repository has completed **M4: Battle slice** and the first nine checkpoints
+The repository has completed **M4: Battle slice** and the first ten checkpoints
 of **M5: Violet City vertical slice**, including end-to-end M1–M4 verification
 with canonical English Crystal v1.1. The project currently contains:
 
@@ -61,6 +61,8 @@ with canonical English Crystal v1.1. The project currently contains:
   inventory, phone, clock, money, player-location, and Pokédex state;
 - a visible Start menu with persistent Pack quantities, party summaries, and a
   complete ROM-named 251-entry Pokédex with seen/caught gating;
+- visible Cherrygrove/Violet Center healing, mart buying/selling, and persistent
+  PC Pokémon storage;
 - normalized battle records and Gen 2 Pokémon instances with integer stats,
   DVs, gender, shiny state, Hidden Power, and growth curves;
 - deterministic battle turns, switching and forced replacements, damage,
@@ -85,6 +87,7 @@ wild battles from eligible steps using the session clock. M5-007 adds
 ROM-backed trainer parties and visible overworld trainer challenges. M5-008
 adds native route/city events through Violet and expands exact ROM-owned text
 to 96 records. M5-009 adds the visible Pack, party, and Pokédex field menu.
+M5-010 adds visible Pokémon Center, mart, and PC flows.
 Saves, audio playback, broader move-effect coverage,
 broader story progression, and most maps remain future milestones.
 
@@ -274,6 +277,15 @@ To verify M5-009's Pack, party, and Pokédex field menu:
 This checks persistent Pack quantities and party summaries, the story-gated
 Pokédex, all 251 ROM-derived species names, unseen-name hiding, and seen/caught
 totals.
+
+To verify M5-010's Center, mart, and PC systems:
+
+```powershell
+./scripts/verify-crystal-facilities.ps1 -RomPath "D:\path\to\your\ROM"
+```
+
+This validates the decoded facility maps and nurse/clerk objects, then drives
+healing, a visible purchase, PC deposit, and snapshot restoration.
 
 ## Project direction
 

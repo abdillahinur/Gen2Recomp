@@ -263,6 +263,13 @@ ROM-derived names while hiding unseen entries. The controller mutates no
 inventory or party state; item use, shops, healing, and PC storage begin in
 M5-010.
 
+M5-010 adds `FacilityService` as the mutation boundary for healing, early mart
+transactions, Potion use, and PC storage. `FacilityPresentation` and
+`FacilityState` make Center/Mart interactions visible while keeping the
+service headless-testable. Facility entry is selected from decoded map ID and
+the nurse/clerk object in front of the player; no cartridge script VM is
+executed. PC contents are detached session data and participate in snapshots.
+
 M4 adds normalized species, move, item, and trainer records; Gen 2 integer
 stats, DVs, gender, shiny state, and Hidden Power; deterministic battle state,
 action ordering, switching, damage, status, effect dispatch, AI, catching,

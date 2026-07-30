@@ -139,6 +139,7 @@ Completed checkpoints:
 - [x] M5-007 trainer sight, approach, and ROM-backed trainer battles.
 - [x] M5-008 Route, Cherrygrove, and Violet native event behavior.
 - [x] M5-009 visible Pack, party, and ROM-backed Pokédex presentation.
+- [x] M5-010 visible Pokémon Center, mart, and PC systems.
 
 ## M6 — Johto campaign
 

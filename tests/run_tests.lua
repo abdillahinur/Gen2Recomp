@@ -199,6 +199,9 @@ require("tests.crystal_violet_route_script_tests")(
 require("tests.script_coverage_tests")(test, equal, truthy, raises)
 require("tests.profile_flow_tests")(test, equal, truthy, raises)
 require("tests.game_session_tests")(test, equal, truthy, raises)
+require("tests.facility_service_tests")(test, equal, truthy, raises)
+require("tests.facility_presentation_tests")(
+  test, equal, truthy, raises)
 require("tests.presentation_controller_tests")(test, equal, truthy, raises)
 require("tests.map_presentation_runtime_tests")(test, equal, truthy, raises)
 require("tests.charmap_tests")(test, equal, truthy, raises)
