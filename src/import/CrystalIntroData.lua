@@ -20,6 +20,16 @@ local function color(rom, offset)
   return CgbPalette.decodeColorAt(rom:readString(offset, 2))
 end
 
+local function rowsFromColumns(tiles, width, height)
+  local result = {}
+  for y = 0, height - 1 do
+    for x = 0, width - 1 do
+      result[y * width + x + 1] = tiles[x * height + y + 1]
+    end
+  end
+  return result
+end
+
 local function trainerPalette(rom, profile, classIndex)
   local offset = symbol(profile, "TrainerPalettes").offset + classIndex * 4
   return paletteFromColors({
@@ -32,7 +42,12 @@ end
 
 local function pokemonPalette(rom, profile, species)
   local offset = symbol(profile, "PokemonPalettes").offset + species * 8
-  return CgbPalette.decodePalette(rom:readString(offset, 8), 1, 4)
+  return paletteFromColors({
+    CgbPalette.decodeColor(0xff, 0x7f),
+    color(rom, offset),
+    color(rom, offset + 2),
+    CgbPalette.decodeColor(0x00, 0x00),
+  })
 end
 
 local function uncompressedPicture(rom, profile, name, width, height, palette)
@@ -40,9 +55,9 @@ local function uncompressedPicture(rom, profile, name, width, height, palette)
   return {
     widthTiles = width,
     heightTiles = height,
-    tiles = TileDecoder.decode2bpp(
+    tiles = rowsFromColumns(TileDecoder.decode2bpp(
       rom:readString(symbol(profile, name).offset, byteLength)
-    ),
+    ), width, height),
     palette = palette,
   }
 end
@@ -63,7 +78,11 @@ local function compressedPicture(
   return {
     widthTiles = width,
     heightTiles = height,
-    tiles = TileDecoder.decode2bpp(decoded:sub(1, expected)),
+    tiles = rowsFromColumns(
+      TileDecoder.decode2bpp(decoded:sub(1, expected)),
+      width,
+      height
+    ),
     palette = palette,
   }
 end

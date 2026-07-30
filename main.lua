@@ -5,11 +5,14 @@ local BootstrapState = require("src.states.BootstrapState")
 local LogicalCanvas = require("src.render.LogicalCanvas")
 
 local smokeTest = os.getenv("GEN2RECOMP_SMOKE_TEST") == "1"
+local fidelityTest =
+  os.getenv("GEN2RECOMP_FIDELITY_SMOKE_TEST") == "1"
 
 local input
 local states
 local clock
 local canvas
+local fidelityDriver
 local interpolationAlpha = 0
 
 local function drawCanvas()
@@ -34,6 +37,11 @@ function love.load()
   states = StateStack.new()
   clock = FixedStep.new({ hz = 60, maxSteps = 8 })
   canvas = LogicalCanvas.create(love.graphics)
+  if fidelityTest then
+    local LiveFidelityDriver =
+      require("src.acceptance.LiveFidelityDriver")
+    fidelityDriver = LiveFidelityDriver.new()
+  end
 
   local romPath = os.getenv("GEN2RECOMP_ROM_PATH")
   if romPath and romPath ~= "" then
@@ -56,7 +64,18 @@ function love.load()
     local AudioService = require("src.script.AudioService")
     local LoveAudioSink = require("src.audio.LoveAudioSink")
     local audio = AudioService.new()
-    local audioSink = LoveAudioSink.new(presentationData.audio)
+    local audioSink
+    if fidelityTest then
+      audioSink = {
+        playMusic = function() end,
+        stopMusic = function() end,
+        playSfx = function() end,
+        playCry = function() end,
+        update = function() end,
+      }
+    else
+      audioSink = LoveAudioSink.new(presentationData.audio)
+    end
     local audioRuntime = AudioRuntime.new(audio, audioSink)
     if os.getenv("GEN2RECOMP_AUDIO_SMOKE_TEST") == "1" then
       audioSink:playMusic("crystal.music.route_30")
@@ -133,9 +152,13 @@ end
 
 function love.update(dt)
   local _, alpha = clock:update(dt, function(step)
-    input:beginStep()
-    states:update(step, input)
-    input:endStep()
+    if fidelityDriver then
+      states:update(step, fidelityDriver:inputFor(states:current()))
+    else
+      input:beginStep()
+      states:update(step, input)
+      input:endStep()
+    end
   end)
   interpolationAlpha = alpha
 
@@ -150,6 +173,9 @@ function love.draw()
   love.graphics.clear(0.012, 0.016, 0.024, 1)
   drawCanvas()
 
+  if fidelityDriver then
+    fidelityDriver:capture(states:current(), canvas)
+  end
   if smokeTest and clock.totalSteps >= 1 then
     print("Gen2Recomp LÖVE smoke test passed.")
     love.event.quit(0)

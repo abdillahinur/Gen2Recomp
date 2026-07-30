@@ -105,7 +105,7 @@ Backlog IDs are stable planning references, not issue tracker numbers.
   the verified player ROM.
 - [x] `M5-020` Implement native Game Boy channel synthesis, sequencing,
   looping, fades, stereo routing, SFX priority, and cry modifiers.
-- [ ] `M5-021` Pass a clean-save visible fidelity route from gender selection
+- [x] `M5-021` Pass a clean-save visible fidelity route from gender selection
   through Zephyr Badge with screenshot, audio, interaction, and save gates.
 
 ## Cross-cutting risks

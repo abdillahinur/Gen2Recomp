@@ -21,17 +21,17 @@ Falkner's Gym, and the first badge.
 13. Falkner Gym and badge progression. **Complete.**
 14. Automated introduction-to-first-badge acceptance route. **Complete.**
 15. Decoded Crystal font and exact gender screen. **Complete.**
-16. Faithful clock, professor, naming, and shrink presentation.
-17. Explicit verified object/background-event bindings.
-18. Complete live-slice ROM dialogue with no semantic fallback.
-19. Compact ROM audio-program extraction.
-20. Native channel synthesis and exact audio routing.
-21. Visible clean-save fidelity acceptance.
+16. Faithful clock, professor, naming, and shrink presentation. **Complete.**
+17. Explicit verified object/background-event bindings. **Complete.**
+18. Complete live-slice ROM dialogue with no semantic fallback. **Complete.**
+19. Compact ROM audio-program extraction. **Complete.**
+20. Native channel synthesis and exact audio routing. **Complete.**
+21. Visible clean-save fidelity acceptance. **Complete.**
 
 Each checkpoint is one local commit. The original functional route exposed
-presentation placeholders during hands-on testing, so M5 is reopened. It is
-complete only when the route is faithful through visible application states
-and passes both its ROM-gated functional and live-fidelity acceptance drivers.
+presentation placeholders during hands-on testing, so M5 was reopened and its
+fidelity pass completed. The route now passes both its ROM-gated functional
+and live-fidelity acceptance drivers.
 
 ## Runtime ownership
 
@@ -207,11 +207,11 @@ and LÖVE audio sink. Introduction, overworld map groups, battles, field/facilit
 menus, and ROM-derived battle species now schedule music, SFX, and cries with
 correct state transitions; resuming the world restores its map music.
 
-The M5-012 sink generates small placeholder square-wave cues from semantic IDs.
-This keeps event timing testable headlessly, but it is not cartridge audio.
-M5-019 and M5-020 must replace it with compact channel programs decoded from
-the verified player ROM and native synthesis of Crystal's music, SFX, and cry
-parameters.
+M5-019 replaces placeholder cues with compact music, SFX, wave, and cry channel
+programs decoded from the verified player ROM. M5-020 interprets those
+programs with native pulse, wave, and noise synthesis, including tempo, duty,
+envelope, panning, priority, loop, and cry modifiers. A live LÖVE gate creates
+and plays representative music, menu SFX, and cry sources.
 
 ## Falkner Gym
 
@@ -256,3 +256,11 @@ and close all 37
 distinct route dialogue
 requests exercised by the acceptance path. Source control retains only stable
 IDs and pinned symbol offsets.
+
+M5-021 adds a visible LÖVE driver that begins with a clean profile, advances
+the real introduction presentation, and captures gender, clock, professor,
+Wooper, naming, shrink, and New Bark frames. The capture gate also exposed and
+closed the ROM's column-major intro-tile ordering and Pokémon normal/shiny
+palette layout. The consolidated acceptance script combines those screenshots
+with exact-text, interaction, full-route, save/RTC, extracted-audio, and live
+audio checks for nine required gates.

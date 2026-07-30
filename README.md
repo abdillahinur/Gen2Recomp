@@ -12,10 +12,10 @@ normal play. A future first-boot UI will invoke this importer.
 
 ## Current status
 
-The repository has completed M5's functional first-badge route and has
-**reopened M5 for live cartridge fidelity** after hands-on preview testing
-exposed placeholder presentation and audio. Canonical English Crystal v1.1
-continues to pass the functional M1–M5 gates. The project currently contains:
+The repository has completed M5's functional and live-fidelity first-badge
+route. Canonical English Crystal v1.1 passes the functional, visible,
+interaction, audio, and save gates from gender selection through Zephyr Badge.
+The project currently contains:
 
 - a minimal LÖVE 11.x application;
 - a deterministic 60 Hz fixed-step loop;
@@ -66,8 +66,8 @@ continues to pass the functional M1–M5 gates. The project currently contains:
   PC Pokémon storage;
 - versioned, checksummed native saves with atomic replacement, backup recovery,
   exact-ROM profile binding, player-location restore, and elapsed-time RTC;
-- audible placeholder map/battle cues, menu SFX, and species cry scheduling
-  through a LÖVE audio sink; exact ROM channel-program playback is in progress;
+- ROM-decoded music, SFX, and all 251 species cries played through a native
+  Game Boy channel-program synthesizer and LÖVE audio sink;
 - complete Violet Gym interaction behavior, ROM-backed Falkner battle, Zephyr
   Badge and TM31 rewards, and Route 32 progression unlock;
 - normalized battle records and Gen 2 Pokémon instances with integer stats,
@@ -101,10 +101,10 @@ M5-012 connects introduction, world, battle, and menu audio playback.
 M5-013 completes Falkner's Gym and first-badge progression.
 M5-014 closes the functional slice with a ROM-gated
 introduction-to-Zephyr-Badge route, 217 decoded dialogue records, and verified
-save/reload. M5-015 begins the reopened live-fidelity pass with the decoded
-Crystal font and exact gender-screen text/menu geometry. Faithful professor
-art/timing, object-dialogue auditing, and ROM channel audio remain required
-before M5 can be called complete again.
+save/reload. M5-015 through M5-020 restore ROM-derived typography, intro
+presentation, explicit event bindings, complete supported text, and native
+channel audio. M5-021 closes the live-fidelity pass with automated screenshots
+of seven visible intro/world stages plus audio, interaction, and save gates.
 
 ## Final deliverable
 
@@ -348,6 +348,18 @@ This executes the ordered story services from introduction through Falkner,
 rejects semantic fallback for all 37 required dialogue requests, constructs
 the native leader battle, and verifies the completed badge state after a
 versioned save/reload.
+
+To run M5's complete functional and live-fidelity acceptance suite:
+
+```powershell
+./scripts/verify-crystal-fidelity.ps1 -RomPath "D:\path\to\your\ROM"
+```
+
+This runs nine gates: intro assets, exact ROM text, New Bark/Elm interactions,
+Violet interactions, the complete first-badge route, save/RTC restoration,
+ROM audio extraction, live LÖVE audio playback, and a fresh visible LÖVE route.
+The visible gate writes 160×144 captures for gender, clock, professor, Wooper,
+naming, shrink, and New Bark to LÖVE's `gen2recomp` save directory.
 
 ## Project direction
 
