@@ -1,4 +1,5 @@
 local Dvs = require("src.pokemon.Dvs")
+local GrowthRates = require("src.pokemon.GrowthRates")
 local StatCalculator = require("src.pokemon.StatCalculator")
 
 local PokemonInstance = {}
@@ -54,7 +55,8 @@ function PokemonInstance.new(species, options)
     speciesId = species.id,
     nickname = options.nickname or species.name,
     level = level,
-    experience = options.experience or 0,
+    experience = options.experience
+      or GrowthRates.atLevel(species.growthRate, level),
     dvs = Dvs.normalize(options.dvs),
     statExperience = copy(options.statExperience or {}),
     moves = moveSlots(options.moves or {}),

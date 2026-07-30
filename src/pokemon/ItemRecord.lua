@@ -23,6 +23,23 @@ function ItemRecord.normalize(source)
       "catchRateModifier",
       1
     ),
+    catchRateNumerator = Validation.optionalInteger(
+      kind,
+      source.catchRateNumerator,
+      1,
+      255,
+      "catchRateNumerator",
+      source.catchRateModifier or 1
+    ),
+    catchRateDenominator = Validation.optionalInteger(
+      kind,
+      source.catchRateDenominator,
+      1,
+      255,
+      "catchRateDenominator",
+      1
+    ),
+    master = source.master == true,
   }
 end
 
