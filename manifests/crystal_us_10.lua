@@ -38,5 +38,6 @@ return {
   schemas = {
     font = 1,
     charmap = 1,
+    species = 1,
   },
 }

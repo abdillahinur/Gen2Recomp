@@ -34,3 +34,8 @@ font sets, species records, names, and the first tileset slice. The importer
 normalizes graphics into palette-index arrays. Its English character map is
 native source-controlled metadata; control bytes remain typed tokens rather
 than being mistaken for display glyphs.
+
+Crystal species extraction validates all 251 32-byte records against their
+table index and decodes the first 251 fixed-width names. Stats, types, held
+items, gender thresholds, hatch cycles, dimensions, growth rates, egg groups,
+and the 60 TM/HM/tutor compatibility flags become explicit normalized fields.
