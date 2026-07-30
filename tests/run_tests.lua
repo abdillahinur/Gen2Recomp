@@ -1,0 +1,127 @@
+package.path = "./?.lua;./?/init.lua;" .. package.path
+
+local tests = {}
+
+local function test(name, fn)
+  tests[#tests + 1] = { name = name, fn = fn }
+end
+
+local function equal(actual, expected, message)
+  if actual ~= expected then
+    error((message or "values differ")
+      .. ": expected " .. tostring(expected)
+      .. ", got " .. tostring(actual), 2)
+  end
+end
+
+local function truthy(value, message)
+  if not value then
+    error(message or "expected a truthy value", 2)
+  end
+end
+
+test("FixedStep runs deterministic steps", function()
+  local FixedStep = require("src.core.FixedStep")
+  local clock = FixedStep.new({ hz = 60, maxSteps = 8 })
+  local calls = 0
+  local total = 0
+
+  local steps, alpha = clock:update(1 / 30, function(dt)
+    calls = calls + 1
+    total = total + dt
+  end)
+
+  equal(steps, 2)
+  equal(calls, 2)
+  truthy(math.abs(total - 1 / 30) < 1e-9)
+  truthy(alpha >= 0 and alpha < 1)
+end)
+
+test("FixedStep clamps long frames", function()
+  local FixedStep = require("src.core.FixedStep")
+  local clock = FixedStep.new({ hz = 60, maxSteps = 3 })
+  local calls = 0
+
+  local steps = clock:update(10, function()
+    calls = calls + 1
+  end)
+
+  equal(steps, 3)
+  equal(calls, 3)
+end)
+
+test("Input edges last for one logic step", function()
+  local Input = require("src.core.Input")
+  local input = Input.new()
+
+  input:keypressed("z", false)
+  truthy(input:down("confirm"))
+  input:beginStep()
+  truthy(input:wasPressed("confirm"))
+  input:endStep()
+  truthy(not input:wasPressed("confirm"))
+  truthy(input:down("confirm"))
+
+  input:keyreleased("z")
+  input:beginStep()
+  truthy(input:wasReleased("confirm"))
+  truthy(not input:down("confirm"))
+end)
+
+test("StateStack applies lifecycle and top-only updates", function()
+  local StateStack = require("src.core.StateStack")
+  local stack = StateStack.new()
+  local events = {}
+
+  local function state(name)
+    return {
+      enter = function() events[#events + 1] = name .. ":enter" end,
+      pause = function() events[#events + 1] = name .. ":pause" end,
+      resume = function() events[#events + 1] = name .. ":resume" end,
+      exit = function() events[#events + 1] = name .. ":exit" end,
+      update = function() events[#events + 1] = name .. ":update" end,
+    }
+  end
+
+  local first = state("first")
+  local second = state("second")
+  stack:push(first)
+  stack:push(second)
+  stack:update()
+  equal(stack:size(), 2)
+  equal(stack:current(), second)
+  stack:pop()
+  stack:update()
+
+  equal(table.concat(events, ","),
+    "first:enter,first:pause,second:enter,second:update,"
+      .. "second:exit,first:resume,first:update")
+end)
+
+test("Crystal scaffold profile is found by id and hash", function()
+  local Profiles = require("src.import.Profiles")
+  local byId = Profiles.get("crystal_us_10")
+  local byHash = Profiles.identifySha1(
+    "F4CD194BDEE0D04CA4EAC29E09B8E4E9D818C133")
+
+  truthy(byId)
+  equal(byHash, byId)
+  equal(byId.expectedSize, 2097152)
+  truthy(byId.features.realTimeClock)
+end)
+
+local failures = 0
+
+for _, item in ipairs(tests) do
+  local ok, err = pcall(item.fn)
+  if ok then
+    io.write("ok - ", item.name, "\n")
+  else
+    failures = failures + 1
+    io.write("not ok - ", item.name, "\n", tostring(err), "\n")
+  end
+end
+
+io.write(("\n%d tests, %d failures\n"):format(#tests, failures))
+os.exit(failures == 0 and 0 or 1)
+

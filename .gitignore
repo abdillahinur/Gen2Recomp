@@ -1,0 +1,46 @@
+# Player-supplied ROMs and cartridge saves
+*.gb
+*.gbc
+*.sgb
+*.sav
+*.srm
+*.rtc
+
+# Generated or private game content
+/data/generated/
+/assets/generated/
+/cache/
+/private/
+/captures/
+/screenshots/
+*.love
+
+# Native saves and local options
+/save/
+/saves/
+save.lua
+save.lua.bak
+options.lua
+portable.txt
+
+# Tool output from RGBDS and reference builds
+*.map
+*.sym
+*.noi
+*.o
+*.obj
+*.dep
+
+# Local tooling
+.env
+.env.*
+!.env.example
+.luarc.json
+.vscode/
+.idea/
+
+# OS noise
+.DS_Store
+Thumbs.db
+desktop.ini
+
