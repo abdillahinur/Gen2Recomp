@@ -181,4 +181,8 @@ function Commands.selectName(gender)
   return Commands.request("ui.name.select", { gender = gender })
 end
 
+function Commands.pause(seconds)
+  return Commands.request("system.wait", { seconds = seconds })
+end
+
 return Commands

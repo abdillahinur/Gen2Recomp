@@ -1,5 +1,7 @@
 local CoreCommandHandlers = {}
 
+local ScriptRunner = require("src.script.ScriptRunner")
+
 function CoreCommandHandlers.install(runner, services)
   local state = assert(services.state, "script state service is required")
   local dialogue =
@@ -31,6 +33,16 @@ function CoreCommandHandlers.install(runner, services)
   end)
   runner:register("ui.choice", function(arguments)
     return dialogue:choice(arguments)
+  end)
+  runner:register("system.wait", function(arguments)
+    local remaining = arguments.seconds
+    if type(remaining) ~= "number" or remaining < 0 then
+      error("wait seconds must be a non-negative number")
+    end
+    return ScriptRunner.wait(function(_, dt)
+      remaining = remaining - dt
+      return remaining <= 0, true
+    end)
   end)
 end
 
