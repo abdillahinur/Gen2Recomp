@@ -2,9 +2,8 @@ local FixedStep = require("src.core.FixedStep")
 local Input = require("src.core.Input")
 local StateStack = require("src.core.StateStack")
 local BootstrapState = require("src.states.BootstrapState")
+local LogicalCanvas = require("src.render.LogicalCanvas")
 
-local LOGICAL_WIDTH = 160
-local LOGICAL_HEIGHT = 144
 local smokeTest = os.getenv("GEN2RECOMP_SMOKE_TEST") == "1"
 
 local input
@@ -15,17 +14,17 @@ local interpolationAlpha = 0
 
 local function drawCanvas()
   local windowWidth, windowHeight = love.graphics.getDimensions()
-  local scale = math.max(1, math.floor(math.min(
-    windowWidth / LOGICAL_WIDTH,
-    windowHeight / LOGICAL_HEIGHT
-  )))
-  local drawWidth = LOGICAL_WIDTH * scale
-  local drawHeight = LOGICAL_HEIGHT * scale
-  local x = math.floor((windowWidth - drawWidth) / 2)
-  local y = math.floor((windowHeight - drawHeight) / 2)
+  local layout = LogicalCanvas.layout(windowWidth, windowHeight)
 
   love.graphics.setColor(1, 1, 1, 1)
-  love.graphics.draw(canvas, x, y, 0, scale, scale)
+  love.graphics.draw(
+    canvas,
+    layout.x,
+    layout.y,
+    0,
+    layout.scale,
+    layout.scale
+  )
 end
 
 function love.load()
@@ -34,10 +33,17 @@ function love.load()
   input = Input.new()
   states = StateStack.new()
   clock = FixedStep.new({ hz = 60, maxSteps = 8 })
-  canvas = love.graphics.newCanvas(LOGICAL_WIDTH, LOGICAL_HEIGHT)
-  canvas:setFilter("nearest", "nearest")
+  canvas = LogicalCanvas.create(love.graphics)
 
-  states:push(BootstrapState.new())
+  local romPath = os.getenv("GEN2RECOMP_ROM_PATH")
+  if romPath and romPath ~= "" then
+    local CrystalPreview = require("src.dev.CrystalPreview")
+    local WorldState = require("src.states.WorldState")
+    local worldData = CrystalPreview.load(romPath)
+    states:push(WorldState.new(worldData))
+  else
+    states:push(BootstrapState.new())
+  end
 end
 
 function love.update(dt)
@@ -48,10 +54,6 @@ function love.update(dt)
   end)
   interpolationAlpha = alpha
 
-  if smokeTest and clock.totalSteps >= 3 then
-    print("Gen2Recomp LÖVE smoke test passed.")
-    love.event.quit(0)
-  end
 end
 
 function love.draw()
@@ -62,6 +64,11 @@ function love.draw()
 
   love.graphics.clear(0.012, 0.016, 0.024, 1)
   drawCanvas()
+
+  if smokeTest and clock.totalSteps >= 1 then
+    print("Gen2Recomp LÖVE smoke test passed.")
+    love.event.quit(0)
+  end
 end
 
 function love.keypressed(key, scancode, isrepeat)
