@@ -28,3 +28,9 @@ Generation fails if the input hash differs, a required label is absent, a
 label is duplicated, or an address does not fit its Game Boy ROM window.
 Output contains only label, bank, address, physical offset, and reference
 provenance.
+
+The initial symbol set bounds Crystal's main 1bpp font, two 2bpp supplemental
+font sets, species records, names, and the first tileset slice. The importer
+normalizes graphics into palette-index arrays. Its English character map is
+native source-controlled metadata; control bytes remain typed tokens rather
+than being mistaken for display glyphs.

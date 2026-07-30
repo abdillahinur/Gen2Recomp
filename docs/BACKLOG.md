@@ -27,7 +27,7 @@ Backlog IDs are stable planning references, not issue tracker numbers.
 - [x] `M1-006` Implement temporary cache and atomic promotion.
 - [x] `M1-007` Add cancellation and failure recovery.
 - [x] `M1-008` Generate Crystal symbols from pinned RGBDS output.
-- [ ] `M1-009` Decode Crystal font and charmap.
+- [x] `M1-009` Decode Crystal font and charmap.
 - [ ] `M1-010` Decode species/base-stat records.
 - [ ] `M1-011` Decode one tileset and palette set.
 - [ ] `M1-012` Add extraction progress and structural report.

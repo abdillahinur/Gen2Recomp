@@ -35,5 +35,8 @@ return {
   },
   reference = generatedSymbols.source,
   symbols = generatedSymbols.symbols,
-  schemas = {},
+  schemas = {
+    font = 1,
+    charmap = 1,
+  },
 }
