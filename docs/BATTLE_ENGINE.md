@@ -58,7 +58,8 @@ M5-004's `BattleBridge` now pushes this state for hand-written script requests
 and returns its acknowledged result to the waiting coroutine. Its request
 factory adapts persistent semantic party records into native battle instances,
 then commits HP, experience, DVs, moves, PP, and Pokédex state back into the
-game session. M5-006 will originate ordinary encounters from world movement.
+game session. M5-006 now originates ordinary, time-selected encounters from
+eligible world steps through the same bridge.
 
 ## M4 acceptance fixtures
 

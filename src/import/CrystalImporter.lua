@@ -163,6 +163,8 @@ local function structuralReport(identity, extracted)
         collisionPermissionCount =
           #(world.collisionPermissions or {}),
         spriteCount = #(world.sprites or {}),
+        encounterMapCount =
+          #(world.encounters and world.encounters.maps or {}),
       },
     }),
     payloads = Json.array({
@@ -230,7 +232,8 @@ function CrystalImporter.run(data, cacheStore, options)
     checkCancellation(cancellationToken)
     extracted.tileset = extractors.tileset(rom, identity.profile)
 
-    emit(options.onProgress, 0.72, "world", "Decoding New Bark world")
+    emit(options.onProgress, 0.72, "world",
+      "Decoding first-badge world")
     checkCancellation(cancellationToken)
     extracted.world = extractors.world(rom, identity.profile)
 

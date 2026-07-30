@@ -1,3 +1,4 @@
+local EncounterController = require("src.world.EncounterController")
 local MapRepository = require("src.world.MapRepository")
 local MapPresentationRuntime =
   require("src.script.MapPresentationRuntime")
@@ -8,11 +9,23 @@ local World = require("src.world.World")
 local WorldState = {}
 WorldState.__index = WorldState
 
+local function createTimeProvider(options)
+  if options.timeProvider then return options.timeProvider end
+  local timeOfDay = options.timeOfDay
+  if not timeOfDay and options.gameSession then
+    timeOfDay = {
+      clock = function()
+        return { hour = options.gameSession.clock.hour }
+      end,
+    }
+  end
+  return TimeOfDay.new(timeOfDay)
+end
+
 function WorldState.new(worldData, options)
   options = options or {}
   local repository = MapRepository.new(worldData)
-  local timeProvider =
-    options.timeProvider or TimeOfDay.new(options.timeOfDay)
+  local timeProvider = createTimeProvider(options)
   local self = setmetatable({
     opaque = true,
     world = World.new(worldData, {
@@ -34,6 +47,27 @@ function WorldState.new(worldData, options)
     })
   end
   self.gameSession = options.gameSession
+  if worldData.encounters and options.battleBridge then
+    self.encounters = EncounterController.new(
+      worldData.encounters,
+      options.battleBridge,
+      timeProvider,
+      {
+        rng = options.encounterRng,
+        seed = options.encounterSeed,
+        canStart = function()
+          local party = self.gameSession and self.gameSession.party
+          if not party then return false end
+          for _, member in ipairs(party.members) do
+            if member.currentHP == nil or member.currentHP > 0 then
+              return true
+            end
+          end
+          return false
+        end,
+      }
+    )
+  end
   if self.gameSession then self.gameSession:captureWorld(self.world) end
   return self
 end
@@ -44,6 +78,12 @@ function WorldState:update(dt, input)
   else
     self.world:update(dt, input)
     if self.scripts then self.scripts:updateIdle(input) end
+    if self.encounters then
+      self.encounters:afterStep(
+        self.world,
+        not self.scripts or not self.scripts:isBusy()
+      )
+    end
   end
   if self.gameSession then self.gameSession:captureWorld(self.world) end
 end

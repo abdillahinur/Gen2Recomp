@@ -135,6 +135,7 @@ Completed checkpoints:
 - [x] M5-003 visible battle scene, messages, and command menus.
 - [x] M5-004 world/script battle dispatch and persistent result bridge.
 - [x] M5-005 ROM-backed New Bark-to-Violet world corridor.
+- [x] M5-006 time-based wild encounter selection and battle dispatch.
 
 ## M6 — Johto campaign
 

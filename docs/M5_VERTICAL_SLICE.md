@@ -11,7 +11,7 @@ Falkner's Gym, and the first badge.
 3. Visible battle scene and command menus. **Complete.**
 4. World/script-to-battle bridge. **Complete.**
 5. World extraction through Violet City. **Complete.**
-6. Time-based wild encounters.
+6. Time-based wild encounters. **Complete.**
 7. Trainer sight and trainer battles.
 8. Route, Cherrygrove, and Violet event behavior.
 9. Pack, party, and Pokédex UI.
@@ -97,6 +97,20 @@ graphics table. The M5-008 event layer will resolve those script-selected
 appearances. Sprout Tower is the one explicit external Violet City warp
 boundary; it is not required by the first-badge route currently defined for
 M5.
+
+## Time-based wild encounters
+
+M5-006 decodes Crystal's Johto grass and water encounter records from the
+verified player ROM, retaining only the eight records referenced by the
+first-badge world corridor. Morning, day, and night grass slots use the native
+30/30/20/10/5/4/1 weighting; water uses 60/30/10 and Crystal's level variation
+thresholds.
+
+`EncounterController` observes completed world steps after higher-priority map
+scripts, enforces Crystal's five-step map-entry cooldown, checks the destination
+collision, selects the session clock period, and sends a normalized wild
+request through the M5-004 battle bridge. Battles cannot start without a usable
+party, and completing one restores the cooldown.
 
 ## Exit gate
 

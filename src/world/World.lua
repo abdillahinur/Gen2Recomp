@@ -96,6 +96,7 @@ function World.new(worldData, options)
     blockOverrides = {},
     warpCooldown = false,
     lastTransition = nil,
+    stepCount = 0,
   }, World)
   self.STEP_SECONDS = STEP_SECONDS
   self:loadMap(initial.mapId)
@@ -328,6 +329,7 @@ function World:finishMove()
   self.player.pixelX = move.targetX * 16
   self.player.pixelY = move.targetY * 16
   self.player.moving = nil
+  self.stepCount = self.stepCount + 1
   self:checkWarp()
 end
 

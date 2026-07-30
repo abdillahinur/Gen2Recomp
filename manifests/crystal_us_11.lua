@@ -46,6 +46,7 @@ return {
     tileset = 1,
     text = 1,
     world = 1,
+    encounters = 1,
   },
   battle = battle,
   text = text,

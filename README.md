@@ -12,7 +12,7 @@ normal play. A future first-boot UI will invoke this importer.
 
 ## Current status
 
-The repository has completed **M4: Battle slice** and the first five checkpoints
+The repository has completed **M4: Battle slice** and the first six checkpoints
 of **M5: Violet City vertical slice**, including end-to-end M1–M4 verification
 with canonical English Crystal v1.1. The project currently contains:
 
@@ -34,6 +34,8 @@ with canonical English Crystal v1.1. The project currently contains:
 - a ROM-backed first-badge world corridor containing 29 maps across New Bark,
   Cherrygrove, Routes 29-32/36, and Violet City, with ten referenced
   tilesets and 32 ordinary overworld sprites;
+- player-ROM-backed morning/day/night grass and water encounter tables for
+  eight maps in that corridor, with native slot weights and step cooldown;
 - a native coroutine script runner with flags, scenes, variables, text,
   choices, actor movement, objects, maps, battle requests, and audio events;
 - provenance-cited Crystal Lua behavior for the introduction, naming,
@@ -70,8 +72,9 @@ visible, paginated presentation controller. Semantic labels remain only as a
 fallback for dialogue outside the current 55-record extraction manifest. The
 M4 simulation now has a standalone visible battle preview, and M5-004 connects
 world/script requests to it. M5-005 expands the traversable ROM-backed world
-from New Bark through Cherrygrove and Violet City. Route encounter selection
-begins in M5-006. Saves, audio playback, broader move-effect coverage,
+from New Bark through Cherrygrove and Violet City. M5-006 now starts visible
+wild battles from eligible steps using the session clock. Saves, audio
+playback, trainer sight, broader move-effect coverage,
 broader story progression, and most maps remain future milestones.
 
 ## Final deliverable
@@ -219,6 +222,16 @@ This checks all 29 selected maps and ten tilesets, the bidirectional route
 connections, reciprocal city-building warps, and every rendered tile
 reference. Sprout Tower remains an explicit outbound boundary for a later
 world expansion.
+
+To verify M5-006's time-based wild encounter selection and battle dispatch:
+
+```powershell
+./scripts/verify-crystal-encounters.ps1 -RomPath "D:\path\to\your\ROM"
+```
+
+This audits the ROM-backed Johto tables, morning/night Route 29 differences,
+encounter grass, five-step cooldown, and creation of a native battle through
+the existing bridge.
 
 ## Project direction
 

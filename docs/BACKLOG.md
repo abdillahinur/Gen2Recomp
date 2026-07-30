@@ -84,7 +84,7 @@ Backlog IDs are stable planning references, not issue tracker numbers.
 - [x] `M5-003` Add the visible battle scene and command menus.
 - [x] `M5-004` Bridge world and script requests to native battles.
 - [x] `M5-005` Expand extracted world data through Violet City.
-- [ ] `M5-006` Implement encounters selected by map and time period.
+- [x] `M5-006` Implement encounters selected by map and time period.
 - [ ] `M5-007` Implement trainer sight, approach, and trainer battles.
 - [ ] `M5-008` Hand-write Route, Cherrygrove, and Violet event behavior.
 - [ ] `M5-009` Add Pack, party, and Pokédex presentation.

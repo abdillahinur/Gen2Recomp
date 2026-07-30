@@ -234,6 +234,14 @@ day-care, and variable object sprite values remain semantic map metadata until
 Lua event behavior resolves them; they are never indexed as ordinary sprite
 graphics.
 
+M5-006 adds a ROM-decoded encounter layer beside the map data.
+`CrystalEncounterData` scans the pinned Johto grass and water record formats
+but retains only maps in the extracted world manifest. `EncounterTable`
+performs deterministic rate, period, weighted-slot, and water-level selection.
+`EncounterController` owns transient step cooldown and dispatches normalized
+wild requests through `BattleBridge`; no ROM reader or table pointer reaches
+gameplay code.
+
 M4 adds normalized species, move, item, and trainer records; Gen 2 integer
 stats, DVs, gender, shiny state, and Hidden Power; deterministic battle state,
 action ordering, switching, damage, status, effect dispatch, AI, catching,
@@ -248,7 +256,7 @@ The project does not yet contain the first-launch file picker or
 importer-screen wiring. M3's text, choice, clock, and naming services are
 connected to visible LÖVE UI, and the current 55-record slice now uses exact
 ROM-owned dialogue. The battle simulation now has a visible standalone scene,
-but broader move-effect coverage, held items, weather, world dispatch, saves,
+but broader move-effect coverage, held items, weather, trainer sight, saves,
 audio playback, and campaign progression remain future work. Import, world,
 event, presentation, and battle acceptance are exercised through fixtures and
 local player-ROM-gated verification commands.

@@ -193,6 +193,16 @@ return {
       address = 0x55f3,
       offset = 0x0795f3,
     },
+    ["JohtoGrassWildMons"] = {
+      bank = 0x0a,
+      address = 0x65e9,
+      offset = 0x02a5e9,
+    },
+    ["JohtoWaterWildMons"] = {
+      bank = 0x0a,
+      address = 0x711d,
+      offset = 0x02b11d,
+    },
     ["LabWhereGoingText"] = {
       bank = 0x1e,
       address = 0x53a7,

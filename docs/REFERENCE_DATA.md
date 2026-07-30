@@ -88,3 +88,9 @@ string-buffer substitution required by the slice. The runtime decoder
 normalizes glyphs, line/paragraph controls, terminals, and substitutions;
 neither the generated symbol manifests nor the semantic manifest contains the
 dialogue itself.
+
+M5-006 adds `JohtoGrassWildMons` and `JohtoWaterWildMons` from both exact
+version-specific symbol inputs. The importer validates every terminated source
+record, then retains normalized rates, species numbers, levels, and weights
+only for maps selected by the world manifest. Encounter records remain private
+player-ROM-derived cache data.

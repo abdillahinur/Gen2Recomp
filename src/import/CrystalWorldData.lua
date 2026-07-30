@@ -1,4 +1,5 @@
 local CgbPalette = require("src.import.CgbPalette")
+local CrystalEncounterData = require("src.import.CrystalEncounterData")
 local CrystalTileset = require("src.import.CrystalTileset")
 local Json = require("src.core.Json")
 local TileDecoder = require("src.import.TileDecoder")
@@ -520,6 +521,7 @@ function CrystalWorldData.extract(rom, profile)
 
   local groups = Json.array({})
   local groupIds = {}
+  local extractedMapIds = {}
   local spriteIds = { [1] = true, [96] = true }
   local tilesetIds = {}
   for _, groupProfile in ipairs(worldProfile.groups) do
@@ -527,6 +529,7 @@ function CrystalWorldData.extract(rom, profile)
     groups[#groups + 1] = group
     groupIds[#groupIds + 1] = group.id
     for _, map in ipairs(group.maps) do
+      extractedMapIds[map.id] = true
       local maximumBlock = tilesetIds[map.tilesetId] or -1
       for _, blockId in ipairs(map.blocks) do
         if blockId > maximumBlock then
@@ -602,6 +605,11 @@ function CrystalWorldData.extract(rom, profile)
     roofs = decodeRoofs(rom, profile, groupIds),
     sprites = decodeSprites(rom, profile, spriteIds),
     tilesets = CrystalTileset.extractMany(rom, profile, tilesetSpecs),
+    encounters = CrystalEncounterData.extract(
+      rom,
+      profile,
+      extractedMapIds
+    ),
   }
 end
 

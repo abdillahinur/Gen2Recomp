@@ -105,6 +105,7 @@ return function(test, equal, truthy)
     equal(world.player.y, 1)
     equal(world.player.facing, "right")
     equal(world.player.pixelX, 16)
+    equal(world.stepCount, 1)
   end)
 
   test("World blocks occupied cells while preserving facing", function()
