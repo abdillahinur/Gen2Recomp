@@ -66,6 +66,12 @@ local function runtimeObjects(repository)
   return byMap
 end
 
+local function copyArray(values)
+  local result = {}
+  for index, value in ipairs(values or {}) do result[index] = value end
+  return result
+end
+
 function World.new(worldData, options)
   options = options or {}
   local repository = options.repository or MapRepository.new(worldData)
@@ -87,6 +93,7 @@ function World.new(worldData, options)
     currentMap = nil,
     grid = nil,
     objectStates = runtimeObjects(repository),
+    blockOverrides = {},
     warpCooldown = false,
     lastTransition = nil,
   }, World)
@@ -112,7 +119,65 @@ function World:loadMap(id)
   end
   self.currentMapId = id
   self.currentMap = map
-  self.grid = MapGrid.new(map, tileset)
+  local blocks = copyArray(map.blocks)
+  for index, blockId in pairs(self.blockOverrides[id] or {}) do
+    blocks[index] = blockId
+  end
+  local runtimeMap = {}
+  for key, value in pairs(map) do runtimeMap[key] = value end
+  runtimeMap.blocks = blocks
+  self.grid = MapGrid.new(runtimeMap, tileset)
+end
+
+function World:relocate(mapId, x, y, facing, kind)
+  local map = self.repository:getMap(mapId)
+  if not map then error("world map is unavailable: " .. tostring(mapId), 2) end
+  if type(x) ~= "number" or type(y) ~= "number"
+      or x % 1 ~= 0 or y % 1 ~= 0
+      or x < 0 or y < 0
+      or x >= map.widthCells or y >= map.heightCells then
+    error("world relocation is outside the target map", 2)
+  end
+  if facing ~= nil and not VECTORS[facing] then
+    error("world relocation has an invalid facing direction", 2)
+  end
+  local sourceMapId = self.currentMapId
+  self:loadMap(mapId)
+  self.player.x = x
+  self.player.y = y
+  self.player.pixelX = x * 16
+  self.player.pixelY = y * 16
+  self.player.moving = nil
+  if facing then self.player.facing = facing end
+  self.warpCooldown =
+    findByPosition(self.currentMap.warps, x, y) ~= nil
+  self.lastTransition = {
+    kind = kind or "relocate",
+    sourceMapId = sourceMapId,
+    targetMapId = mapId,
+    resolved = true,
+  }
+end
+
+function World:changeBlock(mapId, blockX, blockY, blockId)
+  local map = self.repository:getMap(mapId)
+  if not map then error("world map is unavailable: " .. tostring(mapId), 2) end
+  if type(blockX) ~= "number" or type(blockY) ~= "number"
+      or blockX % 1 ~= 0 or blockY % 1 ~= 0
+      or blockX < 0 or blockY < 0
+      or blockX >= map.widthBlocks or blockY >= map.heightBlocks then
+    error("world block coordinates are outside the map", 2)
+  end
+  local tileset = self.repository:getTileset(map.tilesetId)
+  if type(blockId) ~= "number" or blockId % 1 ~= 0
+      or not tileset.metatiles.records[blockId + 1]
+      or not tileset.collision.records[blockId + 1] then
+    error("world block id is unavailable: " .. tostring(blockId), 2)
+  end
+  local index = blockY * map.widthBlocks + blockX + 1
+  self.blockOverrides[mapId] = self.blockOverrides[mapId] or {}
+  self.blockOverrides[mapId][index] = blockId
+  if self.currentMapId == mapId then self:loadMap(mapId) end
 end
 
 function World:getObject(mapId, objectId)
@@ -171,8 +236,19 @@ function World:canMove(direction)
     return false
   end
   local tileset = self.repository:getTileset(map.tilesetId)
-  local grid = map.id == self.currentMapId
-    and self.grid or MapGrid.new(map, tileset)
+  local grid
+  if map.id == self.currentMapId then
+    grid = self.grid
+  else
+    local blocks = copyArray(map.blocks)
+    for index, blockId in pairs(self.blockOverrides[map.id] or {}) do
+      blocks[index] = blockId
+    end
+    local runtimeMap = {}
+    for key, value in pairs(map) do runtimeMap[key] = value end
+    runtimeMap.blocks = blocks
+    grid = MapGrid.new(runtimeMap, tileset)
+  end
   local collisionId = grid:collisionAt(x, y)
   return collisionId ~= nil
     and self.collision:allows(collisionId, direction)

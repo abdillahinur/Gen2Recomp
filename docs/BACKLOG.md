@@ -54,7 +54,7 @@ Backlog IDs are stable planning references, not issue tracker numbers.
 - [x] `M3-002` Implement coroutine runner for hand-written Lua commands.
 - [x] `M3-003` Implement flags, scenes, variables, text, and choices.
 - [x] `M3-004` Implement movement, facing, following, and emotes.
-- [ ] `M3-005` Implement battles, warps, objects, map changes, and audio commands.
+- [x] `M3-005` Implement battles, warps, objects, map changes, and audio commands.
 - [ ] `M3-006` Hand-write introduction and naming behavior in Lua.
 - [ ] `M3-007` Hand-write New Bark Town and Elm's Lab behavior in Lua.
 - [ ] `M3-008` Create map/scene/callback/interaction coverage reports.

@@ -96,4 +96,81 @@ function Commands.emote(id, emote, duration)
   })
 end
 
+function Commands.battle(kind, opponentId, options)
+  return Commands.request("gameplay.battle", {
+    kind = kind,
+    opponentId = opponentId,
+    options = options,
+  })
+end
+
+function Commands.warp(mapId, x, y, facing)
+  return Commands.request("world.warp", {
+    mapId = mapId,
+    x = x,
+    y = y,
+    facing = facing,
+  })
+end
+
+function Commands.loadMap(mapId, x, y, facing)
+  return Commands.request("world.map.load", {
+    mapId = mapId,
+    x = x,
+    y = y,
+    facing = facing,
+  })
+end
+
+function Commands.changeBlock(mapId, blockX, blockY, blockId)
+  return Commands.request("world.map.change_block", {
+    mapId = mapId,
+    blockX = blockX,
+    blockY = blockY,
+    blockId = blockId,
+  })
+end
+
+function Commands.showObject(id)
+  return Commands.request("world.object.show", { id = id })
+end
+
+function Commands.hideObject(id)
+  return Commands.request("world.object.hide", { id = id })
+end
+
+function Commands.placeObject(id, x, y, facing)
+  return Commands.request("world.object.place", {
+    id = id,
+    x = x,
+    y = y,
+    facing = facing,
+  })
+end
+
+function Commands.playMusic(id, options)
+  return Commands.request("audio.music.play", {
+    id = id,
+    options = options,
+  })
+end
+
+function Commands.stopMusic(options)
+  return Commands.request("audio.music.stop", { options = options })
+end
+
+function Commands.playSfx(id, options)
+  return Commands.request("audio.sfx.play", {
+    id = id,
+    options = options,
+  })
+end
+
+function Commands.playCry(id, options)
+  return Commands.request("audio.cry.play", {
+    id = id,
+    options = options,
+  })
+end
+
 return Commands

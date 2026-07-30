@@ -83,6 +83,36 @@ function ActorSystem:face(id, direction)
   actor.facing = direction
 end
 
+function ActorSystem:setVisible(id, visible)
+  local binding = self:binding(id)
+  if binding.player then
+    fail("the player cannot be hidden as a map object", 2)
+  end
+  binding.entity.visible = visible == true
+end
+
+function ActorSystem:place(id, x, y, direction)
+  local binding = self:binding(id)
+  if binding.player then
+    fail("use a map transition to place the player", 2)
+  end
+  local map = self.world.repository:getMap(binding.mapId)
+  if type(x) ~= "number" or type(y) ~= "number"
+      or x % 1 ~= 0 or y % 1 ~= 0
+      or x < 0 or y < 0
+      or x >= map.widthCells or y >= map.heightCells then
+    fail("object placement is outside its map", 2)
+  end
+  if direction ~= nil then requireDirection(direction) end
+  local actor = binding.entity
+  actor.x = x
+  actor.y = y
+  actor.pixelX = x * 16
+  actor.pixelY = y * 16
+  actor.moving = nil
+  actor.facing = direction or actor.facing
+end
+
 function ActorSystem:_canObjectMove(binding, direction)
   if binding.mapId ~= self.world.currentMapId then return false end
   local actor = binding.entity
