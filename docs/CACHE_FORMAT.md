@@ -64,11 +64,12 @@ validation small and prevents loading executable Lua from a writable cache.
 The on-disk encoding is deterministic UTF-8 JSON. Cache data is parsed as
 data; writable cache files are never loaded as Lua source.
 
-The Crystal import coordinator currently writes four normalized payloads:
+The Crystal import coordinator currently writes five normalized payloads:
 
 - `data/font.json`
 - `data/species.json`
 - `data/tilesets/johto.json`
+- `data/world/new_bark.json`
 - `reports/import.json`
 
 The structural report records only the accepted profile, ROM fingerprint and

@@ -167,7 +167,21 @@ the matched profile. The legacy global checksum is reported as a warning
 because it is not an identity mechanism and is not enforced by Game Boy
 hardware.
 
+M2 extends that boundary with normalized map-group headers, attributes, block
+layouts, connections, event metadata, collision permissions, roofs, object
+palettes, and referenced overworld sprites. Its native runtime provides a
+160×144 nearest-neighbor canvas, tile/sprite rendering, an injectable
+time-of-day provider, map grids, camera tracking, grid movement and facing,
+terrain and object collision, map connections, and reciprocal warps.
+
+The current player-ROM-gated world slice extracts eight maps around New Bark,
+four required tilesets, and sixteen referenced sprites. New Bark itself renders
+and can be explored. The west connection can be crossed on foot into Route 29;
+the east Route 27 connection resolves but remains correctly blocked by water
+until a future traversal system supplies Surf.
+
 The project does not yet contain the first-launch file picker, importer-screen
-wiring, source-controlled game behavior/content, or gameplay. The importer is
-currently exercised through headless fixtures and a local player-ROM-gated
-verification command.
+wiring, or source-controlled event/story behavior. Dialogue, scenes, battles,
+menus, saving, audio, and campaign progression are not implemented. Import and
+world acceptance are currently exercised through headless fixtures and local
+player-ROM-gated verification commands.

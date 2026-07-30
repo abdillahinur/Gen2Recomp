@@ -37,16 +37,16 @@ Backlog IDs are stable planning references, not issue tracker numbers.
 
 ## M2 — New Bark world
 
-- [ ] `M2-001` Create 160×144 nearest-neighbor canvas.
-- [ ] `M2-002` Decode CGB 15-bit palettes.
-- [ ] `M2-003` Decode tiles, attributes, metatiles, and map blocks.
-- [ ] `M2-004` Extract map groups and headers.
-- [ ] `M2-005` Extract collision and directional permissions.
-- [ ] `M2-006` Render New Bark Town.
-- [ ] `M2-007` Add player grid movement and facing.
-- [ ] `M2-008` Add objects and sprite palettes.
-- [ ] `M2-009` Add camera, map connections, and warps.
-- [ ] `M2-010` Add injectable time-of-day palette selection.
+- [x] `M2-001` Create 160×144 nearest-neighbor canvas.
+- [x] `M2-002` Decode CGB 15-bit palettes.
+- [x] `M2-003` Decode tiles, attributes, metatiles, and map blocks.
+- [x] `M2-004` Extract map groups and headers.
+- [x] `M2-005` Extract collision and directional permissions.
+- [x] `M2-006` Render New Bark Town.
+- [x] `M2-007` Add player grid movement and facing.
+- [x] `M2-008` Add objects and sprite palettes.
+- [x] `M2-009` Add camera, map connections, and warps.
+- [x] `M2-010` Add injectable time-of-day palette selection.
 
 ## M3 — Events
 

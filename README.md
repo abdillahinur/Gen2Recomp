@@ -12,8 +12,8 @@ normal play. A future first-boot UI will invoke this importer.
 
 ## Current status
 
-The repository has completed **M1: Verified Crystal importer**, including a
-local end-to-end import of canonical English Crystal v1.1. The project
+The repository has completed **M2: New Bark world slice**, including
+end-to-end verification with canonical English Crystal v1.1. The project
 currently contains:
 
 - a minimal LÖVE 11.x application;
@@ -24,15 +24,22 @@ currently contains:
 - a streaming, LuaJIT-compatible SHA-1 implementation;
 - transactional private caches with cancellation and recovery;
 - a pinned RGBDS symbol-manifest generator;
-- normalized Crystal font, charmap, species, Johto tileset, collision, and
-  palette extraction;
+- normalized Crystal font, charmap, species, tileset, map, event-metadata,
+  collision, sprite, roof, and palette extraction;
 - monotonic import progress, a structural report, and raw-ROM retention guard;
+- a native 160×144 nearest-neighbor renderer with CGB morning, day, and night
+  palettes;
+- a generic map grid, camera, player movement/facing, collision, objects,
+  connections, and reciprocal warps;
+- a verified New Bark slice containing eight extracted maps, four tilesets,
+  and sixteen referenced overworld sprites;
 - headless unit tests and CI;
 - architecture, milestone, and backlog documentation.
 
-There is no first-launch ROM picker, application importer screen, or playable
-game yet. The importer is currently exercised through tests and the local
-ROM-gated verification command below.
+There is no first-launch ROM picker or application importer screen yet. The
+developer preview is a traversable world slice, not the complete game:
+dialogue, events, story progression, battles, menus, saves, audio, and most
+maps remain future milestones.
 
 ## Final deliverable
 
@@ -56,6 +63,16 @@ Install [LÖVE 11.x](https://love2d.org/) and run:
 ```sh
 love .
 ```
+
+That command currently opens the content-free bootstrap. To import a supported
+ROM into memory and run the New Bark developer preview:
+
+```powershell
+./scripts/run-m2.ps1 -RomPath "D:\path\to\your\ROM"
+```
+
+Use the arrow keys to move. The preview does not write the ROM or decoded
+content into the repository.
 
 ## Testing
 
@@ -86,6 +103,17 @@ English Crystal ROM:
 
 This verifies and imports into an in-memory cache, prints structural counts,
 and exits without writing the ROM or decoded content into the repository.
+
+To run M2's world-data and native-runtime acceptance check:
+
+```powershell
+./scripts/verify-crystal-world.ps1 -RomPath "D:\path\to\your\ROM"
+```
+
+This checks map, tileset, sprite, collision, connection, warp, and tile
+references; exercises every New Bark building warp in both directions; crosses
+the walkable Route 29 boundary; confirms Route 27 is correctly blocked by
+water on foot; and hashes distinct morning, day, and night 160×144 frames.
 
 ## Project direction
 

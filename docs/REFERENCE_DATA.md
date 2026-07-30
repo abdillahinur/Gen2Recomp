@@ -37,9 +37,9 @@ Output contains only label, bank, address, physical offset, and reference
 provenance.
 
 The two full symbol files have different SHA-256 fingerprints. All labels used
-by the M1 extraction slice resolve to the same physical offsets in v1.0 and
-v1.1, but each ROM revision still owns a distinct generated manifest, profile,
-hash, header version, and private-cache directory.
+by the M1 and M2 extraction slices resolve to the same physical offsets in v1.0
+and v1.1, but each ROM revision still owns a distinct generated manifest,
+profile, hash, header version, and private-cache directory.
 
 The initial symbol set bounds Crystal's main 1bpp font, two 2bpp supplemental
 font sets, species records, names, and the first tileset slice. The importer
@@ -58,3 +58,16 @@ records, and 224 tile palette/VRAM slots. The slot model preserves Crystal's
 96-bank-0, 32-reserved, 96-bank-1 layout. Its base colors are decoded from
 15-bit Game Boy values into named time-of-day palettes with both 5-bit and
 8-bit RGB channels.
+
+M2 adds the compact addresses needed for Crystal's map-group pointer table,
+the New Bark group attributes and selected map block/event records, collision
+permissions, map-group roofs, roof palettes and tiles, object palettes, and
+overworld sprite table. The shared world manifest selects eight maps and four
+tilesets needed by the New Bark slice while retaining all thirteen normalized
+headers in map group 24.
+
+The importer decodes static map structure only: dimensions, blocks,
+connections, warps, coordinate/BG event locations, object metadata, graphics,
+and palettes. Original script pointers are deliberately omitted from the
+normalized cache. Event behavior will be hand-written in source-controlled Lua
+during M3 rather than executing or translating ROM bytecode.

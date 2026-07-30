@@ -54,7 +54,12 @@ Deliver:
 
 Exit gate:
 
-- New Bark Town renders and can be traversed with correct collision and warps.
+- [x] New Bark Town renders and can be traversed with correct collision and
+  warps. Canonical English Crystal v1.1 was verified through
+  `./scripts/verify-crystal-world.ps1 -RomPath "<path>"`, including all four
+  building warp round trips, the walkable Route 29 boundary, Route 27's
+  correctly terrain-blocked water boundary, and distinct morning/day/night
+  frames.
 
 ## M3 — Hand-written event slice
 

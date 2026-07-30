@@ -72,6 +72,7 @@ local function main()
   local font = section(result.report, "font")
   local species = section(result.report, "species")
   local tileset = section(result.report, "tileset")
+  local world = section(result.report, "world")
 
   print("")
   print("Crystal ROM-gated import verification passed.")
@@ -84,6 +85,13 @@ local function main()
     tileset.metatileCount,
     tileset.collisionRecordCount
   ))
+  print(("World groups/maps/collision permissions/sprites: %d/%d/%d/%d")
+    :format(
+      world.groupCount,
+      world.mapCount,
+      world.collisionPermissionCount,
+      world.spriteCount
+    ))
   print(("Cache payloads/bytes: %d/%d"):format(
     result.cache.fileCount,
     result.cache.totalBytes

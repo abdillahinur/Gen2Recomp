@@ -52,7 +52,9 @@ download or require a disassembly.
 ### World vertical slice
 
 Extract and render New Bark Town with correct CGB palettes, collision,
-movement, objects, connections, and warps.
+movement, objects, connections, and warps. This M2 slice is complete for the
+canonical English Crystal profiles and verified locally with v1.1; it is a
+traversable engine/data slice, not campaign gameplay.
 
 ### Hand-written event slice
 
@@ -76,8 +78,10 @@ breeding, contests, minigames, and Battle Tower when the route reaches them.
 
 ### Additional versions
 
-Add Crystal v1.1, then Gold and Silver profiles. Differences must be expressed
-as data/profile capabilities wherever possible.
+Crystal v1.1 identity and the M1/M2 data slices are already supported. Extend
+both Crystal revisions together as behavior grows, then add Gold and Silver
+profiles. Differences must be expressed as data/profile capabilities wherever
+possible.
 
 ### Hardening
 
@@ -133,7 +137,7 @@ documentation, and optional cartridge-save interoperability.
 | Game | SHA-1 | Plan |
 | --- | --- | --- |
 | Crystal US/EU v1.0 | `f4cd194bdee0d04ca4eac29e09b8e4e9d818c133` | M1 profile; primary behavior target |
-| Crystal US/EU v1.1 | `f2f52230b536214ef7c9924f483392993e226cfb` | M1 profile; ROM-gated import verified |
+| Crystal US/EU v1.1 | `f2f52230b536214ef7c9924f483392993e226cfb` | M1/M2 profile; ROM-gated world slice verified |
 | Gold US/EU | `d8b8a3600a465308c9953dfa04f0081c05bdcb94` | After Crystal |
 | Silver US/EU | `49b163f7e57702bc939d642a18f591de55d92dae` | With Gold |
 
