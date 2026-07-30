@@ -64,15 +64,26 @@ validation small and prevents loading executable Lua from a writable cache.
 The on-disk encoding is deterministic UTF-8 JSON. Cache data is parsed as
 data; writable cache files are never loaded as Lua source.
 
+The Crystal import coordinator currently writes four normalized payloads:
+
+- `data/font.json`
+- `data/species.json`
+- `data/tilesets/johto.json`
+- `reports/import.json`
+
+The structural report records only the accepted profile, ROM fingerprint and
+header summary, warnings, decoded section counts, and expected payload paths.
+It does not contain the ROM path, ROM bytes, or executable behavior.
+
 ## Lifecycle
 
 An import uses a sibling temporary directory that cannot be mistaken for a
 completed cache:
 
 1. Identify the ROM and derive the expected cache owner.
-2. Create a unique staging directory.
-3. Decode payload files into staging.
-4. Verify every payload and build its sorted inventory.
+2. Decode and structurally validate normalized data in memory.
+3. Serialize deterministic JSON and create a unique staging directory.
+4. Write payload files and build their fingerprinted inventory.
 5. Write and verify `manifest.json` last.
 6. Promote the completed directory with a same-parent native rename.
 7. Remove obsolete staging data after successful promotion or recovery.
@@ -87,9 +98,9 @@ Promotion preserves an already valid matching target instead of replacing it.
 An invalid target is first renamed to a quarantine sibling; if promotion fails,
 that target is restored.
 
-Cancellation is cooperative at payload-write and commit boundaries. It removes
-the active staging directory without touching a valid target. At startup,
-recovery classifies same-owner siblings:
+Cancellation is cooperative between extraction stages and at payload-write and
+commit boundaries. It removes the active staging directory without touching a
+valid target. At startup, recovery classifies same-owner siblings:
 
 - a valid target wins and stale staging/quarantine siblings are removed;
 - a complete staging cache may be promoted when the target is absent or
