@@ -135,6 +135,12 @@ function MapPresentationRuntime:_enteredMap()
   local callback = session.definition.coverage.callbacks[1]
   if callback then self:_start(session, "callbacks", callback) end
 
+  local entryScene = session.definition.entryScenes
+    and session.definition.entryScenes[self.world.currentMapId]
+  if entryScene and not self.activeTask then
+    self:_start(session, "scenes", entryScene)
+  end
+
   if self.world.currentMapId == "24:5"
       and not self.activeTask
       and not self.state:getScene("crystal.map.elms_lab") then
@@ -221,6 +227,14 @@ function MapPresentationRuntime:_coordBehavior()
         return session, "crystal.elms_lab.coord.aide_potion_left"
       elseif x == 5 then
         return session, "crystal.elms_lab.coord.aide_potion_right"
+      end
+    end
+  end
+  if session.definition.automaticCoordEvents then
+    for _, event in ipairs(self.world.currentMap.coordEvents or {}) do
+      if event.x == x and event.y == y then
+        local id = session.definition.coverage.coordEvents[event.id]
+        if id then return session, id end
       end
     end
   end

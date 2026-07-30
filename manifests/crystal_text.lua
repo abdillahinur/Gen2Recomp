@@ -115,5 +115,90 @@ return {
     ["crystal.text.elms_lab.pc"] = { symbol = "ElmsLabPCText" },
     ["crystal.text.common.difficult_bookshelf"] =
       { symbol = "DifficultBookshelfText" },
+
+    ["crystal.text.cherrygrove.guide_intro"] =
+      { symbol = "GuideGentIntroText" },
+    ["crystal.text.cherrygrove.guide_tour"] =
+      { symbol = "GuideGentTourText1" },
+    ["crystal.text.cherrygrove.guide_pokecenter"] =
+      { symbol = "GuideGentPokecenterText" },
+    ["crystal.text.cherrygrove.guide_mart"] =
+      { symbol = "GuideGentMartText" },
+    ["crystal.text.cherrygrove.guide_route_30"] =
+      { symbol = "GuideGentRoute30Text" },
+    ["crystal.text.cherrygrove.guide_sea"] =
+      { symbol = "GuideGentSeaText" },
+    ["crystal.text.cherrygrove.guide_gift"] =
+      { symbol = "GuideGentGiftText" },
+    ["crystal.text.cherrygrove.got_map_card"] =
+      { symbol = "GotMapCardText" },
+    ["crystal.text.cherrygrove.guide_pokegear"] =
+      { symbol = "GuideGentPokegearText" },
+    ["crystal.text.cherrygrove.guide_no"] =
+      { symbol = "GuideGentNoText" },
+    ["crystal.text.cherrygrove.rival_seen"] =
+      { symbol = "CherrygroveRivalText_Seen" },
+    ["crystal.text.cherrygrove.rival_won"] =
+      { symbol = "CherrygroveRivalText_YouWon" },
+    ["crystal.text.cherrygrove.rival_lost"] =
+      { symbol = "CherrygroveRivalText_YouLost" },
+
+    ["crystal.text.mr_pokemon.intro_1"] =
+      { symbol = "MrPokemonIntroText1" },
+    ["crystal.text.mr_pokemon.intro_2"] =
+      { symbol = "MrPokemonIntroText2" },
+    ["crystal.text.mr_pokemon.got_egg"] =
+      { symbol = "MrPokemonsHouse_GotEggText" },
+    ["crystal.text.mr_pokemon.intro_3"] =
+      { symbol = "MrPokemonIntroText3" },
+    ["crystal.text.mr_pokemon.intro_4"] =
+      { symbol = "MrPokemonIntroText4" },
+    ["crystal.text.mr_pokemon.intro_5"] =
+      { symbol = "MrPokemonIntroText5" },
+    ["crystal.text.mr_pokemon.heal"] =
+      { symbol = "MrPokemonsHouse_MrPokemonHealText" },
+    ["crystal.text.mr_pokemon.depending_on_you"] =
+      { symbol = "MrPokemonText_ImDependingOnYou" },
+    ["crystal.text.mr_pokemon.oak_1"] =
+      { symbol = "MrPokemonsHouse_OakText1" },
+    ["crystal.text.mr_pokemon.got_pokedex"] =
+      { symbol = "MrPokemonsHouse_GetDexText" },
+    ["crystal.text.mr_pokemon.oak_2"] =
+      { symbol = "MrPokemonsHouse_OakText2" },
+
+    ["crystal.text.route_30.directions"] =
+      { symbol = "Route30YoungsterText_DirectionsToMrPokemonsHouse" },
+    ["crystal.text.route_30.everyone_battling"] =
+      { symbol = "Route30YoungsterText_EveryoneIsBattling" },
+    ["crystal.text.route_30.sign"] =
+      { symbol = "Route30SignText" },
+    ["crystal.text.route_30.directions_sign"] =
+      { symbol = "MrPokemonsHouseDirectionsSignText" },
+    ["crystal.text.route_30.mr_pokemon_sign"] =
+      { symbol = "MrPokemonsHouseSignText" },
+    ["crystal.text.route_30.trainer_tips"] =
+      { symbol = "Route30TrainerTipsText" },
+    ["crystal.text.route_31.youngster"] =
+      { symbol = "Route31YoungsterText" },
+    ["crystal.text.route_31.sign"] =
+      { symbol = "Route31SignText" },
+    ["crystal.text.route_31.dark_cave_sign"] =
+      { symbol = "DarkCaveSignText" },
+
+    ["crystal.text.violet.lass"] = { symbol = "VioletCityLassText" },
+    ["crystal.text.violet.super_nerd"] =
+      { symbol = "VioletCitySuperNerdText" },
+    ["crystal.text.violet.gramps"] =
+      { symbol = "VioletCityGrampsText" },
+    ["crystal.text.violet.youngster"] =
+      { symbol = "VioletCityYoungsterText" },
+    ["crystal.text.violet.city_sign"] =
+      { symbol = "VioletCitySignText" },
+    ["crystal.text.violet.gym_sign"] =
+      { symbol = "VioletGymSignText" },
+    ["crystal.text.violet.sprout_tower_sign"] =
+      { symbol = "SproutTowerSignText" },
+    ["crystal.text.violet.academy_sign"] =
+      { symbol = "EarlsPokemonAcademySignText" },
   },
 }

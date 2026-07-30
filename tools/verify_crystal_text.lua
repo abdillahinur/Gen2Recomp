@@ -55,7 +55,7 @@ local function main()
 
   local expected = 0
   for _ in pairs(identity.profile.text.entries) do expected = expected + 1 end
-  requireValue(catalog.count == expected and catalog.count == 55,
+  requireValue(catalog.count == expected and catalog.count == 96,
     "catalog entry count is incomplete")
   for id, entry in pairs(catalog.entries) do
     requireValue(type(id) == "string" and #entry.tokens > 0
@@ -117,7 +117,7 @@ local function main()
 
   print("Crystal M5-002 ROM-text verification passed.")
   print("Profile: " .. identity.profile.id)
-  print("Catalog: 55 ROM-owned semantic mappings decoded")
+  print("Catalog: 96 ROM-owned semantic mappings decoded")
   print("Presentation: two-line pagination and substitutions verified")
   print("Retention: normalized catalog contains no raw ROM ranges")
   return 0

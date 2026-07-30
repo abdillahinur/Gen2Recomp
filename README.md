@@ -12,7 +12,7 @@ normal play. A future first-boot UI will invoke this importer.
 
 ## Current status
 
-The repository has completed **M4: Battle slice** and the first seven checkpoints
+The repository has completed **M4: Battle slice** and the first eight checkpoints
 of **M5: Violet City vertical slice**, including end-to-end M1–M4 verification
 with canonical English Crystal v1.1. The project currently contains:
 
@@ -47,12 +47,16 @@ with canonical English Crystal v1.1. The project currently contains:
   services for the M3 behavior slice;
 - visible dialogue boxes, choices, clock setup, preset/custom naming, New Bark
   interactions, and Elm's Lab scene presentation driven by those M3 services;
-- runtime decoding of 55 ROM-owned introduction, New Bark, and Elm's Lab text
-  records, with two-line pagination and player/species substitutions;
+- runtime decoding of 96 ROM-owned introduction, New Bark, Elm's Lab,
+  Cherrygrove, route, and Violet text records, with two-line pagination and
+  player/species substitutions;
 - a visible native battle scene with HP HUDs, messages, Fight, Pack, Pokémon,
   Run, move selection, party switching, catching, and terminal outcomes;
 - a stack-based world/script battle bridge that returns outcomes to suspended
   Lua behavior and persists HP, EXP, DVs, moves, PP, and Pokédex discoveries;
+- source-controlled Route 29–32/36, Cherrygrove, Violet, Mr. Pokémon, academy,
+  gate, house, item, fruit, Map Card, Mystery Egg, Pokédex, rival, and
+  pre-badge boundary behavior;
 - a profile-bound persistent game-session contract for script, party,
   inventory, phone, clock, money, player-location, and Pokédex state;
 - normalized battle records and Gen 2 Pokémon instances with integer stats,
@@ -71,13 +75,14 @@ ROM path, the developer preview now visibly runs M3's introduction, gender
 choice, clock setup, ROM-owned dialogue, and on-screen naming before entering
 the world. New Bark NPC/sign interactions and Elm's Lab scene use the same
 visible, paginated presentation controller. Semantic labels remain only as a
-fallback for dialogue outside the current 55-record extraction manifest. The
+fallback for dialogue outside the current 96-record extraction manifest. The
 M4 simulation now has a standalone visible battle preview, and M5-004 connects
 world/script requests to it. M5-005 expands the traversable ROM-backed world
 from New Bark through Cherrygrove and Violet City. M5-006 now starts visible
 wild battles from eligible steps using the session clock. M5-007 adds
-ROM-backed trainer parties and visible overworld trainer challenges. Saves,
-audio playback, broader move-effect coverage,
+ROM-backed trainer parties and visible overworld trainer challenges. M5-008
+adds native route/city events through Violet and expands exact ROM-owned text
+to 96 records. Saves, audio playback, broader move-effect coverage,
 broader story progression, and most maps remain future milestones.
 
 ## Final deliverable
@@ -184,7 +189,7 @@ To verify M5-002's ROM-owned text catalog and visible pagination:
 ./scripts/verify-crystal-text.ps1 -RomPath "D:\path\to\your\ROM"
 ```
 
-This decodes the 55 currently mapped records, validates substitutions and
+This decodes the 96 currently mapped records, validates substitutions and
 two-line pages, and audits the normalized result for retained raw ROM ranges.
 
 To run M4's deterministic first-rival and ordinary wild-battle gates:
@@ -245,6 +250,17 @@ To verify M5-007's trainer-party decoding, sight, approach, and persistence:
 This locates Youngster Joey and the Violet Gym trainers in the supplied ROM,
 executes Joey's real Route 30 sight and approach path, creates his native
 battle party, and verifies that victory prevents a repeat challenge.
+
+To verify M5-008's native route and city behavior:
+
+```powershell
+./scripts/verify-crystal-violet-events.ps1 -RomPath "D:\path\to\your\ROM"
+```
+
+This checks 19 scripted maps against decoded event metadata, executes the
+Mystery Egg and Pokédex meeting, guide gift, rival battle gate, and Route 32
+pre-badge boundary on the real ROM-backed world, and verifies the 96-record
+dialogue catalog.
 
 ## Project direction
 

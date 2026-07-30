@@ -13,7 +13,7 @@ Falkner's Gym, and the first badge.
 5. World extraction through Violet City. **Complete.**
 6. Time-based wild encounters. **Complete.**
 7. Trainer sight and trainer battles. **Complete.**
-8. Route, Cherrygrove, and Violet event behavior.
+8. Route, Cherrygrove, and Violet event behavior. **Complete.**
 9. Pack, party, and Pokédex UI.
 10. Pokémon Center, mart, and PC systems.
 11. Save/load and RTC persistence.
@@ -130,6 +130,26 @@ repeat challenges.
 The current battle factory uses explicit ROM move lists when a trainer-party
 record supplies them. Ordinary trainer records without explicit moves continue
 to use the M4 baseline default move until learnset decoding is added.
+
+## Route and city behavior
+
+M5-008 expands the source-controlled catalog to 20 definitions, including 19
+map scripts. Route 29–32/36, Cherrygrove, Violet, Mr. Pokémon's house, the
+academy, route gates, and relevant houses now expose native callbacks, scenes,
+coordinate gates, object interactions, signs, fruit, and one-time items. Every
+game-specific module cites the exact pinned `pokecrystal` source labels used to
+study its behavior.
+
+The visible story path now covers Cherrygrove's guide and Map Card, Mr.
+Pokémon's Mystery Egg handoff, Oak's Pokédex handoff, the returning rival
+battle, Route 30/31 interactions, Violet's city behavior, and Route 32's
+pre-badge guard. The same persistent `GameSession` retains those gates.
+
+The player-ROM text catalog grows from 55 to 96 records for the key guide,
+Mr. Pokémon, rival, route, and Violet dialogue. Other newly wired interactions
+continue to use explicit semantic fallbacks until their ROM labels are added;
+the final M5 acceptance checkpoint must remove those fallbacks from the
+required introduction-to-badge route.
 
 ## Exit gate
 

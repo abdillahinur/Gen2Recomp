@@ -28,6 +28,21 @@ return {
       address = 0x7d84,
       offset = 0x053d84,
     },
+    ["CherrygroveRivalText_Seen"] = {
+      bank = 0x67,
+      address = 0x44e2,
+      offset = 0x19c4e2,
+    },
+    ["CherrygroveRivalText_YouLost"] = {
+      bank = 0x67,
+      address = 0x459e,
+      offset = 0x19c59e,
+    },
+    ["CherrygroveRivalText_YouWon"] = {
+      bank = 0x67,
+      address = 0x4608,
+      offset = 0x19c608,
+    },
     ["ChoseStarterText"] = {
       bank = 0x1e,
       address = 0x5487,
@@ -37,6 +52,11 @@ return {
       bank = 0x13,
       address = 0x4e1f,
       offset = 0x04ce1f,
+    },
+    ["DarkCaveSignText"] = {
+      bank = 0x69,
+      address = 0x5a6e,
+      offset = 0x1a5a6e,
     },
     ["DidntChooseStarterText"] = {
       bank = 0x1e,
@@ -52,6 +72,11 @@ return {
       bank = 0x02,
       address = 0x7641,
       offset = 0x00b641,
+    },
+    ["EarlsPokemonAcademySignText"] = {
+      bank = 0x6a,
+      address = 0x474d,
+      offset = 0x1a874d,
     },
     ["ElmDescribesMrPokemonText"] = {
       bank = 0x1e,
@@ -193,6 +218,56 @@ return {
       address = 0x55f3,
       offset = 0x0795f3,
     },
+    ["GotMapCardText"] = {
+      bank = 0x67,
+      address = 0x4438,
+      offset = 0x19c438,
+    },
+    ["GuideGentGiftText"] = {
+      bank = 0x67,
+      address = 0x43ec,
+      offset = 0x19c3ec,
+    },
+    ["GuideGentIntroText"] = {
+      bank = 0x67,
+      address = 0x41e3,
+      offset = 0x19c1e3,
+    },
+    ["GuideGentMartText"] = {
+      bank = 0x67,
+      address = 0x4304,
+      offset = 0x19c304,
+    },
+    ["GuideGentNoText"] = {
+      bank = 0x67,
+      address = 0x449f,
+      offset = 0x19c49f,
+    },
+    ["GuideGentPokecenterText"] = {
+      bank = 0x67,
+      address = 0x4285,
+      offset = 0x19c285,
+    },
+    ["GuideGentPokegearText"] = {
+      bank = 0x67,
+      address = 0x4451,
+      offset = 0x19c451,
+    },
+    ["GuideGentRoute30Text"] = {
+      bank = 0x67,
+      address = 0x4359,
+      offset = 0x19c359,
+    },
+    ["GuideGentSeaText"] = {
+      bank = 0x67,
+      address = 0x43a7,
+      offset = 0x19c3a7,
+    },
+    ["GuideGentTourText1"] = {
+      bank = 0x67,
+      address = 0x426f,
+      offset = 0x19c26f,
+    },
     ["JohtoGrassWildMons"] = {
       bank = 0x0a,
       address = 0x65e9,
@@ -227,6 +302,71 @@ return {
       bank = 0x02,
       address = 0x7469,
       offset = 0x00b469,
+    },
+    ["MrPokemonIntroText1"] = {
+      bank = 0x65,
+      address = 0x6f66,
+      offset = 0x196f66,
+    },
+    ["MrPokemonIntroText2"] = {
+      bank = 0x65,
+      address = 0x6fa8,
+      offset = 0x196fa8,
+    },
+    ["MrPokemonIntroText3"] = {
+      bank = 0x65,
+      address = 0x6feb,
+      offset = 0x196feb,
+    },
+    ["MrPokemonIntroText4"] = {
+      bank = 0x65,
+      address = 0x7092,
+      offset = 0x197092,
+    },
+    ["MrPokemonIntroText5"] = {
+      bank = 0x65,
+      address = 0x70b7,
+      offset = 0x1970b7,
+    },
+    ["MrPokemonText_ImDependingOnYou"] = {
+      bank = 0x65,
+      address = 0x7134,
+      offset = 0x197134,
+    },
+    ["MrPokemonsHouseDirectionsSignText"] = {
+      bank = 0x68,
+      address = 0x5b34,
+      offset = 0x1a1b34,
+    },
+    ["MrPokemonsHouseSignText"] = {
+      bank = 0x68,
+      address = 0x5b55,
+      offset = 0x1a1b55,
+    },
+    ["MrPokemonsHouse_GetDexText"] = {
+      bank = 0x65,
+      address = 0x73cc,
+      offset = 0x1973cc,
+    },
+    ["MrPokemonsHouse_GotEggText"] = {
+      bank = 0x65,
+      address = 0x6fd2,
+      offset = 0x196fd2,
+    },
+    ["MrPokemonsHouse_MrPokemonHealText"] = {
+      bank = 0x65,
+      address = 0x70ed,
+      offset = 0x1970ed,
+    },
+    ["MrPokemonsHouse_OakText1"] = {
+      bank = 0x65,
+      address = 0x7185,
+      offset = 0x197185,
+    },
+    ["MrPokemonsHouse_OakText2"] = {
+      bank = 0x65,
+      address = 0x73de,
+      offset = 0x1973de,
     },
     ["NewBarkTownElmsHouseSignText"] = {
       bank = 0x6a,
@@ -297,6 +437,41 @@ return {
       bank = 0x07,
       address = 0x403c,
       offset = 0x01c03c,
+    },
+    ["Route30SignText"] = {
+      bank = 0x68,
+      address = 0x5b0b,
+      offset = 0x1a1b0b,
+    },
+    ["Route30TrainerTipsText"] = {
+      bank = 0x68,
+      address = 0x5b66,
+      offset = 0x1a1b66,
+    },
+    ["Route30YoungsterText_DirectionsToMrPokemonsHouse"] = {
+      bank = 0x68,
+      address = 0x5a6a,
+      offset = 0x1a1a6a,
+    },
+    ["Route30YoungsterText_EveryoneIsBattling"] = {
+      bank = 0x68,
+      address = 0x5a94,
+      offset = 0x1a1a94,
+    },
+    ["Route31SignText"] = {
+      bank = 0x69,
+      address = 0x5a45,
+      offset = 0x1a5a45,
+    },
+    ["Route31YoungsterText"] = {
+      bank = 0x69,
+      address = 0x59d5,
+      offset = 0x1a59d5,
+    },
+    ["SproutTowerSignText"] = {
+      bank = 0x6a,
+      address = 0x4724,
+      offset = 0x1a8724,
     },
     ["TakeChikoritaText"] = {
       bank = 0x1e,
@@ -397,6 +572,36 @@ return {
       bank = 0x0e,
       address = 0x5999,
       offset = 0x039999,
+    },
+    ["VioletCityGrampsText"] = {
+      bank = 0x6a,
+      address = 0x45ef,
+      offset = 0x1a85ef,
+    },
+    ["VioletCityLassText"] = {
+      bank = 0x6a,
+      address = 0x4529,
+      offset = 0x1a8529,
+    },
+    ["VioletCitySignText"] = {
+      bank = 0x6a,
+      address = 0x46b2,
+      offset = 0x1a86b2,
+    },
+    ["VioletCitySuperNerdText"] = {
+      bank = 0x6a,
+      address = 0x4593,
+      offset = 0x1a8593,
+    },
+    ["VioletCityYoungsterText"] = {
+      bank = 0x6a,
+      address = 0x4665,
+      offset = 0x1a8665,
+    },
+    ["VioletGymSignText"] = {
+      bank = 0x6a,
+      address = 0x46dc,
+      offset = 0x1a86dc,
     },
     ["_OakText1"] = {
       bank = 0x70,

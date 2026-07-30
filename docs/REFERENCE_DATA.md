@@ -102,3 +102,8 @@ decoder follows the referenced class group, validates all four Crystal party
 record layouts, and normalizes only parties used by selected maps. Names,
 species, levels, held items, and explicit moves are decoded at runtime from the
 player's ROM.
+
+M5-008 adds 41 direct dialogue labels for the Cherrygrove guide, Mr. Pokémon
+and Oak meeting, first rival gate, Routes 30/31, and Violet City. This expands
+the verified runtime catalog to 96 ROM-owned records. The semantic manifest
+still contains only IDs, symbol names, and substitution metadata.

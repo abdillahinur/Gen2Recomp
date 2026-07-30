@@ -137,6 +137,7 @@ Completed checkpoints:
 - [x] M5-005 ROM-backed New Bark-to-Violet world corridor.
 - [x] M5-006 time-based wild encounter selection and battle dispatch.
 - [x] M5-007 trainer sight, approach, and ROM-backed trainer battles.
+- [x] M5-008 Route, Cherrygrove, and Violet native event behavior.
 
 ## M6 — Johto campaign
 

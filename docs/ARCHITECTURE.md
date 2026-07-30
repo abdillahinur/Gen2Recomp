@@ -204,7 +204,7 @@ filesystem persistence around this contract; M5-001 does not write saves.
 World and map-script presentation now share the session-owned services rather
 than creating progression state that disappears between maps.
 
-M5-002 adds a profile-owned text extraction manifest for 55 introduction,
+M5-002 begins a profile-owned text extraction manifest with 55 introduction,
 New Bark, and Elm's Lab records. `CrystalTextData` reads those records from the
 verified ROM into normalized glyph, layout, and substitution tokens, then
 releases the ROM with the rest of the preview importer. `RomTextProvider`
@@ -248,6 +248,13 @@ identity, and defeat flags. `TrainerController` performs line-of-sight checks,
 the visible shock/approach sequence, battle dispatch, and persistent defeat
 state without executing cartridge event scripts.
 
+M5-008 expands the hand-written behavior catalog to 19 map definitions across
+Routes 29–32/36, Cherrygrove, Violet, route gates, and supporting houses.
+Native callbacks and coordinate gates now drive the Map Card, Mystery Egg,
+Pokédex, Cherrygrove rival, item/fruit, city, and pre-badge Route 32 state.
+Forty-one additional direct symbols expand visible ROM-owned dialogue to 96
+records; semantic fallbacks remain explicit for secondary interactions.
+
 M4 adds normalized species, move, item, and trainer records; Gen 2 integer
 stats, DVs, gender, shiny state, and Hidden Power; deterministic battle state,
 action ordering, switching, damage, status, effect dispatch, AI, catching,
@@ -260,7 +267,7 @@ wild fixtures with terminal outcomes and experience awards.
 
 The project does not yet contain the first-launch file picker or
 importer-screen wiring. M3's text, choice, clock, and naming services are
-connected to visible LÖVE UI, and the current 55-record slice now uses exact
+connected to visible LÖVE UI, and the current 96-record slice now uses exact
 ROM-owned dialogue. The battle simulation now has a visible standalone scene,
 but broader move-effect coverage, held-item behavior, weather, saves,
 audio playback, and campaign progression remain future work. Import, world,

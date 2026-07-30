@@ -86,7 +86,7 @@ Backlog IDs are stable planning references, not issue tracker numbers.
 - [x] `M5-005` Expand extracted world data through Violet City.
 - [x] `M5-006` Implement encounters selected by map and time period.
 - [x] `M5-007` Implement trainer sight, approach, and trainer battles.
-- [ ] `M5-008` Hand-write Route, Cherrygrove, and Violet event behavior.
+- [x] `M5-008` Hand-write Route, Cherrygrove, and Violet event behavior.
 - [ ] `M5-009` Add Pack, party, and Pokédex presentation.
 - [ ] `M5-010` Add Pokémon Center, mart, and PC systems.
 - [ ] `M5-011` Add versioned save/load and RTC persistence.

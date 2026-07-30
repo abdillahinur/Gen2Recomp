@@ -192,6 +192,8 @@ require("tests.crystal_introduction_script_tests")(
   test, equal, truthy, raises)
 require("tests.crystal_map_script_tests")(
   test, equal, truthy, raises)
+require("tests.crystal_violet_route_script_tests")(
+  test, equal, truthy, raises)
 require("tests.script_coverage_tests")(test, equal, truthy, raises)
 require("tests.profile_flow_tests")(test, equal, truthy, raises)
 require("tests.game_session_tests")(test, equal, truthy, raises)
