@@ -53,8 +53,12 @@ testable view models for:
 
 `BattleSceneState` draws those models on the 160×144 native canvas. The current
 scene uses source-authored silhouettes rather than bundled Pokémon pictures.
-M5-004 will push this state from overworld encounters and hand-written script
-battle requests.
+
+M5-004's `BattleBridge` now pushes this state for hand-written script requests
+and returns its acknowledged result to the waiting coroutine. Its request
+factory adapts persistent semantic party records into native battle instances,
+then commits HP, experience, DVs, moves, PP, and Pokédex state back into the
+game session. M5-006 will originate ordinary encounters from world movement.
 
 ## M4 acceptance fixtures
 

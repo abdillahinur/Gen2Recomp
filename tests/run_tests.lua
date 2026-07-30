@@ -181,6 +181,7 @@ require("tests.trainer_ai_tests")(test, equal, truthy, raises)
 require("tests.progression_battle_tests")(test, equal, truthy, raises)
 require("tests.battle_session_tests")(test, equal, truthy, raises)
 require("tests.battle_presentation_tests")(test, equal, truthy, raises)
+require("tests.battle_bridge_tests")(test, equal, truthy, raises)
 require("tests.crystal_introduction_script_tests")(
   test, equal, truthy, raises)
 require("tests.crystal_map_script_tests")(

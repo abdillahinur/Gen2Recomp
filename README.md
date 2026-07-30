@@ -12,7 +12,7 @@ normal play. A future first-boot UI will invoke this importer.
 
 ## Current status
 
-The repository has completed **M4: Battle slice** and the first three checkpoints
+The repository has completed **M4: Battle slice** and the first four checkpoints
 of **M5: Violet City vertical slice**, including end-to-end M1–M4 verification
 with canonical English Crystal v1.1. The project currently contains:
 
@@ -46,6 +46,8 @@ with canonical English Crystal v1.1. The project currently contains:
   records, with two-line pagination and player/species substitutions;
 - a visible native battle scene with HP HUDs, messages, Fight, Pack, Pokémon,
   Run, move selection, party switching, catching, and terminal outcomes;
+- a stack-based world/script battle bridge that returns outcomes to suspended
+  Lua behavior and persists HP, EXP, DVs, moves, PP, and Pokédex discoveries;
 - a profile-bound persistent game-session contract for script, party,
   inventory, phone, clock, money, player-location, and Pokédex state;
 - normalized battle records and Gen 2 Pokémon instances with integer stats,
@@ -65,10 +67,10 @@ choice, clock setup, ROM-owned dialogue, and on-screen naming before entering
 the world. New Bark NPC/sign interactions and Elm's Lab scene use the same
 visible, paginated presentation controller. Semantic labels remain only as a
 fallback for dialogue outside the current 55-record extraction manifest. The
-M4 simulation now has a standalone visible battle preview, but world and script
-battle requests are not connected to it until M5-004. Saves, audio playback,
-broader move-effect coverage, broader story progression, and most maps remain
-future milestones.
+M4 simulation now has a standalone visible battle preview, and M5-004 connects
+world/script requests to it. Route encounter selection begins in M5-006 after
+the M5-005 map expansion. Saves, audio playback, broader move-effect coverage,
+broader story progression, and most maps remain future milestones.
 
 ## Final deliverable
 
@@ -197,6 +199,12 @@ To drive that visible presentation model to a verified terminal result:
 
 ```powershell
 ./scripts/verify-crystal-battle-ui.ps1 -RomPath "D:\path\to\your\ROM"
+```
+
+To verify M5-004's world-stack bridge and persistent battle result:
+
+```powershell
+./scripts/verify-crystal-battle-bridge.ps1 -RomPath "D:\path\to\your\ROM"
 ```
 
 ## Project direction

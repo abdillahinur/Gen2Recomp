@@ -217,7 +217,14 @@ presentation-independent M4 session. The adapter consumes semantic battle
 events and exposes HUD, messages, root commands, moves/PP, party switches,
 catching, escape attempts, and terminal acknowledgement. It does not mutate
 the deterministic battle core outside its public session API. The scene has a
-standalone ROM-backed developer preview; overworld dispatch belongs to M5-004.
+standalone ROM-backed developer preview.
+
+M5-004 adds the dispatch boundary. `BattleRequestFactory` adapts
+`GameSession.party` members and semantic script requests into ROM-backed
+instances without exposing ROM offsets to gameplay code. `BattleBridge` pushes
+the scene on the application stack, commits HP/EXP/DV/move/PP and Pokédex
+changes, pops back to the world, then resolves the original coroutine wait.
+`MapPresentationRuntime` dispatches each active `BattleService` request once.
 
 M4 adds normalized species, move, item, and trainer records; Gen 2 integer
 stats, DVs, gender, shiny state, and Hidden Power; deterministic battle state,

@@ -51,6 +51,8 @@ function MapPresentationRuntime.new(world, options)
       or (gameSession and gameSession.phone)
       or PhoneService.new(),
     gameSession = gameSession,
+    battleBridge = options.battleBridge,
+    dispatchedBattle = nil,
     sessions = {},
     activeSession = nil,
     activeTask = nil,
@@ -95,6 +97,23 @@ function MapPresentationRuntime.new(world, options)
   return self
 end
 
+function MapPresentationRuntime:_dispatchBattle()
+  local request = self.battles.active
+  if not self.battleBridge
+      or not request
+      or self.dispatchedBattle == request then
+    return false
+  end
+  self.dispatchedBattle = request
+  self.battleBridge:start(request, function(result)
+    if self.battles.active == request then
+      self.battles:resolve(result)
+    end
+    self.dispatchedBattle = nil
+  end)
+  return true
+end
+
 function MapPresentationRuntime:_start(session, kind, id)
   if not session or self.activeTask then return false end
   local task = session:run(kind, id)
@@ -104,6 +123,7 @@ function MapPresentationRuntime:_start(session, kind, id)
     self.activeSession = session
     self.activeTask = task
   end
+  self:_dispatchBattle()
   return true
 end
 
@@ -136,6 +156,7 @@ end
 
 function MapPresentationRuntime:updateActive(dt, input)
   if self.activeSession then self.activeSession:update(dt) end
+  self:_dispatchBattle()
   self.presentation:update(input)
   if self.activeTask and completed(self.activeTask) then
     if self.activeTask.state == "failed" then

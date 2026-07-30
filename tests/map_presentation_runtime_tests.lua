@@ -109,4 +109,59 @@ return function(test, equal, truthy)
     truthy(not value:isBusy())
     equal(#value.dialogue.transcript, 1)
   end)
+
+  test("map presentation runtime dispatches coroutine battles", function()
+    local definition = {
+      kind = "map",
+      maps = { "1:1" },
+      actors = {},
+      coverage = {
+        callbacks = {},
+        scenes = {},
+        coordEvents = {},
+        bgEvents = {},
+        objects = { "test.map.object.battler" },
+      },
+      behavior = {
+        callbacks = {},
+        scenes = {},
+        coordEvents = {},
+        bgEvents = {},
+        objects = {
+          ["test.map.object.battler"] = function()
+            local result = Commands.battle(
+              "wild",
+              "crystal.species.pidgey",
+              { level = 2 }
+            )
+            Commands.setVariable(
+              "test.battle.won",
+              result.won
+            )
+          end,
+        },
+      },
+    }
+    local callback
+    local request
+    local bridge = {
+      start = function(_, value, resolve)
+        request = value
+        callback = resolve
+      end,
+    }
+    local value = MapPresentationRuntime.new(world(), {
+      catalog = { all = function() return { definition } end },
+      gameSession = GameSession.new("test_profile"),
+      battleBridge = bridge,
+    })
+    truthy(value:updateIdle(input("confirm")))
+    equal(request.kind, "wild")
+    equal(request.opponentId, "crystal.species.pidgey")
+    truthy(value:isBusy())
+    callback({ outcome = "player_win", won = true })
+    value:updateActive(0, input())
+    truthy(not value:isBusy())
+    truthy(value.state:getVariable("test.battle.won"))
+  end)
 end

@@ -44,21 +44,30 @@ function love.load()
     local battlePreview =
       os.getenv("GEN2RECOMP_BATTLE_PREVIEW") == "1"
     local worldData, profile, textCatalog, battleData =
-      CrystalPreview.load(romPath, { battle = battlePreview })
+      CrystalPreview.load(romPath, { battle = true })
+    local DataRegistry = require("src.pokemon.DataRegistry")
+    local registry = DataRegistry.new(battleData)
+    local function worldState(gameSession)
+      local BattleBridge = require("src.battle.BattleBridge")
+      local BattleRequestFactory =
+        require("src.battle.BattleRequestFactory")
+      local factory = BattleRequestFactory.new(
+        registry, battleData, gameSession)
+      return WorldState.new(worldData, {
+        gameSession = gameSession,
+        textCatalog = textCatalog,
+        battleBridge = BattleBridge.new(states, factory),
+      })
+    end
     if battlePreview then
       local BattleSceneState = require("src.states.BattleSceneState")
       local CrystalBattleGates =
         require("src.battle.CrystalBattleGates")
-      local DataRegistry = require("src.pokemon.DataRegistry")
-      local registry = DataRegistry.new(battleData)
       local session = CrystalBattleGates.route29Wild(
         registry, battleData, 152)
       states:push(BattleSceneState.new(session))
     elseif os.getenv("GEN2RECOMP_SKIP_INTRO") == "1" then
-      states:push(WorldState.new(worldData, {
-        gameSession = GameSession.new(profile.id),
-        textCatalog = textCatalog,
-      }))
+      states:push(worldState(GameSession.new(profile.id)))
     else
       states:push(IntroductionState.new({
         textCatalog = textCatalog,
@@ -66,10 +75,7 @@ function love.load()
           local gameSession = GameSession.new(profile.id, {
             state = session.state,
           })
-          states:replace(WorldState.new(worldData, {
-            gameSession = gameSession,
-            textCatalog = textCatalog,
-          }))
+          states:replace(worldState(gameSession))
         end,
       }))
     end

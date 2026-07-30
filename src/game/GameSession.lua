@@ -22,8 +22,9 @@ local function requireInteger(value, minimum, maximum, field)
 end
 
 local function copy(value)
+  if type(value) ~= "table" then return value end
   local result = {}
-  for key, item in pairs(value or {}) do result[key] = item end
+  for key, item in pairs(value or {}) do result[key] = copy(item) end
   return result
 end
 
@@ -61,7 +62,8 @@ local function restoreParty(snapshot)
     local result, reason = party:give(
       member.speciesId,
       member.level,
-      member.heldItemId
+      member.heldItemId,
+      member
     )
     if not result then fail("could not restore party: " .. reason, 3) end
   end
@@ -118,7 +120,7 @@ function GameSession.new(profileId, options)
   end
   local state = options.state
     or ScriptState.new(snapshot and snapshot.script or nil)
-  local clock = copy(snapshot and snapshot.clock or options.clock)
+  local clock = copy(snapshot and snapshot.clock or options.clock or {})
   clock.hour = clock.hour
     or state:getVariable("clock.hour", 10)
   clock.minute = clock.minute

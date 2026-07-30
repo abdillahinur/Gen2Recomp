@@ -1,6 +1,13 @@
 local PartyService = {}
 PartyService.__index = PartyService
 
+local function copy(value)
+  if type(value) ~= "table" then return value end
+  local result = {}
+  for key, child in pairs(value) do result[key] = copy(child) end
+  return result
+end
+
 function PartyService.new(options)
   options = options or {}
   local capacity = options.capacity or 6
@@ -15,7 +22,8 @@ function PartyService.new(options)
   }, PartyService)
 end
 
-function PartyService:give(speciesId, level, heldItemId)
+function PartyService:give(speciesId, level, heldItemId, options)
+  options = options or {}
   if type(speciesId) ~= "string" or speciesId == "" then
     error("party service: species id is required", 2)
   end
@@ -30,6 +38,11 @@ function PartyService:give(speciesId, level, heldItemId)
     speciesId = speciesId,
     level = level,
     heldItemId = heldItemId,
+    nickname = options.nickname,
+    currentHP = options.currentHP,
+    experience = options.experience,
+    dvs = copy(options.dvs),
+    moves = copy(options.moves),
   }
   self.members[#self.members + 1] = member
   return member

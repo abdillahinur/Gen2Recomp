@@ -133,6 +133,7 @@ Completed checkpoints:
 - [x] M5-001 persistent game-session contract.
 - [x] M5-002 55-record ROM-owned dialogue catalog and visible pagination.
 - [x] M5-003 visible battle scene, messages, and command menus.
+- [x] M5-004 world/script battle dispatch and persistent result bridge.
 
 ## M6 — Johto campaign
 

@@ -9,7 +9,7 @@ Falkner's Gym, and the first badge.
 1. Persistent game-session and vertical-slice contract.
 2. ROM-owned dialogue catalog. **Complete.**
 3. Visible battle scene and command menus. **Complete.**
-4. World/script-to-battle bridge.
+4. World/script-to-battle bridge. **Complete.**
 5. World extraction through Violet City.
 6. Time-based wild encounters.
 7. Trainer sight and trainer battles.
@@ -65,10 +65,22 @@ Pokémon, Run, move/PP details, party switching, catching, escaping, failed
 trainer escape, and acknowledged terminal outcomes. The standalone ROM-backed
 battle preview uses normalized species and move names from the supplied ROM.
 
-The scene is not dispatched by the overworld yet; that adapter is M5-004.
 Species are represented by native silhouettes until battle-picture extraction
 is added, while all battle state and menu behavior already use the real native
 simulation.
+
+## Battle dispatch and persistence
+
+M5-004 connects `MapPresentationRuntime` battle waits to a stack-based
+`BattleBridge`. A native request factory converts the persistent semantic party
+into ROM-backed Pokémon instances, creates wild or trainer sessions, pushes
+the visible scene, and returns a structured outcome to the suspended Lua
+coroutine after the scene is acknowledged and popped.
+
+Battle completion writes level, HP, experience, DVs, moves, and PP back to the
+profile-bound `GameSession`; encountered/caught species update its Pokédex
+sets. Those enriched party fields round-trip through the existing detached
+snapshot contract. Route encounters themselves begin in M5-006.
 
 ## Exit gate
 

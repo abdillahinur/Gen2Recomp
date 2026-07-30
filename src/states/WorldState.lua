@@ -30,6 +30,7 @@ function WorldState.new(worldData, options)
       state = options.scriptState,
       gameSession = options.gameSession,
       textCatalog = options.textCatalog,
+      battleBridge = options.battleBridge,
     })
   end
   self.gameSession = options.gameSession
