@@ -29,7 +29,7 @@ Backlog IDs are stable planning references, not issue tracker numbers.
 - [x] `M1-008` Generate Crystal symbols from pinned RGBDS output.
 - [x] `M1-009` Decode Crystal font and charmap.
 - [x] `M1-010` Decode species/base-stat records.
-- [ ] `M1-011` Decode one tileset and palette set.
+- [x] `M1-011` Decode one tileset and palette set.
 - [ ] `M1-012` Add extraction progress and structural report.
 - [ ] `M1-013` Test that large raw ROM ranges are not retained.
 - [x] `M1-014` Add malformed and truncated ROM fixtures.

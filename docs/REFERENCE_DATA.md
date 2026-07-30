@@ -39,3 +39,10 @@ Crystal species extraction validates all 251 32-byte records against their
 table index and decodes the first 251 fixed-width names. Stats, types, held
 items, gender thresholds, hatch cycles, dimensions, growth rates, egg groups,
 and the 60 TM/HM/tutor compatibility flags become explicit normalized fields.
+
+The first tileset slice implements Crystal's bounded LZ format and extracts the
+Johto set as 192 normalized 2bpp tiles, 128 4x4 metatiles, 128 2x2 collision
+records, and 224 tile palette/VRAM slots. The slot model preserves Crystal's
+96-bank-0, 32-reserved, 96-bank-1 layout. Its base colors are decoded from
+15-bit Game Boy values into named time-of-day palettes with both 5-bit and
+8-bit RGB channels.

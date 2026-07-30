@@ -48,10 +48,20 @@ return {
       address = 0x4e05,
       offset = 0x04ce05,
     },
+    ["MapObjectPals"] = {
+      bank = 0x02,
+      address = 0x7469,
+      offset = 0x00b469,
+    },
     ["PokemonNames"] = {
       bank = 0x14,
       address = 0x7384,
       offset = 0x053384,
+    },
+    ["TilesetBGPalette"] = {
+      bank = 0x02,
+      address = 0x7319,
+      offset = 0x00b319,
     },
     ["TilesetIcePathGFX"] = {
       bank = 0x06,

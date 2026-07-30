@@ -15,5 +15,7 @@ TilesetJohtoColl
 TilesetIcePathGFX
 TilesetJohtoPalMap
 TilesetJohtoModernPalMap
+TilesetBGPalette
+MapObjectPals
 MapGroupPalettes
 CollisionPermissionTable
