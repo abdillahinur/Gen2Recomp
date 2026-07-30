@@ -311,7 +311,9 @@ wild fixtures with terminal outcomes and experience awards.
 The project does not yet contain the first-launch file picker or
 importer-screen wiring. M3's text, choice, clock, and naming services are
 connected to visible LÖVE UI, and the current 119-record slice now uses exact
-ROM-owned dialogue. The battle simulation now has a visible standalone scene,
+ROM-owned dialogue. Explicit map-ID and ROM-event-index bindings route every
+supported actor and background interaction without coverage-list guessing.
+The battle simulation now has a visible standalone scene,
 but broader move-effect coverage, held-item behavior, exact cartridge audio,
 weather, and campaign progression remain future work. Import, world,
 event, presentation, and battle acceptance are exercised through fixtures and

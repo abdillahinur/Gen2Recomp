@@ -97,7 +97,7 @@ Backlog IDs are stable planning references, not issue tracker numbers.
   gender prompt/menu geometry.
 - [x] `M5-016` Reproduce the clock, professor, naming, and shrink introduction
   presentation with ROM-derived graphics and reference timing.
-- [ ] `M5-017` Replace positional object dispatch with explicit verified event
+- [x] `M5-017` Replace positional object dispatch with explicit verified event
   bindings for every supported map object and background event.
 - [ ] `M5-018` Decode every live-slice dialogue record and prohibit semantic
   fallbacks throughout the supported first-badge maps.

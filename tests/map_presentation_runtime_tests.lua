@@ -67,8 +67,32 @@ return function(test, equal, truthy)
     })
   end
 
+  local function catalog(definition)
+    return {
+      all = function() return { definition } end,
+      get = function(_, id)
+        return id == definition.id and definition or nil
+      end,
+    }
+  end
+
+  local function bindings(definition, objectId)
+    return {
+      schema = 1,
+      maps = {
+        ["1:1"] = {
+          definition = definition.id,
+          objects = { objectId },
+          bgEvents = {},
+          coordEvents = {},
+        },
+      },
+    }
+  end
+
   test("map presentation runtime opens visible object dialogue", function()
     local definition = {
+      id = "test.maps.greeter",
       kind = "map",
       maps = { "1:1" },
       actors = {},
@@ -91,12 +115,11 @@ return function(test, equal, truthy)
         },
       },
     }
-    local catalog = {
-      all = function() return { definition } end,
-    }
     local gameSession = GameSession.new("test_profile")
     local value = MapPresentationRuntime.new(world(), {
-      catalog = catalog,
+      catalog = catalog(definition),
+      eventBindings = bindings(
+        definition, "test.map.object.greeter"),
       gameSession = gameSession,
     })
     equal(value.state, gameSession.state)
@@ -112,6 +135,7 @@ return function(test, equal, truthy)
 
   test("map presentation runtime dispatches coroutine battles", function()
     local definition = {
+      id = "test.maps.battle",
       kind = "map",
       maps = { "1:1" },
       actors = {},
@@ -151,7 +175,9 @@ return function(test, equal, truthy)
       end,
     }
     local value = MapPresentationRuntime.new(world(), {
-      catalog = { all = function() return { definition } end },
+      catalog = catalog(definition),
+      eventBindings = bindings(
+        definition, "test.map.object.battler"),
       gameSession = GameSession.new("test_profile"),
       battleBridge = bridge,
     })

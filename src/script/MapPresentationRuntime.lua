@@ -7,6 +7,8 @@ local PartyService = require("src.script.PartyService")
 local PhoneService = require("src.script.PhoneService")
 local ScriptCatalog = require("src.script.ScriptCatalog")
 local ScriptState = require("src.script.ScriptState")
+local CrystalEventBindings =
+  require("src.script.CrystalEventBindings")
 local PresentationController =
   require("src.ui.PresentationController")
 local RomTextProvider = require("src.ui.RomTextProvider")
@@ -73,6 +75,8 @@ function MapPresentationRuntime.new(world, options)
   self.presentation = PresentationController.new({
     dialogue = self.dialogue,
   }, presentationOptions)
+  self.eventBindings = CrystalEventBindings.load(
+    world, self.catalog, options.eventBindings)
 
   for _, definition in ipairs(self.catalog:all()) do
     if definition.kind == "map" then
@@ -186,15 +190,17 @@ function MapPresentationRuntime:_interact()
   local session = self.sessions[self.world.currentMapId]
   if not session then return false end
   local x, y = self:_target()
+  local binding = self.eventBindings[self.world.currentMapId]
+  if not binding then return false end
   for _, object in ipairs(self.world:currentObjects()) do
     if object.visible and object.x == x and object.y == y then
-      local id = session.definition.coverage.objects[object.id]
+      local id = binding.objects[object.id]
       return id and self:_start(session, "objects", id) or false
     end
   end
   for _, event in ipairs(self.world.currentMap.bgEvents or {}) do
     if event.x == x and event.y == y then
-      local id = session.definition.coverage.bgEvents[event.id]
+      local id = binding.bgEvents[event.id]
       return id and self:_start(session, "bgEvents", id) or false
     end
   end
@@ -236,7 +242,8 @@ function MapPresentationRuntime:_coordBehavior()
   if session.definition.automaticCoordEvents then
     for _, event in ipairs(self.world.currentMap.coordEvents or {}) do
       if event.x == x and event.y == y then
-        local id = session.definition.coverage.coordEvents[event.id]
+        local binding = self.eventBindings[mapId]
+        local id = binding and binding.coordEvents[event.id]
         if id then return session, id end
       end
     end
