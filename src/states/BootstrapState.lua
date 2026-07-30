@@ -1,5 +1,3 @@
-local Profiles = require("src.import.Profiles")
-
 local BootstrapState = {}
 BootstrapState.__index = BootstrapState
 
@@ -26,7 +24,6 @@ function BootstrapState:update(dt, input)
 end
 
 function BootstrapState:draw()
-  local profile = Profiles.get("crystal_us_10")
   local pulse = 0.72 + math.sin(self.elapsed * 3) * 0.12
 
   love.graphics.setColor(0.12, 0.17, 0.25, 1)
@@ -40,12 +37,11 @@ function BootstrapState:draw()
   love.graphics.setColor(0.88, 0.94, 1, 1)
   love.graphics.print("GEN2RECOMP", 6, 6)
   love.graphics.setColor(0.45, 0.76, 1, 1)
-  love.graphics.print("M0 FOUNDATION", 6, 20)
+  love.graphics.print("M1 IMPORTER CORE", 6, 20)
 
   love.graphics.setColor(0.78, 0.82, 0.89, 1)
-  love.graphics.print("No ROM importer yet.", 6, 39)
-  love.graphics.print("Target:", 6, 51)
-  love.graphics.print(profile.id, 45, 51)
+  love.graphics.print("Importer UI pending.", 6, 39)
+  love.graphics.print("Crystal: v1.0 / v1.1", 6, 51)
   love.graphics.print("Move: arrows / WASD", 6, 65)
 
   love.graphics.setColor(0.35, 0.82, 1, pulse)
@@ -65,4 +61,3 @@ function BootstrapState:draw()
 end
 
 return BootstrapState
-

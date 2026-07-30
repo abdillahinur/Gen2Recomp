@@ -1,0 +1,9 @@
+{
+  "repository": "https://github.com/pret/pokecrystal",
+  "sourceCommit": "3438c7003a57fa2987fcb223d14b660761b33c64",
+  "symbolsCommit": "0cc2d9450283fedfc43b02809884e77c76a9036c",
+  "symbolsPath": "pokecrystal11.sym",
+  "symbolsSha256": "ca55588e83e4f4974e3872057eec12e8aac853bad1774e91486b5986cf6cb780",
+  "rgbdsVersion": "1.0.1",
+  "romProfile": "crystal_us_11"
+}

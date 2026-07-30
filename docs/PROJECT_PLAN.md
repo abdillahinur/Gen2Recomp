@@ -7,9 +7,9 @@ of Pokémon Gold, Silver, and Crystal, delivered as a normal desktop
 application and using only a verified player-supplied ROM as the source of
 game content.
 
-The first implementation target is Crystal US v1.0. Architecture will support
-multiple immutable ROM profiles from the start, but additional versions will
-not be declared playable until Crystal's core campaign is stable.
+The first behavior implementation target is Crystal US v1.0. The M1 importer
+supports separate immutable English v1.0 and v1.1 ROM profiles, but neither
+version will be declared playable until Crystal's core campaign is stable.
 
 A Windows release will provide `Gen2Recomp.exe` with the required LÖVE runtime
 libraries in a ZIP or installer. First launch imports a verified ROM into a
@@ -132,8 +132,8 @@ documentation, and optional cartridge-save interoperability.
 
 | Game | SHA-1 | Plan |
 | --- | --- | --- |
-| Crystal US/EU v1.0 | `f4cd194bdee0d04ca4eac29e09b8e4e9d818c133` | Primary |
-| Crystal US/EU v1.1 | `f2f52230b536214ef7c9924f483392993e226cfb` | After v1.0 |
+| Crystal US/EU v1.0 | `f4cd194bdee0d04ca4eac29e09b8e4e9d818c133` | M1 profile; primary behavior target |
+| Crystal US/EU v1.1 | `f2f52230b536214ef7c9924f483392993e226cfb` | M1 profile; ROM-gated import verified |
 | Gold US/EU | `d8b8a3600a465308c9953dfa04f0081c05bdcb94` | After Crystal |
 | Silver US/EU | `49b163f7e57702bc939d642a18f591de55d92dae` | With Gold |
 

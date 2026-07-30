@@ -12,14 +12,14 @@ normal play. A future first-boot UI will invoke this importer.
 
 ## Current status
 
-The repository has completed all **M1: Verified Crystal importer**
-implementation checkpoints. The canonical-ROM exit check remains local and
-player-ROM-gated. The project currently contains:
+The repository has completed **M1: Verified Crystal importer**, including a
+local end-to-end import of canonical English Crystal v1.1. The project
+currently contains:
 
 - a minimal LÖVE 11.x application;
 - a deterministic 60 Hz fixed-step loop;
 - input and state-stack foundations;
-- exact Crystal US v1.0 profile identification;
+- exact Crystal US v1.0 and v1.1 profile identification;
 - a bounds-checked reader for absolute and banked ROM addresses;
 - a streaming, LuaJIT-compatible SHA-1 implementation;
 - transactional private caches with cancellation and recovery;
@@ -77,8 +77,8 @@ To run the LÖVE bootstrap briefly and exit automatically:
 ./scripts/smoke.ps1
 ```
 
-To run M1's end-to-end acceptance check with your own canonical English
-Crystal v1.0 ROM:
+To repeat M1's end-to-end acceptance check with your own supported canonical
+English Crystal ROM:
 
 ```powershell
 ./scripts/verify-crystal-import.ps1 -RomPath "D:\path\to\your\ROM"
@@ -99,11 +99,11 @@ and exits without writing the ROM or decoded content into the repository.
 
 ## ROM support
 
-The identity layer recognizes the canonical English Crystal v1.0 ROM with
-SHA-1:
+The identity layer recognizes these canonical English Crystal ROMs:
 
 ```text
-f4cd194bdee0d04ca4eac29e09b8e4e9d818c133
+v1.0  f4cd194bdee0d04ca4eac29e09b8e4e9d818c133
+v1.1  f2f52230b536214ef7c9924f483392993e226cfb
 ```
 
 ROMs, saves, generated caches, screenshots containing extracted game content,

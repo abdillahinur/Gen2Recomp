@@ -1,5 +1,6 @@
 local profileModules = {
   "manifests.crystal_us_10",
+  "manifests.crystal_us_11",
 }
 
 local profiles = {}

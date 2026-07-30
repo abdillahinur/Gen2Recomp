@@ -108,21 +108,37 @@ test("StateStack applies lifecycle and top-only updates", function()
       .. "second:exit,first:resume,first:update")
 end)
 
-test("Crystal scaffold profile is found by id and hash", function()
+test("Crystal profiles are found by distinct ids and hashes", function()
   local Profiles = require("src.import.Profiles")
-  local byId = Profiles.get("crystal_us_10")
-  local byHash = Profiles.identifySha1(
+  local version10 = Profiles.get("crystal_us_10")
+  local version10ByHash = Profiles.identifySha1(
     "F4CD194BDEE0D04CA4EAC29E09B8E4E9D818C133")
+  local version11 = Profiles.get("crystal_us_11")
+  local version11ByHash = Profiles.identifySha1(
+    "F2F52230B536214EF7C9924F483392993E226CFB")
 
-  truthy(byId)
-  equal(byHash, byId)
-  equal(byId.expectedSize, 2097152)
-  equal(byId.expectedHeader.title, "PM_CRYSTAL")
-  equal(byId.expectedHeader.cartridgeType, 0x10)
-  equal(byId.symbols.BaseData.offset, 0x051424)
-  equal(byId.symbols.Font.offset, 0x0f8200)
-  equal(#byId.reference.sourceCommit, 40)
-  truthy(byId.features.realTimeClock)
+  equal(#Profiles.all(), 2)
+  equal(version10ByHash, version10)
+  equal(version11ByHash, version11)
+  truthy(version10 ~= version11)
+  equal(version10.expectedSize, 2097152)
+  equal(version11.expectedSize, 2097152)
+  equal(version10.expectedHeader.version, 0)
+  equal(version11.expectedHeader.version, 1)
+  equal(version11.expectedHeader.title, "PM_CRYSTAL")
+  equal(version11.expectedHeader.cartridgeType, 0x10)
+  equal(version11.symbols.BaseData.offset, 0x051424)
+  equal(version11.symbols.Font.offset, 0x0f8200)
+  equal(#version11.reference.sourceCommit, 40)
+  for name, symbol in pairs(version10.symbols) do
+    truthy(version11.symbols[name], "v1.1 is missing symbol " .. name)
+    equal(version11.symbols[name].offset, symbol.offset)
+  end
+  truthy(
+    version10.reference.symbolsSha256
+      ~= version11.reference.symbolsSha256
+  )
+  truthy(version11.features.realTimeClock)
 end)
 
 require("tests.rom_tests")(test, equal, truthy, raises)

@@ -27,7 +27,7 @@ Deliver:
 
 - bank-aware ROM reader;
 - streaming SHA-1 validation;
-- Crystal US v1.0 identification;
+- Crystal US v1.0 and v1.1 identification;
 - transactional private cache;
 - symbol-manifest generator;
 - extraction of constants, font, charmap, species, and one tileset;
@@ -35,8 +35,8 @@ Deliver:
 
 Exit gate:
 
-- [ ] The canonical Crystal ROM imports successfully. This is intentionally
-  local and player-ROM-gated; run
+- [x] A canonical Crystal ROM imports successfully. English v1.1 was verified
+  locally through the player-ROM-gated command:
   `./scripts/verify-crystal-import.ps1 -RomPath "<path>"`.
 - [x] Modified/unknown ROMs are rejected.
 - [x] Import failure never damages an existing cache.

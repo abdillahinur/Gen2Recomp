@@ -33,6 +33,7 @@ Backlog IDs are stable planning references, not issue tracker numbers.
 - [x] `M1-012` Add extraction progress and structural report.
 - [x] `M1-013` Test that large raw ROM ranges are not retained.
 - [x] `M1-014` Add malformed and truncated ROM fixtures.
+- [x] `M1-015` Add and verify the canonical English Crystal v1.1 profile.
 
 ## M2 — New Bark world
 

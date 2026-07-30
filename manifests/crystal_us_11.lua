@@ -1,11 +1,11 @@
-local generatedSymbols = require("manifests.crystal_us_10_symbols")
+local generatedSymbols = require("manifests.crystal_us_11_symbols")
 
 return {
-  id = "crystal_us_10",
+  id = "crystal_us_11",
   family = "crystal",
-  displayName = "Pokemon Crystal (English) v1.0",
+  displayName = "Pokemon Crystal (English) v1.1",
   status = "supported",
-  sha1 = "f4cd194bdee0d04ca4eac29e09b8e4e9d818c133",
+  sha1 = "f2f52230b536214ef7c9924f483392993e226cfb",
   expectedSize = 2 * 1024 * 1024,
   -- Header values follow pret/pokecrystal's pinned RGBFIXFLAGS. Field meanings
   -- and checksum rules follow Pan Docs' cartridge-header specification.
@@ -20,7 +20,7 @@ return {
     ramSizeCode = 0x03,
     destinationCode = 0x01,
     oldLicenseeCode = 0x33,
-    version = 0x00,
+    version = 0x01,
     -- Store only the fingerprint of the standard boot-logo header bytes.
     logoSha1 = "0745fdef34132d1b3d488cfbdf0379a39fd54b4c",
   },
