@@ -20,6 +20,7 @@ Crystal importer**. It currently contains:
 - input and state-stack foundations;
 - an initial Crystal US v1.0 profile boundary;
 - a bounds-checked reader for absolute and banked ROM addresses;
+- a streaming, LuaJIT-compatible SHA-1 implementation;
 - headless unit tests and CI;
 - architecture, milestone, and backlog documentation.
 

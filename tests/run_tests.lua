@@ -121,6 +121,7 @@ test("Crystal scaffold profile is found by id and hash", function()
 end)
 
 require("tests.rom_tests")(test, equal, truthy, raises)
+require("tests.sha1_tests")(test, equal, truthy, raises)
 
 local failures = 0
 
