@@ -1,3 +1,4 @@
+local Dvs = require("src.pokemon.Dvs")
 local StatCalculator = require("src.pokemon.StatCalculator")
 
 local PokemonInstance = {}
@@ -54,13 +55,7 @@ function PokemonInstance.new(species, options)
     nickname = options.nickname or species.name,
     level = level,
     experience = options.experience or 0,
-    dvs = copy(options.dvs or {
-      hp = 0,
-      attack = 0,
-      defense = 0,
-      speed = 0,
-      special = 0,
-    }),
+    dvs = Dvs.normalize(options.dvs),
     statExperience = copy(options.statExperience or {}),
     moves = moveSlots(options.moves or {}),
     heldItemId = options.heldItemId,
@@ -69,6 +64,9 @@ function PokemonInstance.new(species, options)
   }, PokemonInstance)
   requireInteger(self.experience, 0, 16777215, "experience")
   self:recalculateStats()
+  self.gender = Dvs.gender(species.gender.threshold, self.dvs)
+  self.shiny = Dvs.isShiny(self.dvs)
+  self.hiddenPower = Dvs.hiddenPower(self.dvs)
   self.currentHP = options.currentHP or self.stats.hp
   requireInteger(self.currentHP, 0, self.stats.hp, "currentHP")
   return self

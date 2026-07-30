@@ -45,6 +45,8 @@ return function(test, equal, truthy, raises)
     equal(pokemon.stats.specialDefense, 11)
     equal(pokemon.currentHP, 20)
     equal(pokemon.moves[1].maxPP, 35)
+    equal(pokemon.gender, "male")
+    equal(pokemon.hiddenPower.type, "dark")
   end)
 
   test("Pokemon instances track damage healing PP and restoration", function()
