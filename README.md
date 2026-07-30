@@ -12,12 +12,14 @@ only that cache during normal play.
 
 ## Current status
 
-The repository is at milestone **M0: Foundation**. It currently contains:
+The repository has completed **M0: Foundation** and started **M1: Verified
+Crystal importer**. It currently contains:
 
 - a minimal LÖVE 11.x application;
 - a deterministic 60 Hz fixed-step loop;
 - input and state-stack foundations;
 - an initial Crystal US v1.0 profile boundary;
+- a bounds-checked reader for absolute and banked ROM addresses;
 - headless unit tests and CI;
 - architecture, milestone, and backlog documentation.
 

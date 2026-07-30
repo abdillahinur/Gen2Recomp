@@ -20,6 +20,16 @@ local function truthy(value, message)
   end
 end
 
+local function raises(fn, pattern)
+  local ok, err = pcall(fn)
+  if ok then
+    error("expected function to raise an error", 2)
+  end
+  if pattern and not tostring(err):match(pattern) then
+    error(("error did not match %q: %s"):format(pattern, tostring(err)), 2)
+  end
+end
+
 test("FixedStep runs deterministic steps", function()
   local FixedStep = require("src.core.FixedStep")
   local clock = FixedStep.new({ hz = 60, maxSteps = 8 })
@@ -110,6 +120,8 @@ test("Crystal scaffold profile is found by id and hash", function()
   truthy(byId.features.realTimeClock)
 end)
 
+require("tests.rom_tests")(test, equal, truthy, raises)
+
 local failures = 0
 
 for _, item in ipairs(tests) do
@@ -124,4 +136,3 @@ end
 
 io.write(("\n%d tests, %d failures\n"):format(#tests, failures))
 os.exit(failures == 0 and 0 or 1)
-

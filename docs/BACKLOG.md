@@ -19,7 +19,7 @@ Backlog IDs are stable planning references, not issue tracker numbers.
 
 ## M1 — Importer
 
-- [ ] `M1-001` Implement bounds-checked byte/word/bank ROM reader.
+- [x] `M1-001` Implement bounds-checked byte/word/bank ROM reader.
 - [ ] `M1-002` Implement streaming SHA-1.
 - [ ] `M1-003` Parse and validate cartridge headers.
 - [ ] `M1-004` Match ROMs through the profile registry.

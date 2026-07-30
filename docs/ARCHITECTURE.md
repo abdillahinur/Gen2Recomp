@@ -125,9 +125,9 @@ Private cache keys include:
 A cache is promoted only after validation succeeds. ROM data must not remain
 reachable from runtime services after import.
 
-## Current M0 implementation
+## Current implementation
 
-M0 intentionally contains only:
+M0 provides:
 
 - the LÖVE entry point;
 - fixed-step scheduling;
@@ -137,5 +137,10 @@ M0 intentionally contains only:
 - the initial Crystal profile registry;
 - headless tests.
 
-It does not yet contain a ROM reader, SHA-1 implementation, cache writer, game
-content, or gameplay.
+M1 has added a bounds-checked ROM reader. Absolute file offsets are zero-based.
+Banked reads use the Game Boy CPU ROM windows: bank 0 addresses
+`0x0000–0x3fff`, and switchable banks 1+ addresses `0x4000–0x7fff`. Banked
+reads may not cross their address window.
+
+The project does not yet contain SHA-1 verification, cartridge-header parsing,
+a cache writer, game content, or gameplay.
