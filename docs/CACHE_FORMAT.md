@@ -61,7 +61,8 @@ allow later launch-time integrity checks.
 
 The manifest carries no decoded records directly. This keeps ownership
 validation small and prevents loading executable Lua from a writable cache.
-The on-disk encoding will be deterministic UTF-8 JSON.
+The on-disk encoding is deterministic UTF-8 JSON. Cache data is parsed as
+data; writable cache files are never loaded as Lua source.
 
 ## Lifecycle
 

@@ -1,4 +1,5 @@
 local BuildInfo = require("src.core.BuildInfo")
+local Json = require("src.core.Json")
 
 local CacheManifest = {}
 
@@ -256,7 +257,7 @@ function CacheManifest.new(profile, files, buildInfo)
     producer = {
       applicationVersion = buildInfo.applicationVersion,
     },
-    files = inventory,
+    files = Json.array(inventory),
     fileCount = #inventory,
     totalBytes = totalBytes,
   }
