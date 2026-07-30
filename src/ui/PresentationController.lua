@@ -4,11 +4,19 @@ local SemanticTextProvider =
 local PresentationController = {}
 PresentationController.__index = PresentationController
 
-local KEYBOARD = {
-  { "A", "B", "C", "D", "E", "F", "G" },
-  { "H", "I", "J", "K", "L", "M", "N" },
-  { "O", "P", "Q", "R", "S", "T", "U" },
-  { "V", "W", "X", "Y", "Z", "DEL", "END" },
+local UPPER_KEYBOARD = {
+  { "A", "B", "C", "D", "E", "F", "G", "H", "I" },
+  { "J", "K", "L", "M", "N", "O", "P", "Q", "R" },
+  { "S", "T", "U", "V", "W", "X", "Y", "Z" },
+  { "-", "?", "!", "/", ".", "," },
+  { "lower", "DEL", "END" },
+}
+local LOWER_KEYBOARD = {
+  { "a", "b", "c", "d", "e", "f", "g", "h", "i" },
+  { "j", "k", "l", "m", "n", "o", "p", "q", "r" },
+  { "s", "t", "u", "v", "w", "x", "y", "z" },
+  { "-", "?", "!", "/", ".", "," },
+  { "UPPER", "DEL", "END" },
 }
 
 local function pressed(input, action)
@@ -40,7 +48,9 @@ function PresentationController.new(services, options)
     nameIndex = 1,
     keyboardX = 1,
     keyboardY = 1,
+    keyboardCase = "upper",
     textPage = 1,
+    clockStage = nil,
     renderer = renderer,
   }, PresentationController)
 end
@@ -67,7 +77,9 @@ function PresentationController:_reset(request)
   self.nameIndex = 1
   self.keyboardX = 1
   self.keyboardY = 1
+  self.keyboardCase = "upper"
   self.textPage = 1
+  self.clockStage = request.stage
 end
 
 function PresentationController:_updateDialogue(request, input)
@@ -101,21 +113,35 @@ function PresentationController:_updateDialogue(request, input)
 end
 
 function PresentationController:_updateClock(request, input)
-  if pressed(input, "left") then
-    self.clockField = wrap(self.clockField - 1, 1, 2)
-  elseif pressed(input, "right") then
-    self.clockField = wrap(self.clockField + 1, 1, 2)
+  if request.stage ~= self.clockStage then
+    self.clockStage = request.stage
+    self.choiceIndex = 1
+  end
+  if request.stage == "woke_up" or request.stage == "what_time"
+      or request.stage == "minute_intro"
+      or request.stage == "response" then
+    if pressed(input, "confirm") then self.clock:advance() end
+  elseif request.stage == "hour_confirm"
+      or request.stage == "minute_confirm" then
+    if pressed(input, "up") or pressed(input, "down") then
+      self.choiceIndex = wrap(self.choiceIndex
+        + (pressed(input, "down") and 1 or -1), 1, 2)
+    elseif pressed(input, "confirm") then
+      self.clock:chooseConfirmation(self.choiceIndex == 1)
+    elseif pressed(input, "cancel") then
+      self.clock:chooseConfirmation(false)
+    end
   elseif pressed(input, "up") or pressed(input, "down") then
     local amount = pressed(input, "up") and 1 or -1
     local hour, minute = request.hour, request.minute
-    if self.clockField == 1 then
+    if request.stage == "hour_select" then
       hour = wrap(hour + amount, 0, 23)
     else
       minute = wrap(minute + amount, 0, 59)
     end
     self.clock:setTime(hour, minute)
   elseif pressed(input, "confirm") then
-    self.clock:confirm()
+    self.clock:confirmField()
   end
 end
 
@@ -126,34 +152,40 @@ function PresentationController:_nameChoices(request, input)
   elseif pressed(input, "down") then
     self.nameIndex = wrap(self.nameIndex + 1, 1, count)
   elseif pressed(input, "confirm") then
-    local preset = request.presets[self.nameIndex]
-    if preset then
-      self.names:choosePreset(preset.id)
-    else
+    if self.nameIndex == 1 then
       self.names:beginCustom()
       self.request = nil
+    else
+      self.names:choosePreset(request.presets[self.nameIndex - 1].id)
     end
   end
 end
 
 function PresentationController:_customName(request, input)
+  local keyboard = self.keyboardCase == "upper"
+    and UPPER_KEYBOARD or LOWER_KEYBOARD
+  local row = keyboard[self.keyboardY]
   if pressed(input, "left") then
-    self.keyboardX = wrap(self.keyboardX - 1, 1, 7)
+    self.keyboardX = wrap(self.keyboardX - 1, 1, #row)
   elseif pressed(input, "right") then
-    self.keyboardX = wrap(self.keyboardX + 1, 1, 7)
+    self.keyboardX = wrap(self.keyboardX + 1, 1, #row)
   elseif pressed(input, "up") then
-    self.keyboardY = wrap(self.keyboardY - 1, 1, #KEYBOARD)
+    self.keyboardY = wrap(self.keyboardY - 1, 1, #keyboard)
+    self.keyboardX = math.min(self.keyboardX, #keyboard[self.keyboardY])
   elseif pressed(input, "down") then
-    self.keyboardY = wrap(self.keyboardY + 1, 1, #KEYBOARD)
+    self.keyboardY = wrap(self.keyboardY + 1, 1, #keyboard)
+    self.keyboardX = math.min(self.keyboardX, #keyboard[self.keyboardY])
   elseif pressed(input, "cancel") then
     self.names:backToChoices()
     self.request = nil
   elseif pressed(input, "confirm") then
-    local key = KEYBOARD[self.keyboardY][self.keyboardX]
+    local key = keyboard[self.keyboardY][self.keyboardX]
     if key == "DEL" then
       self.names:setCustom(request.custom:sub(1, -2))
     elseif key == "END" then
       if request.custom ~= "" then self.names:submitCustom() end
+    elseif key == "lower" or key == "UPPER" then
+      self.keyboardCase = key == "lower" and "lower" or "upper"
     elseif #request.custom < self.names.maximumLength then
       self.names:setCustom(request.custom .. key)
     end
@@ -225,30 +257,60 @@ function PresentationController:model()
       selected = self.choiceIndex,
     }
   elseif self.clock and request == self.clock.active then
+    local stage = request.stage
+    local textByStage = {
+      woke_up = "crystal.text.introduction.clock_woke_up",
+      what_time = "crystal.text.introduction.clock_what_time",
+      minute_intro = "crystal.text.introduction.clock_minutes",
+    }
+    local text
+    if textByStage[stage] then
+      text = self.text:resolve(textByStage[stage])
+    elseif stage == "hour_confirm" then
+      text = self.text:resolve(
+        "crystal.text.introduction.clock_what_hours")
+        .. "\n" .. request.hour .. " o'clock"
+        .. self.text:resolve(
+          "crystal.text.introduction.clock_hours_question")
+    elseif stage == "minute_confirm" then
+      text = self.text:resolve("crystal.text.introduction.clock_whoa")
+        .. "\n" .. ("%02d min."):format(request.minute)
+        .. self.text:resolve(
+          "crystal.text.introduction.clock_minutes_question")
+    elseif stage == "response" then
+      local id = request.hour < 10
+        and "crystal.text.introduction.clock_morning"
+        or request.hour < 18
+          and "crystal.text.introduction.clock_day"
+          or "crystal.text.introduction.clock_night"
+      text = ("%d:%02d\n"):format(request.hour, request.minute)
+        .. self.text:resolve(id)
+    end
     return {
       kind = "clock",
-      title = "SET THE CLOCK",
+      stage = stage,
+      text = text,
       hour = request.hour,
       minute = request.minute,
-      selected = self.clockField,
-      footer = "ARROWS: CHANGE   Z: CONFIRM",
+      selected = self.choiceIndex,
     }
   elseif request.stage == "custom" then
     return {
       kind = "name_keyboard",
       title = "YOUR NAME",
       value = request.custom,
-      keyboard = KEYBOARD,
+      keyboard = self.keyboardCase == "upper"
+        and UPPER_KEYBOARD or LOWER_KEYBOARD,
       selectedX = self.keyboardX,
       selectedY = self.keyboardY,
       footer = "Z: TYPE   X: BACK",
     }
   end
   local options = {}
+  options[1] = "NEW NAME"
   for index, preset in ipairs(request.presets) do
-    options[index] = preset.value
+    options[index + 1] = preset.value
   end
-  options[#options + 1] = "CUSTOM"
   return {
     kind = "name_choice",
     title = "CHOOSE YOUR NAME",
@@ -294,16 +356,24 @@ function PresentationController:draw()
         )
       end
     elseif model.kind == "clock" then
-      renderer:drawBox(16, 32, 128, 80)
-      renderer:drawText("SET THE CLOCK", 24, 40)
-      renderer:drawText(
-        (model.selected == 1 and ">" or " ")
-          .. ("%02d"):format(model.hour) .. ":"
-          .. (model.selected == 2 and ">" or " ")
-          .. ("%02d"):format(model.minute),
-        40,
-        64
-      )
+      if model.text then renderer:drawDialogue(model.text, true) end
+      if model.stage == "hour_select"
+          or model.stage == "minute_select" then
+        local value = model.stage == "hour_select"
+          and ("%02d o'clock"):format(model.hour)
+          or ("%02d min."):format(model.minute)
+        renderer:drawBox(32, 32, 96, 40)
+        renderer:drawText(value, 48, 48)
+      elseif model.stage == "hour_confirm"
+          or model.stage == "minute_confirm" then
+        renderer:drawBox(96, 40, 56, 48)
+        renderer:drawText(
+          (model.selected == 1 and ">" or " ") .. "YES",
+          104, 48)
+        renderer:drawText(
+          (model.selected == 2 and ">" or " ") .. "NO",
+          104, 64)
+      end
     elseif model.kind == "name_choice" then
       renderer:drawBox(64, 16, 88, 112)
       for index, option in ipairs(model.options) do

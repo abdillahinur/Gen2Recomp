@@ -250,7 +250,8 @@ constructs Falkner's native ROM-backed battle session.
 
 The driver records every dialogue request it encounters and fails immediately
 if the exact entry is absent from the player-ROM catalog. Adding twelve Violet
-Gym records plus the gender prompt bring that catalog to 109 and close all 37
+Gym records, the gender prompt, and clock dialogue bring that catalog to 119
+and close all 37
 distinct route dialogue
 requests exercised by the acceptance path. Source control retains only stable
 IDs and pinned symbol offsets.

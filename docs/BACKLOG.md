@@ -95,7 +95,7 @@ Backlog IDs are stable planning references, not issue tracker numbers.
 - [x] `M5-014` Complete the introduction-to-first-badge acceptance route.
 - [x] `M5-015` Replace developer text with the decoded Crystal font and exact
   gender prompt/menu geometry.
-- [ ] `M5-016` Reproduce the clock, professor, naming, and shrink introduction
+- [x] `M5-016` Reproduce the clock, professor, naming, and shrink introduction
   presentation with ROM-derived graphics and reference timing.
 - [ ] `M5-017` Replace positional object dispatch with explicit verified event
   bindings for every supported map object and background event.

@@ -1,6 +1,7 @@
 local CrystalWorldData = require("src.import.CrystalWorldData")
 local CrystalTextData = require("src.import.CrystalTextData")
 local CrystalFont = require("src.import.CrystalFont")
+local CrystalIntroData = require("src.import.CrystalIntroData")
 local Rom = require("src.import.Rom")
 local RomIdentifier = require("src.import.RomIdentifier")
 
@@ -30,6 +31,7 @@ function CrystalPreview.load(path, options)
   local text = CrystalTextData.extract(rom, identity.profile)
   local presentation = {
     font = CrystalFont.extract(rom, identity.profile),
+    intro = CrystalIntroData.extract(rom, identity.profile),
   }
   local battle
   if options.battle then

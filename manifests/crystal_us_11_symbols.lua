@@ -68,6 +68,16 @@ return {
       address = 0x5487,
       offset = 0x079487,
     },
+    ["ChrisPic"] = {
+      bank = 0x22,
+      address = 0x48a9,
+      offset = 0x0888a9,
+    },
+    ["ChrisSpriteGFX"] = {
+      bank = 0x30,
+      address = 0x4000,
+      offset = 0x0c0000,
+    },
     ["CollisionPermissionTable"] = {
       bank = 0x13,
       address = 0x4e1f,
@@ -323,6 +333,16 @@ return {
       address = 0x711d,
       offset = 0x02b11d,
     },
+    ["KrisPic"] = {
+      bank = 0x22,
+      address = 0x4bb9,
+      offset = 0x088bb9,
+    },
+    ["KrisSpriteGFX"] = {
+      bank = 0x31,
+      address = 0x7a40,
+      offset = 0x0c7a40,
+    },
     ["LabWhereGoingText"] = {
       bank = 0x1e,
       address = 0x53a7,
@@ -468,6 +488,16 @@ return {
       address = 0x7384,
       offset = 0x053384,
     },
+    ["PokemonPalettes"] = {
+      bank = 0x02,
+      address = 0x68ce,
+      offset = 0x00a8ce,
+    },
+    ["PokemonProfPic"] = {
+      bank = 0x56,
+      address = 0x415e,
+      offset = 0x15815e,
+    },
     ["ReceivedStarterText"] = {
       bank = 0x1e,
       address = 0x54ad,
@@ -517,6 +547,16 @@ return {
       bank = 0x69,
       address = 0x59d5,
       offset = 0x1a59d5,
+    },
+    ["Shrink1Pic"] = {
+      bank = 0x13,
+      address = 0x5249,
+      offset = 0x04d249,
+    },
+    ["Shrink2Pic"] = {
+      bank = 0x13,
+      address = 0x52d9,
+      offset = 0x04d2d9,
     },
     ["SproutTowerSignText"] = {
       bank = 0x6a,
@@ -618,10 +658,30 @@ return {
       address = 0x5596,
       offset = 0x04d596,
     },
+    ["TimeSetBackgroundGFX"] = {
+      bank = 0x24,
+      address = 0x48fb,
+      offset = 0x0908fb,
+    },
+    ["TimeSetDownArrowGFX"] = {
+      bank = 0x24,
+      address = 0x490b,
+      offset = 0x09090b,
+    },
+    ["TimeSetUpArrowGFX"] = {
+      bank = 0x24,
+      address = 0x4903,
+      offset = 0x090903,
+    },
     ["TrainerGroups"] = {
       bank = 0x0e,
       address = 0x5999,
       offset = 0x039999,
+    },
+    ["TrainerPalettes"] = {
+      bank = 0x02,
+      address = 0x70ce,
+      offset = 0x00b0ce,
     },
     ["VioletCityGrampsText"] = {
       bank = 0x6a,
@@ -663,6 +723,11 @@ return {
       address = 0x46dc,
       offset = 0x1a86dc,
     },
+    ["WooperFrontpic"] = {
+      bank = 0x55,
+      address = 0x7846,
+      offset = 0x157846,
+    },
     ["_AreYouABoyOrAreYouAGirlText"] = {
       bank = 0x70,
       address = 0x4ca3,
@@ -702,6 +767,56 @@ return {
       bank = 0x71,
       address = 0x4026,
       offset = 0x1c4026,
+    },
+    ["_OakTimeHoursQuestionMarkText"] = {
+      bank = 0x6f,
+      address = 0x4305,
+      offset = 0x1bc305,
+    },
+    ["_OakTimeHowManyMinutesText"] = {
+      bank = 0x6f,
+      address = 0x4308,
+      offset = 0x1bc308,
+    },
+    ["_OakTimeMinutesQuestionMarkText"] = {
+      bank = 0x6f,
+      address = 0x4323,
+      offset = 0x1bc323,
+    },
+    ["_OakTimeOversleptText"] = {
+      bank = 0x6f,
+      address = 0x4326,
+      offset = 0x1bc326,
+    },
+    ["_OakTimeSoDarkText"] = {
+      bank = 0x6f,
+      address = 0x434f,
+      offset = 0x1bc34f,
+    },
+    ["_OakTimeWhatHoursText"] = {
+      bank = 0x6f,
+      address = 0x42fd,
+      offset = 0x1bc2fd,
+    },
+    ["_OakTimeWhatTimeIsItText"] = {
+      bank = 0x6f,
+      address = 0x42eb,
+      offset = 0x1bc2eb,
+    },
+    ["_OakTimeWhoaMinutesText"] = {
+      bank = 0x6f,
+      address = 0x431b,
+      offset = 0x1bc31b,
+    },
+    ["_OakTimeWokeUpText"] = {
+      bank = 0x6f,
+      address = 0x429c,
+      offset = 0x1bc29c,
+    },
+    ["_OakTimeYikesText"] = {
+      bank = 0x6f,
+      address = 0x4336,
+      offset = 0x1bc336,
     },
   },
 }

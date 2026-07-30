@@ -96,7 +96,7 @@ local function main()
     requireValue(mapStatus(coverage, mapId) == "covered",
       "core map is not structurally covered: " .. mapId)
   end
-  requireValue(textData.count == 109,
+  requireValue(textData.count == 119,
     "expanded player-ROM text catalog is incomplete")
 
   local game = GameSession.new(identity.profile.id)
@@ -200,7 +200,7 @@ local function main()
   print("Crystal M5-008 Violet event verification passed.")
   print("Profile: " .. identity.profile.id)
   print("Definitions/maps: 21/20 (20 of 29 extracted maps scripted)")
-  print("ROM dialogue: 109 semantic mappings")
+  print("ROM dialogue: 119 semantic mappings")
   print("Story: Mystery Egg + Pokedex -> rival battle -> Violet")
   print("Boundary: Route 32 pre-badge guard verified on real collision")
   return 0

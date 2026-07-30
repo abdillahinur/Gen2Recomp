@@ -107,6 +107,7 @@ function love.load()
         states:push(IntroductionState.new({
           textCatalog = textCatalog,
           font = presentationData.font,
+          introData = presentationData.intro,
           audio = audio,
           audioRuntime = audioRuntime,
           onComplete = function(_, session)

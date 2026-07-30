@@ -15,6 +15,26 @@ return {
   entries = {
     ["crystal.text.introduction.gender_prompt"] =
       { symbol = "_AreYouABoyOrAreYouAGirlText" },
+    ["crystal.text.introduction.clock_woke_up"] =
+      { symbol = "_OakTimeWokeUpText" },
+    ["crystal.text.introduction.clock_what_time"] =
+      { symbol = "_OakTimeWhatTimeIsItText" },
+    ["crystal.text.introduction.clock_what_hours"] =
+      { symbol = "_OakTimeWhatHoursText" },
+    ["crystal.text.introduction.clock_hours_question"] =
+      { symbol = "_OakTimeHoursQuestionMarkText" },
+    ["crystal.text.introduction.clock_minutes"] =
+      { symbol = "_OakTimeHowManyMinutesText" },
+    ["crystal.text.introduction.clock_whoa"] =
+      { symbol = "_OakTimeWhoaMinutesText" },
+    ["crystal.text.introduction.clock_minutes_question"] =
+      { symbol = "_OakTimeMinutesQuestionMarkText" },
+    ["crystal.text.introduction.clock_morning"] =
+      { symbol = "_OakTimeOversleptText" },
+    ["crystal.text.introduction.clock_day"] =
+      { symbol = "_OakTimeYikesText" },
+    ["crystal.text.introduction.clock_night"] =
+      { symbol = "_OakTimeSoDarkText" },
     ["crystal.text.introduction.oak_1"] = { symbol = "_OakText1" },
     ["crystal.text.introduction.oak_2"] = { symbol = "_OakText2" },
     ["crystal.text.introduction.oak_3"] = { symbol = "_OakText3" },

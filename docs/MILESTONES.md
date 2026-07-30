@@ -145,7 +145,7 @@ Completed checkpoints:
 - [x] M5-013 Falkner Gym, Zephyr Badge, TM31, and Route 32 unlock.
 - [x] M5-014 ROM-gated introduction-to-first-badge acceptance route.
 - [x] M5-015 decoded Crystal font and exact gender prompt/menu geometry.
-- [ ] M5-016 faithful clock, professor, naming, and shrink presentation.
+- [x] M5-016 faithful clock, professor, naming, and shrink presentation.
 - [ ] M5-017 explicit verified object/background-event bindings.
 - [ ] M5-018 complete live-slice ROM dialogue with no semantic fallbacks.
 - [ ] M5-019 compact ROM audio-program extraction.

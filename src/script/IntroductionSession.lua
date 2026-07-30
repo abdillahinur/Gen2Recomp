@@ -17,7 +17,26 @@ function IntroductionSession.new(definition, options)
   local state = options.state or ScriptState.new()
   local dialogue = options.dialogue or DialogueService.new()
   local clock = options.clock or ClockSetupService.new(options.clockOptions)
-  local names = options.names or NameEntryService.new(options.nameOptions)
+  local nameOptions = options.nameOptions
+  if not nameOptions then
+    nameOptions = {
+      presets = {
+        male = {
+          { id = "crystal.name.chris", value = "CHRIS" },
+          { id = "crystal.name.mat", value = "MAT" },
+          { id = "crystal.name.allan", value = "ALLAN" },
+          { id = "crystal.name.jon", value = "JON" },
+        },
+        female = {
+          { id = "crystal.name.kris", value = "KRIS" },
+          { id = "crystal.name.amanda", value = "AMANDA" },
+          { id = "crystal.name.juana", value = "JUANA" },
+          { id = "crystal.name.jodi", value = "JODI" },
+        },
+      },
+    }
+  end
+  local names = options.names or NameEntryService.new(nameOptions)
   local audio = options.audio or AudioService.new()
   local runner = ScriptRunner.new()
   CoreCommandHandlers.install(runner, {

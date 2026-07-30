@@ -48,7 +48,7 @@ continues to pass the functional M1–M5 gates. The project currently contains:
   services for the M3 behavior slice;
 - ROM-font dialogue boxes and an exact ROM-owned gender prompt, plus visible
   clock setup, naming, New Bark interactions, and Elm's Lab presentation;
-- runtime decoding of 109 ROM-owned introduction, New Bark, Elm's Lab,
+- runtime decoding of 119 ROM-owned introduction, New Bark, Elm's Lab,
   Cherrygrove, route, and Violet text records, with two-line pagination and
   player/species substitutions;
 - a visible native battle scene with HP HUDs, messages, Fight, Pack, Pokémon,
@@ -86,7 +86,7 @@ ROM path, the developer preview now visibly runs M3's introduction, gender
 choice, clock setup, ROM-owned dialogue, and on-screen naming before entering
 the world. New Bark NPC/sign interactions and Elm's Lab scene use the same
 visible, paginated presentation controller. Semantic labels remain only as a
-fallback for dialogue outside the current 109-record extraction manifest. The
+fallback for dialogue outside the current 119-record extraction manifest. The
 M4 simulation now has a standalone visible battle preview, and M5-004 connects
 world/script requests to it. M5-005 expands the traversable ROM-backed world
 from New Bark through Cherrygrove and Violet City. M5-006 now starts visible
@@ -99,7 +99,7 @@ M5-011 adds visible native saving and automatic profile-bound restore.
 M5-012 connects introduction, world, battle, and menu audio playback.
 M5-013 completes Falkner's Gym and first-badge progression.
 M5-014 closes the functional slice with a ROM-gated
-introduction-to-Zephyr-Badge route, 109 decoded dialogue records, and verified
+introduction-to-Zephyr-Badge route, 119 decoded dialogue records, and verified
 save/reload. M5-015 begins the reopened live-fidelity pass with the decoded
 Crystal font and exact gender-screen text/menu geometry. Faithful professor
 art/timing, object-dialogue auditing, and ROM channel audio remain required
@@ -216,7 +216,7 @@ To verify M5-002's ROM-owned text catalog and visible pagination:
 ./scripts/verify-crystal-text.ps1 -RomPath "D:\path\to\your\ROM"
 ```
 
-This decodes the 109 currently mapped records, validates substitutions and
+This decodes the 119 currently mapped records, validates substitutions and
 two-line pages, and audits the normalized result for retained raw ROM ranges.
 
 To run M4's deterministic first-rival and ordinary wild-battle gates:
@@ -286,7 +286,7 @@ To verify M5-008's native route and city behavior:
 
 This checks 19 scripted maps against decoded event metadata, executes the
 Mystery Egg and Pokédex meeting, guide gift, rival battle gate, and Route 32
-pre-badge boundary on the real ROM-backed world, and verifies the 109-record
+pre-badge boundary on the real ROM-backed world, and verifies the 119-record
 dialogue catalog.
 
 To verify M5-009's Pack, party, and Pokédex field menu:

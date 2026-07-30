@@ -26,6 +26,7 @@ function ClockSetupService:begin()
   local request = {
     hour = self.defaultHour,
     minute = self.defaultMinute,
+    stage = "woke_up",
     resolved = false,
   }
   requireInteger(request.hour, 0, 23, "default hour")
@@ -41,6 +42,48 @@ function ClockSetupService:begin()
       if self.active == request then self.active = nil end
     end
   )
+end
+
+function ClockSetupService:advance()
+  local request = self.active
+  if not request then return false end
+  local nextStage = {
+    woke_up = "what_time",
+    what_time = "hour_select",
+    minute_intro = "minute_select",
+    response = "done",
+  }
+  local stage = nextStage[request.stage]
+  if not stage then return false end
+  if stage == "done" then return self:confirm() end
+  request.stage = stage
+  return true
+end
+
+function ClockSetupService:confirmField()
+  local request = self.active
+  if not request then return false end
+  if request.stage == "hour_select" then
+    request.stage = "hour_confirm"
+  elseif request.stage == "minute_select" then
+    request.stage = "minute_confirm"
+  else
+    return false
+  end
+  return true
+end
+
+function ClockSetupService:chooseConfirmation(accepted)
+  local request = self.active
+  if not request or type(accepted) ~= "boolean" then return false end
+  if request.stage == "hour_confirm" then
+    request.stage = accepted and "minute_intro" or "hour_select"
+  elseif request.stage == "minute_confirm" then
+    request.stage = accepted and "response" or "minute_select"
+  else
+    return false
+  end
+  return true
 end
 
 function ClockSetupService:setTime(hour, minute)
