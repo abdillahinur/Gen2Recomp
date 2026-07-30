@@ -1,6 +1,7 @@
 local CrystalFont = require("src.import.CrystalFont")
 local CrystalSpecies = require("src.import.CrystalSpecies")
 local CrystalTileset = require("src.import.CrystalTileset")
+local CrystalWorldData = require("src.import.CrystalWorldData")
 local Json = require("src.core.Json")
 local RawRetentionAudit = require("src.import.RawRetentionAudit")
 local Rom = require("src.import.Rom")
@@ -12,6 +13,7 @@ local DEFAULT_EXTRACTORS = {
   font = CrystalFont.extract,
   species = CrystalSpecies.extract,
   tileset = CrystalTileset.extractJohto,
+  world = CrystalWorldData.extract,
 }
 
 local PAYLOADS = {
@@ -22,6 +24,7 @@ local PAYLOADS = {
     path = "data/tilesets/johto.json",
     kind = "tileset",
   },
+  { id = "world", path = "data/world/new_bark.json", kind = "world" },
 }
 
 local function arrayCopy(values)
@@ -112,6 +115,11 @@ local function structuralReport(identity, extracted)
   local font = extracted.font
   local species = extracted.species
   local tileset = extracted.tileset
+  local world = extracted.world
+  local mapCount = 0
+  for _, group in ipairs(world.groups or {}) do
+    mapCount = mapCount + #(group.maps or {})
+  end
   return {
     schema = 1,
     status = "complete",
@@ -147,11 +155,21 @@ local function structuralReport(identity, extracted)
         collisionRecordCount =
           tileset.collision and tileset.collision.count or 0,
       },
+      {
+        id = "world",
+        schema = world.schema,
+        groupCount = #(world.groups or {}),
+        mapCount = mapCount,
+        collisionPermissionCount =
+          #(world.collisionPermissions or {}),
+        spriteCount = #(world.sprites or {}),
+      },
     }),
     payloads = Json.array({
       { path = PAYLOADS[1].path, kind = PAYLOADS[1].kind },
       { path = PAYLOADS[2].path, kind = PAYLOADS[2].kind },
       { path = PAYLOADS[3].path, kind = PAYLOADS[3].kind },
+      { path = PAYLOADS[4].path, kind = PAYLOADS[4].kind },
       { path = "reports/import.json", kind = "report" },
     }),
   }
@@ -208,16 +226,20 @@ function CrystalImporter.run(data, cacheStore, options)
     checkCancellation(cancellationToken)
     extracted.species = extractors.species(rom, identity.profile)
 
-    emit(options.onProgress, 0.60, "tileset", "Decoding Johto tileset")
+    emit(options.onProgress, 0.55, "tileset", "Decoding Johto tileset")
     checkCancellation(cancellationToken)
     extracted.tileset = extractors.tileset(rom, identity.profile)
 
-    emit(options.onProgress, 0.75, "audit", "Auditing decoded data")
+    emit(options.onProgress, 0.72, "world", "Decoding New Bark world")
+    checkCancellation(cancellationToken)
+    extracted.world = extractors.world(rom, identity.profile)
+
+    emit(options.onProgress, 0.82, "audit", "Auditing decoded data")
     checkCancellation(cancellationToken)
     local retentionAudit = RawRetentionAudit.inspect(rom, extracted)
     rom = nil
 
-    emit(options.onProgress, 0.80, "serialize", "Serializing cache data")
+    emit(options.onProgress, 0.87, "serialize", "Serializing cache data")
     checkCancellation(cancellationToken)
     local report = structuralReport(identity, extracted)
     report.rawRetentionAudit = retentionAudit
@@ -228,7 +250,7 @@ function CrystalImporter.run(data, cacheStore, options)
     encoded.report = Json.encode(report)
     extracted = nil
 
-    emit(options.onProgress, 0.90, "cache", "Promoting cache")
+    emit(options.onProgress, 0.94, "cache", "Promoting cache")
     checkCancellation(cancellationToken)
     transaction = cacheStore:begin(identity.profile, {
       cancellationToken = cancellationToken,

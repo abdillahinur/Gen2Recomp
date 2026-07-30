@@ -17,5 +17,16 @@ TilesetJohtoPalMap
 TilesetJohtoModernPalMap
 TilesetBGPalette
 MapObjectPals
+RoofPals
+DiplomaPalettes
 MapGroupPalettes
 CollisionPermissionTable
+
+MapGroupPointers
+NewBarkTown_MapAttributes
+NewBarkTown_Blocks
+NewBarkTown_MapEvents
+
+MapGroupRoofs
+Roofs
+OverworldSprites

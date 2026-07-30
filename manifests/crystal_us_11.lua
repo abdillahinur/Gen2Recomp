@@ -1,4 +1,5 @@
 local generatedSymbols = require("manifests.crystal_us_11_symbols")
+local world = require("manifests.crystal_world")
 
 return {
   id = "crystal_us_11",
@@ -24,7 +25,7 @@ return {
     -- Store only the fingerprint of the standard boot-logo header bytes.
     logoSha1 = "0745fdef34132d1b3d488cfbdf0379a39fd54b4c",
   },
-  cacheSchema = 1,
+  cacheSchema = 2,
   features = {
     color = true,
     animatedFrontSprites = true,
@@ -40,5 +41,7 @@ return {
     charmap = 1,
     species = 1,
     tileset = 1,
+    world = 1,
   },
+  world = world,
 }

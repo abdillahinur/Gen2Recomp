@@ -79,6 +79,16 @@ return function(test, equal, truthy, raises)
         collision = { count = 5, records = {} },
       }
     end,
+    world = function()
+      return {
+        schema = 1,
+        groups = {
+          { maps = { { id = "24:4" } } },
+        },
+        collisionPermissions = { { id = 0 } },
+        sprites = { { id = 1 } },
+      }
+    end,
   }
 
   local function store(filesystem)
@@ -105,12 +115,14 @@ return function(test, equal, truthy, raises)
 
     truthy(result.ok)
     equal(result.cache.status, "promoted")
-    equal(result.cache.fileCount, 4)
+    equal(result.cache.fileCount, 5)
     equal(result.report.status, "complete")
     equal(result.report.sections[1].tileCount, 3)
     equal(result.report.sections[2].recordCount, 2)
     equal(result.report.sections[3].graphicTileCount, 3)
     equal(result.report.sections[3].tileSlotCount, 4)
+    equal(result.report.sections[4].mapCount, 1)
+    equal(result.report.sections[4].collisionPermissionCount, 1)
     equal(result.report.warnings[1], "synthetic fixture")
     equal(result.report.rawRetentionAudit.status, "passed")
 
@@ -130,6 +142,7 @@ return function(test, equal, truthy, raises)
     truthy(filesystem:info(target .. "/data/font.json"))
     truthy(filesystem:info(target .. "/data/species.json"))
     truthy(filesystem:info(target .. "/data/tilesets/johto.json"))
+    truthy(filesystem:info(target .. "/data/world/new_bark.json"))
   end)
 
   test("CrystalImporter returns a structural rejection report", function()
@@ -224,6 +237,7 @@ return function(test, equal, truthy, raises)
         end,
         species = extractors.species,
         tileset = extractors.tileset,
+        world = extractors.world,
       }
 
       raises(function()

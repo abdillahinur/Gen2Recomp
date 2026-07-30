@@ -23,6 +23,11 @@ return {
       address = 0x4e1f,
       offset = 0x04ce1f,
     },
+    ["DiplomaPalettes"] = {
+      bank = 0x02,
+      address = 0x7641,
+      offset = 0x00b641,
+    },
     ["Font"] = {
       bank = 0x3e,
       address = 0x4200,
@@ -48,15 +53,55 @@ return {
       address = 0x4e05,
       offset = 0x04ce05,
     },
+    ["MapGroupPointers"] = {
+      bank = 0x25,
+      address = 0x4000,
+      offset = 0x094000,
+    },
+    ["MapGroupRoofs"] = {
+      bank = 0x07,
+      address = 0x4021,
+      offset = 0x01c021,
+    },
     ["MapObjectPals"] = {
       bank = 0x02,
       address = 0x7469,
       offset = 0x00b469,
     },
+    ["NewBarkTown_Blocks"] = {
+      bank = 0x2b,
+      address = 0x4db5,
+      offset = 0x0acdb5,
+    },
+    ["NewBarkTown_MapAttributes"] = {
+      bank = 0x25,
+      address = 0x4dd8,
+      offset = 0x094dd8,
+    },
+    ["NewBarkTown_MapEvents"] = {
+      bank = 0x6a,
+      address = 0x434d,
+      offset = 0x1a834d,
+    },
+    ["OverworldSprites"] = {
+      bank = 0x05,
+      address = 0x4736,
+      offset = 0x014736,
+    },
     ["PokemonNames"] = {
       bank = 0x14,
       address = 0x7384,
       offset = 0x053384,
+    },
+    ["RoofPals"] = {
+      bank = 0x02,
+      address = 0x7569,
+      offset = 0x00b569,
+    },
+    ["Roofs"] = {
+      bank = 0x07,
+      address = 0x403c,
+      offset = 0x01c03c,
     },
     ["TilesetBGPalette"] = {
       bank = 0x02,
