@@ -12,7 +12,7 @@ normal play. A future first-boot UI will invoke this importer.
 
 ## Current status
 
-The repository has completed **M4: Battle slice** and the first eight checkpoints
+The repository has completed **M4: Battle slice** and the first nine checkpoints
 of **M5: Violet City vertical slice**, including end-to-end M1–M4 verification
 with canonical English Crystal v1.1. The project currently contains:
 
@@ -59,6 +59,8 @@ with canonical English Crystal v1.1. The project currently contains:
   pre-badge boundary behavior;
 - a profile-bound persistent game-session contract for script, party,
   inventory, phone, clock, money, player-location, and Pokédex state;
+- a visible Start menu with persistent Pack quantities, party summaries, and a
+  complete ROM-named 251-entry Pokédex with seen/caught gating;
 - normalized battle records and Gen 2 Pokémon instances with integer stats,
   DVs, gender, shiny state, Hidden Power, and growth curves;
 - deterministic battle turns, switching and forced replacements, damage,
@@ -82,7 +84,8 @@ from New Bark through Cherrygrove and Violet City. M5-006 now starts visible
 wild battles from eligible steps using the session clock. M5-007 adds
 ROM-backed trainer parties and visible overworld trainer challenges. M5-008
 adds native route/city events through Violet and expands exact ROM-owned text
-to 96 records. Saves, audio playback, broader move-effect coverage,
+to 96 records. M5-009 adds the visible Pack, party, and Pokédex field menu.
+Saves, audio playback, broader move-effect coverage,
 broader story progression, and most maps remain future milestones.
 
 ## Final deliverable
@@ -261,6 +264,16 @@ This checks 19 scripted maps against decoded event metadata, executes the
 Mystery Egg and Pokédex meeting, guide gift, rival battle gate, and Route 32
 pre-badge boundary on the real ROM-backed world, and verifies the 96-record
 dialogue catalog.
+
+To verify M5-009's Pack, party, and Pokédex field menu:
+
+```powershell
+./scripts/verify-crystal-field-menu.ps1 -RomPath "D:\path\to\your\ROM"
+```
+
+This checks persistent Pack quantities and party summaries, the story-gated
+Pokédex, all 251 ROM-derived species names, unseen-name hiding, and seen/caught
+totals.
 
 ## Project direction
 

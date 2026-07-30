@@ -14,7 +14,7 @@ Falkner's Gym, and the first badge.
 6. Time-based wild encounters. **Complete.**
 7. Trainer sight and trainer battles. **Complete.**
 8. Route, Cherrygrove, and Violet event behavior. **Complete.**
-9. Pack, party, and Pokédex UI.
+9. Pack, party, and Pokédex UI. **Complete.**
 10. Pokémon Center, mart, and PC systems.
 11. Save/load and RTC persistence.
 12. Music, SFX, and cries.
@@ -150,6 +150,20 @@ Mr. Pokémon, rival, route, and Violet dialogue. Other newly wired interactions
 continue to use explicit semantic fallbacks until their ROM labels are added;
 the final M5 acceptance checkpoint must remove those fallbacks from the
 required introduction-to-badge route.
+
+## Field menu presentation
+
+M5-009 adds a transparent `FieldMenuState` opened with Start while the world is
+idle. Its presentation controller reads the current `GameSession`, so Pack
+quantities, party HP/levels/held items, and Pokédex discoveries remain current
+after scripts and battles without copying state into the UI.
+
+Party species and the 251-entry Pokédex resolve their names and base stats from
+normalized data decoded from the player's verified ROM. Unseen Pokédex entries
+remain hidden, and the Pokédex cannot be selected before Oak's feature flag is
+granted. Pack item labels remain semantic runtime labels at this checkpoint;
+ROM-owned item naming, consuming items, buying/selling, healing, and storage
+belong to M5-010.
 
 ## Exit gate
 

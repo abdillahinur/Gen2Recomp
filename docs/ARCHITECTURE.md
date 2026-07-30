@@ -255,6 +255,14 @@ Pokédex, Cherrygrove rival, item/fruit, city, and pre-badge Route 32 state.
 Forty-one additional direct symbols expand visible ROM-owned dialogue to 96
 records; semantic fallbacks remain explicit for secondary interactions.
 
+M5-009 adds a transparent field-menu state above the world and a pure
+presentation controller over `GameSession`. Start opens Pack, party, and
+Pokédex views only while scripts and trainers are idle. Party summaries resolve
+ROM-derived species stats, and the complete 251-entry Pokédex resolves
+ROM-derived names while hiding unseen entries. The controller mutates no
+inventory or party state; item use, shops, healing, and PC storage begin in
+M5-010.
+
 M4 adds normalized species, move, item, and trainer records; Gen 2 integer
 stats, DVs, gender, shiny state, and Hidden Power; deterministic battle state,
 action ordering, switching, damage, status, effect dispatch, AI, catching,

@@ -59,6 +59,8 @@ function love.load()
         gameSession = gameSession,
         textCatalog = textCatalog,
         battleBridge = BattleBridge.new(states, factory),
+        stateStack = states,
+        battleData = battleData,
       })
     end
     if battlePreview then

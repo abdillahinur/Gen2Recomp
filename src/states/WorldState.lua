@@ -1,4 +1,5 @@
 local EncounterController = require("src.world.EncounterController")
+local FieldMenuState = require("src.states.FieldMenuState")
 local MapRepository = require("src.world.MapRepository")
 local MapPresentationRuntime =
   require("src.script.MapPresentationRuntime")
@@ -38,6 +39,8 @@ function WorldState.new(worldData, options)
       worldData,
       timeProvider
     ),
+    stateStack = options.stateStack,
+    battleData = options.battleData,
   }, WorldState)
   if options.scripts ~= false then
     self.scripts = MapPresentationRuntime.new(self.world, {
@@ -85,11 +88,34 @@ function WorldState.new(worldData, options)
   return self
 end
 
+function WorldState:_openFieldMenu()
+  if not self.stateStack or not self.gameSession
+      or not self.battleData then
+    return false
+  end
+  local stack = self.stateStack
+  local menu
+  menu = FieldMenuState.new(
+    self.gameSession,
+    self.battleData,
+    {
+      onClose = function()
+        if stack:current() == menu then stack:pop() end
+      end,
+    }
+  )
+  stack:push(menu)
+  return true
+end
+
 function WorldState:update(dt, input)
   if self.trainers and self.trainers:isBusy() then
     self.trainers:update(dt)
   elseif self.scripts and self.scripts:isBusy() then
     self.scripts:updateActive(dt, input)
+  elseif input and input:wasPressed("start")
+      and self:_openFieldMenu() then
+    return
   else
     self.world:update(dt, input)
     if self.scripts then self.scripts:updateIdle(input) end

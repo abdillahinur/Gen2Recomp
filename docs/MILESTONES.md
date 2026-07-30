@@ -138,6 +138,7 @@ Completed checkpoints:
 - [x] M5-006 time-based wild encounter selection and battle dispatch.
 - [x] M5-007 trainer sight, approach, and ROM-backed trainer battles.
 - [x] M5-008 Route, Cherrygrove, and Violet native event behavior.
+- [x] M5-009 visible Pack, party, and ROM-backed Pokédex presentation.
 
 ## M6 — Johto campaign
 
