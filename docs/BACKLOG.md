@@ -67,7 +67,7 @@ Backlog IDs are stable planning references, not issue tracker numbers.
 - [x] `M4-002` Implement Gen 2 Pokémon instances and integer stat calculations.
 - [x] `M4-003` Implement DVs, gender, shiny state, and Hidden Power.
 - [x] `M4-004` Implement deterministic battle state and RNG injection.
-- [ ] `M4-005` Implement action selection, priority, speed, and switching.
+- [x] `M4-005` Implement action selection, priority, speed, and switching.
 - [ ] `M4-006` Implement damage, accuracy, critical hits, and type effects.
 - [ ] `M4-007` Implement major and volatile status framework.
 - [ ] `M4-008` Implement effect-command registry.
