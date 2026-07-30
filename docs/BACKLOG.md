@@ -99,7 +99,7 @@ Backlog IDs are stable planning references, not issue tracker numbers.
   presentation with ROM-derived graphics and reference timing.
 - [x] `M5-017` Replace positional object dispatch with explicit verified event
   bindings for every supported map object and background event.
-- [ ] `M5-018` Decode every live-slice dialogue record and prohibit semantic
+- [x] `M5-018` Decode every live-slice dialogue record and prohibit semantic
   fallbacks throughout the supported first-badge maps.
 - [ ] `M5-019` Decode compact music, SFX, wave, and cry channel programs from
   the verified player ROM.

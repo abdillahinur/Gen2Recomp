@@ -147,6 +147,18 @@ return function(test, equal, truthy, raises)
     equal(dialogue.active, nil)
   end)
 
+  test("ROM text provider fails closed for missing dialogue", function()
+    local rom, profile = fixture()
+    local provider = RomTextProvider.new(
+      CrystalTextData.extract(rom, profile)
+    )
+    local ok, message = pcall(function()
+      provider:resolve("test.text.not_extracted")
+    end)
+    truthy(not ok)
+    truthy(tostring(message):find("not extracted", 1, true))
+  end)
+
   test("Crystal text data rejects missing symbols and commands", function()
     local rom, profile = fixture()
     profile.symbols.SyntheticText = nil

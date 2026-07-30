@@ -12,7 +12,9 @@ function MapHelpers.item(actorId, flagId, itemId, count)
     Commands.giveItem(itemId, count or 1)
     Commands.setFlag(flagId)
     if actorId then Commands.hideObject(actorId) end
-    Commands.text("crystal.text.common.item_received")
+    Commands.text("crystal.text.common.item_received", {
+      item = itemId,
+    })
   end
 end
 
@@ -22,9 +24,12 @@ function MapHelpers.fruit(flagId, itemId)
       Commands.text("crystal.text.common.fruit_tree_empty")
       return
     end
-    Commands.giveItem(itemId or "crystal.item.berry", 1)
+    local fruit = itemId or "crystal.item.berry"
+    Commands.giveItem(fruit, 1)
     Commands.setFlag(flagId)
-    Commands.text("crystal.text.common.fruit_tree_picked")
+    Commands.text("crystal.text.common.fruit_tree_picked", {
+      item = fruit,
+    })
   end
 end
 

@@ -107,5 +107,5 @@ M5-008 adds 41 direct dialogue labels for the Cherrygrove guide, Mr. Pokémon
 and Oak meeting, first rival gate, Routes 30/31, and Violet City. That expanded
 the runtime catalog to 96 records; M5-014 adds twelve Violet Gym records for a
 total of 108. M5-015 adds the ROM-owned gender question for a current total of
-119. The semantic manifest still contains only IDs, symbol names, and
+217. The semantic manifest still contains only IDs, symbol names, and
 substitution metadata.

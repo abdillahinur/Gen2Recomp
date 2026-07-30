@@ -294,7 +294,7 @@ M5-014 adds `VerticalSliceRoute`, a ROM-gated orchestration of the actual
 introduction and map-script services through the first badge. Its dialogue
 audit records each request and rejects semantic fallback on the required path.
 Twelve player-ROM-decoded Violet Gym records bring the catalog to 108, and
-M5-016 adds the exact clock prompts for 119. The
+M5-018 completes the supported slice at 217 records. The
 acceptance gate also validates native leader construction and save/reload of
 the completed profile.
 
@@ -310,7 +310,7 @@ wild fixtures with terminal outcomes and experience awards.
 
 The project does not yet contain the first-launch file picker or
 importer-screen wiring. M3's text, choice, clock, and naming services are
-connected to visible LÖVE UI, and the current 119-record slice now uses exact
+connected to visible LÖVE UI, and the current 217-record slice now uses exact
 ROM-owned dialogue. Explicit map-ID and ROM-event-index bindings route every
 supported actor and background interaction without coverage-list guessing.
 The battle simulation now has a visible standalone scene,

@@ -41,7 +41,7 @@ local function main()
   local textData =
     CrystalTextData.extract(rom, identity.profile)
   rom = nil
-  requireValue(textData.count == 119,
+  requireValue(textData.count == 217,
     "required ROM dialogue catalog is incomplete")
 
   local route = VerticalSliceRoute.run(worldData, textData)

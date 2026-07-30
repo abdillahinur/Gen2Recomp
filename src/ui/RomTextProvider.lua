@@ -1,8 +1,12 @@
-local SemanticTextProvider =
-  require("src.ui.SemanticTextProvider")
-
 local RomTextProvider = {}
 RomTextProvider.__index = RomTextProvider
+
+local MENU_TEXT = {
+  ["common.text.yes"] = "YES",
+  ["common.text.no"] = "NO",
+  ["crystal.text.player_gender.boy"] = "BOY",
+  ["crystal.text.player_gender.girl"] = "GIRL",
+}
 
 local function semanticValue(value)
   local text = tostring(value)
@@ -63,7 +67,6 @@ function RomTextProvider.new(catalog, options)
   options = options or {}
   return setmetatable({
     catalog = catalog,
-    fallback = options.fallback or SemanticTextProvider.new(),
     values = options.values,
   }, RomTextProvider)
 end
@@ -83,7 +86,7 @@ function RomTextProvider:resolvePages(id, substitutions)
   local target = self.catalog.aliases and self.catalog.aliases[id] or id
   local entry = self.catalog.entries[target]
   if not entry then
-    return { self.fallback:resolve(id, substitutions) }
+    error("ROM text is not extracted for " .. tostring(id), 2)
   end
   return renderPages(entry, self:_values(substitutions))
 end
@@ -98,18 +101,17 @@ function RomTextProvider:choicePromptPages(id)
 end
 
 function RomTextProvider:choiceTitle(id)
-  if self.catalog.aliases and self.catalog.aliases[id] then
-    return "YES OR NO?"
-  end
-  return self.fallback:resolve(id)
+  return "YES OR NO?"
 end
 
 function RomTextProvider:option(option)
+  if MENU_TEXT[option.textId] then return MENU_TEXT[option.textId] end
   local entry = self.catalog.entries[option.textId]
   if entry then
     return self:resolve(option.textId)
   end
-  return self.fallback:option(option)
+  error("ROM menu text is not extracted for "
+    .. tostring(option.textId), 2)
 end
 
 function RomTextProvider.forState(catalog, state)

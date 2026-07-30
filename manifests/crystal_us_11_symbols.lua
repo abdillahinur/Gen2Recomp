@@ -8,6 +8,21 @@ return {
     rgbdsVersion = "1.0.1",
   },
   symbols = {
+    ["AcademyBlackboardText"] = {
+      bank = 0x1a,
+      address = 0x4eb2,
+      offset = 0x068eb2,
+    },
+    ["AcademyEarlIntroText"] = {
+      bank = 0x1a,
+      address = 0x4b3b,
+      offset = 0x068b3b,
+    },
+    ["AcademyNotebookText"] = {
+      bank = 0x1a,
+      address = 0x5136,
+      offset = 0x069136,
+    },
     ["AideText_AlwaysBusy"] = {
       bank = 0x1e,
       address = 0x5f65,
@@ -17,6 +32,11 @@ return {
       bank = 0x1e,
       address = 0x5f38,
       offset = 0x079f38,
+    },
+    ["ArthurGaveGiftText"] = {
+      bank = 0x65,
+      address = 0x4847,
+      offset = 0x194847,
     },
     ["BaseData"] = {
       bank = 0x14,
@@ -38,6 +58,11 @@ return {
       address = 0x487f,
       offset = 0x06887f,
     },
+    ["BirdKeeperPeterAfterText"] = {
+      bank = 0x64,
+      address = 0x50d4,
+      offset = 0x1910d4,
+    },
     ["BirdKeeperRodAfterBattleText"] = {
       bank = 0x1a,
       address = 0x4837,
@@ -47,6 +72,61 @@ return {
       bank = 0x1a,
       address = 0x47cd,
       offset = 0x0687cd,
+    },
+    ["BugCatcherDonAfterText"] = {
+      bank = 0x68,
+      address = 0x5a1c,
+      offset = 0x1a1a1c,
+    },
+    ["BugCatcherWade1AfterText"] = {
+      bank = 0x69,
+      address = 0x5671,
+      offset = 0x1a5671,
+    },
+    ["CamperRolandAfterText"] = {
+      bank = 0x64,
+      address = 0x4faa,
+      offset = 0x190faa,
+    },
+    ["CatchingTutorialDebriefText"] = {
+      bank = 0x68,
+      address = 0x514d,
+      offset = 0x1a114d,
+    },
+    ["CatchingTutorialDeclinedText"] = {
+      bank = 0x68,
+      address = 0x5197,
+      offset = 0x1a1197,
+    },
+    ["CatchingTutorialIntroText"] = {
+      bank = 0x68,
+      address = 0x50df,
+      offset = 0x1a10df,
+    },
+    ["CherrygroveCitySignText"] = {
+      bank = 0x67,
+      address = 0x47e0,
+      offset = 0x19c7e0,
+    },
+    ["CherrygroveEvolutionSpeechHouseLassText"] = {
+      bank = 0x65,
+      address = 0x6cfc,
+      offset = 0x196cfc,
+    },
+    ["CherrygroveEvolutionSpeechHouseYoungsterText"] = {
+      bank = 0x65,
+      address = 0x6cc3,
+      offset = 0x196cc3,
+    },
+    ["CherrygroveGymSpeechHouseBugCatcherText"] = {
+      bank = 0x65,
+      address = 0x6b65,
+      offset = 0x196b65,
+    },
+    ["CherrygroveGymSpeechHousePokefanMText"] = {
+      bank = 0x65,
+      address = 0x6aea,
+      offset = 0x196aea,
     },
     ["CherrygroveRivalText_Seen"] = {
       bank = 0x67,
@@ -62,6 +142,26 @@ return {
       bank = 0x67,
       address = 0x4608,
       offset = 0x19c608,
+    },
+    ["CherrygroveTeacherText_HaveMapCard"] = {
+      bank = 0x67,
+      address = 0x46a8,
+      offset = 0x19c6a8,
+    },
+    ["CherrygroveTeacherText_NoMapCard"] = {
+      bank = 0x67,
+      address = 0x4650,
+      offset = 0x19c650,
+    },
+    ["CherrygroveYoungsterText_HavePokedex"] = {
+      bank = 0x67,
+      address = 0x4701,
+      offset = 0x19c701,
+    },
+    ["CherrygroveYoungsterText_NoPokedex"] = {
+      bank = 0x67,
+      address = 0x46d6,
+      offset = 0x19c6d6,
     },
     ["ChoseStarterText"] = {
       bank = 0x1e,
@@ -103,10 +203,30 @@ return {
       address = 0x7641,
       offset = 0x00b641,
     },
+    ["EarlsPokemonAcademyGameboyKid1Text"] = {
+      bank = 0x1a,
+      address = 0x4dda,
+      offset = 0x068dda,
+    },
+    ["EarlsPokemonAcademyGameboyKid2Text"] = {
+      bank = 0x1a,
+      address = 0x4e07,
+      offset = 0x068e07,
+    },
     ["EarlsPokemonAcademySignText"] = {
       bank = 0x6a,
       address = 0x474d,
       offset = 0x1a874d,
+    },
+    ["EarlsPokemonAcademyYoungster1Text"] = {
+      bank = 0x1a,
+      address = 0x4d80,
+      offset = 0x068d80,
+    },
+    ["EarlsPokemonAcademyYoungster2Text"] = {
+      bank = 0x1a,
+      address = 0x4e39,
+      offset = 0x068e39,
     },
     ["ElmDescribesMrPokemonText"] = {
       bank = 0x1e,
@@ -248,6 +368,26 @@ return {
       address = 0x45c8,
       offset = 0x0685c8,
     },
+    ["FisherHenryAfterText"] = {
+      bank = 0x64,
+      address = 0x4df2,
+      offset = 0x190df2,
+    },
+    ["FisherJustinAfterText"] = {
+      bank = 0x64,
+      address = 0x4b4e,
+      offset = 0x190b4e,
+    },
+    ["FisherRalphAfterText"] = {
+      bank = 0x64,
+      address = 0x4bf8,
+      offset = 0x190bf8,
+    },
+    ["FloriaText1"] = {
+      bank = 0x65,
+      address = 0x42f1,
+      offset = 0x1942f1,
+    },
     ["Font"] = {
       bank = 0x3e,
       address = 0x4200,
@@ -267,6 +407,11 @@ return {
       bank = 0x3e,
       address = 0x4800,
       offset = 0x0f8800,
+    },
+    ["FriedaGaveGiftText"] = {
+      bank = 0x64,
+      address = 0x5222,
+      offset = 0x191222,
     },
     ["GotElmsNumberText"] = {
       bank = 0x1e,
@@ -323,6 +468,26 @@ return {
       address = 0x426f,
       offset = 0x19c26f,
     },
+    ["GuideGentsHouseGuideGentText"] = {
+      bank = 0x65,
+      address = 0x6c0d,
+      offset = 0x196c0d,
+    },
+    ["GuideGentsHouseSignText"] = {
+      bank = 0x67,
+      address = 0x4815,
+      offset = 0x19c815,
+    },
+    ["GymStatue_CityGymText"] = {
+      bank = 0x6c,
+      address = 0x474e,
+      offset = 0x1b074e,
+    },
+    ["GymStatue_WinningTrainersText"] = {
+      bank = 0x6c,
+      address = 0x475c,
+      offset = 0x1b075c,
+    },
     ["JohtoGrassWildMons"] = {
       bank = 0x0a,
       address = 0x65e9,
@@ -368,6 +533,26 @@ return {
       address = 0x7469,
       offset = 0x00b469,
     },
+    ["MartSignText"] = {
+      bank = 0x6c,
+      address = 0x459c,
+      offset = 0x1b059c,
+    },
+    ["MeetArthurText"] = {
+      bank = 0x65,
+      address = 0x4800,
+      offset = 0x194800,
+    },
+    ["MeetFriedaText"] = {
+      bank = 0x64,
+      address = 0x51c1,
+      offset = 0x1911c1,
+    },
+    ["MeetTuscanyText"] = {
+      bank = 0x68,
+      address = 0x53b2,
+      offset = 0x1a13b2,
+    },
     ["MrPokemonIntroText1"] = {
       bank = 0x65,
       address = 0x6f66,
@@ -408,6 +593,16 @@ return {
       address = 0x5b55,
       offset = 0x1a1b55,
     },
+    ["MrPokemonsHouse_BrokenComputerText"] = {
+      bank = 0x65,
+      address = 0x7584,
+      offset = 0x197584,
+    },
+    ["MrPokemonsHouse_ForeignMagazinesText"] = {
+      bank = 0x65,
+      address = 0x7543,
+      offset = 0x197543,
+    },
     ["MrPokemonsHouse_GetDexText"] = {
       bank = 0x65,
       address = 0x73cc,
@@ -432,6 +627,11 @@ return {
       bank = 0x65,
       address = 0x73de,
       offset = 0x1973de,
+    },
+    ["MysticWaterGuyTextBefore"] = {
+      bank = 0x67,
+      address = 0x4766,
+      offset = 0x19c766,
     },
     ["NewBarkTownElmsHouseSignText"] = {
       bank = 0x6a,
@@ -483,6 +683,16 @@ return {
       address = 0x4736,
       offset = 0x014736,
     },
+    ["PicnickerLiz1AfterText"] = {
+      bank = 0x64,
+      address = 0x5060,
+      offset = 0x191060,
+    },
+    ["PokecenterSignText"] = {
+      bank = 0x6c,
+      address = 0x457f,
+      offset = 0x1b057f,
+    },
     ["PokemonNames"] = {
       bank = 0x14,
       address = 0x7384,
@@ -498,6 +708,11 @@ return {
       address = 0x415e,
       offset = 0x15815e,
     },
+    ["PsychicMarkAfterBattleText"] = {
+      bank = 0x65,
+      address = 0x471e,
+      offset = 0x19471e,
+    },
     ["ReceivedStarterText"] = {
       bank = 0x1e,
       address = 0x54ad,
@@ -508,6 +723,11 @@ return {
       address = 0x45af,
       offset = 0x0685af,
     },
+    ["RockSmashGuyText1"] = {
+      bank = 0x65,
+      address = 0x446f,
+      offset = 0x19446f,
+    },
     ["RoofPals"] = {
       bank = 0x02,
       address = 0x7569,
@@ -517,6 +737,61 @@ return {
       bank = 0x07,
       address = 0x403c,
       offset = 0x01c03c,
+    },
+    ["Route29CooltrainerMText_WaitingForMorning"] = {
+      bank = 0x68,
+      address = 0x537c,
+      offset = 0x1a137c,
+    },
+    ["Route29CooltrainerMText_WaitingForNight"] = {
+      bank = 0x68,
+      address = 0x534c,
+      offset = 0x1a134c,
+    },
+    ["Route29FisherText"] = {
+      bank = 0x68,
+      address = 0x52d9,
+      offset = 0x1a12d9,
+    },
+    ["Route29Route46GateOfficerText"] = {
+      bank = 0x1e,
+      address = 0x75c1,
+      offset = 0x07b5c1,
+    },
+    ["Route29Route46GateYoungsterText"] = {
+      bank = 0x1e,
+      address = 0x760d,
+      offset = 0x07b60d,
+    },
+    ["Route29Sign1Text"] = {
+      bank = 0x68,
+      address = 0x558e,
+      offset = 0x1a158e,
+    },
+    ["Route29TeacherText"] = {
+      bank = 0x68,
+      address = 0x526c,
+      offset = 0x1a126c,
+    },
+    ["Route29YoungsterText"] = {
+      bank = 0x68,
+      address = 0x5214,
+      offset = 0x1a1214,
+    },
+    ["Route30BerrySpeechHouseCheckTreesText"] = {
+      bank = 0x65,
+      address = 0x6dec,
+      offset = 0x196dec,
+    },
+    ["Route30BerrySpeechHouseMonEatBerriesText"] = {
+      bank = 0x65,
+      address = 0x6d82,
+      offset = 0x196d82,
+    },
+    ["Route30CooltrainerFText"] = {
+      bank = 0x68,
+      address = 0x5ac4,
+      offset = 0x1a1ac4,
     },
     ["Route30SignText"] = {
       bank = 0x68,
@@ -538,15 +813,85 @@ return {
       address = 0x5a94,
       offset = 0x1a1a94,
     },
+    ["Route31CooltrainerMText"] = {
+      bank = 0x69,
+      address = 0x55ff,
+      offset = 0x1a55ff,
+    },
     ["Route31SignText"] = {
       bank = 0x69,
       address = 0x5a45,
       offset = 0x1a5a45,
     },
+    ["Route31VioletGateCooltrainerFText"] = {
+      bank = 0x65,
+      address = 0x7661,
+      offset = 0x197661,
+    },
+    ["Route31VioletGateOfficerText"] = {
+      bank = 0x65,
+      address = 0x763a,
+      offset = 0x19763a,
+    },
     ["Route31YoungsterText"] = {
       bank = 0x69,
       address = 0x59d5,
       offset = 0x1a59d5,
+    },
+    ["Route32CooltrainerMText_ExperiencesShouldBeUseful"] = {
+      bank = 0x64,
+      address = 0x4a15,
+      offset = 0x190a15,
+    },
+    ["Route32CooltrainerMText_WhatsTheHurry"] = {
+      bank = 0x64,
+      address = 0x4790,
+      offset = 0x190790,
+    },
+    ["Route32RuinsSignText"] = {
+      bank = 0x64,
+      address = 0x535e,
+      offset = 0x19135e,
+    },
+    ["Route32SignText"] = {
+      bank = 0x64,
+      address = 0x533a,
+      offset = 0x19133a,
+    },
+    ["Route32UnionCaveSignText"] = {
+      bank = 0x64,
+      address = 0x537b,
+      offset = 0x19137b,
+    },
+    ["Route36LassText"] = {
+      bank = 0x65,
+      address = 0x4626,
+      offset = 0x194626,
+    },
+    ["Route36SignText"] = {
+      bank = 0x65,
+      address = 0x4924,
+      offset = 0x194924,
+    },
+    ["Route36TrainerTips1Text"] = {
+      bank = 0x65,
+      address = 0x494c,
+      offset = 0x19494c,
+    },
+    ["Route36TrainerTips2Text"] = {
+      bank = 0x65,
+      address = 0x49ee,
+      offset = 0x1949ee,
+    },
+    ["RuinsOfAlphNorthSignText"] = {
+      bank = 0x65,
+      address = 0x492e,
+      offset = 0x19492e,
+    },
+    ["SchoolboyAlanBooksText"] = {
+      bank = 0x65,
+      address = 0x47aa,
+      offset = 0x1947aa,
     },
     ["Shrink1Pic"] = {
       bank = 0x13,
@@ -562,6 +907,11 @@ return {
       bank = 0x6a,
       address = 0x4724,
       offset = 0x1a8724,
+    },
+    ["SudowoodoAttackedText"] = {
+      bank = 0x65,
+      address = 0x42aa,
+      offset = 0x1942aa,
     },
     ["TakeChikoritaText"] = {
       bank = 0x1e,
@@ -583,25 +933,85 @@ return {
       address = 0x4236,
       offset = 0x1a8236,
     },
+    ["Text_EarlAsksIfYouBeatFalkner"] = {
+      bank = 0x6a,
+      address = 0x4473,
+      offset = 0x1a8473,
+    },
     ["Text_ElmDiscoveredNewMon"] = {
       bank = 0x6a,
       address = 0x4274,
       offset = 0x1a8274,
+    },
+    ["Text_FollowEarl"] = {
+      bank = 0x6a,
+      address = 0x44cb,
+      offset = 0x1a84cb,
     },
     ["Text_GearIsImpressive"] = {
       bank = 0x6a,
       address = 0x40f7,
       offset = 0x1a80f7,
     },
+    ["Text_HereTeacherIAm"] = {
+      bank = 0x6a,
+      address = 0x44f9,
+      offset = 0x1a84f9,
+    },
     ["Text_ItsDangerousToGoAlone"] = {
       bank = 0x6a,
       address = 0x415e,
       offset = 0x1a815e,
     },
+    ["Text_MillionDollarSlowpokeTail"] = {
+      bank = 0x64,
+      address = 0x4a59,
+      offset = 0x190a59,
+    },
+    ["Text_RefusedToBuySlowpokeTail"] = {
+      bank = 0x64,
+      address = 0x4afc,
+      offset = 0x190afc,
+    },
+    ["Text_RoarIntro"] = {
+      bank = 0x64,
+      address = 0x5133,
+      offset = 0x191133,
+    },
+    ["Text_RoarOutro"] = {
+      bank = 0x64,
+      address = 0x518c,
+      offset = 0x19118c,
+    },
+    ["Text_Route31SleepyMan"] = {
+      bank = 0x69,
+      address = 0x56d9,
+      offset = 0x1a56d9,
+    },
     ["Text_TellMomIfLeaving"] = {
       bank = 0x6a,
       address = 0x41f2,
       offset = 0x1a81f2,
+    },
+    ["Text_ThisIsABigBattle"] = {
+      bank = 0x68,
+      address = 0x581c,
+      offset = 0x1a181c,
+    },
+    ["Text_ThoughtKidsWereLoaded"] = {
+      bank = 0x64,
+      address = 0x4acf,
+      offset = 0x190acf,
+    },
+    ["Text_UseTackle"] = {
+      bank = 0x68,
+      address = 0x5806,
+      offset = 0x1a1806,
+    },
+    ["Text_VeryNiceIndeed"] = {
+      bank = 0x6a,
+      address = 0x44ac,
+      offset = 0x1a84ac,
     },
     ["Text_WaitPlayer"] = {
       bank = 0x6a,
@@ -683,6 +1093,26 @@ return {
       address = 0x70ce,
       offset = 0x00b0ce,
     },
+    ["TuscanyGaveGiftText"] = {
+      bank = 0x68,
+      address = 0x546f,
+      offset = 0x1a146f,
+    },
+    ["TuscanyGivesGiftText"] = {
+      bank = 0x68,
+      address = 0x542f,
+      offset = 0x1a142f,
+    },
+    ["UseSquirtbottleText"] = {
+      bank = 0x65,
+      address = 0x426b,
+      offset = 0x19426b,
+    },
+    ["UsedSquirtbottleText"] = {
+      bank = 0x65,
+      address = 0x4290,
+      offset = 0x194290,
+    },
     ["VioletCityGrampsText"] = {
       bank = 0x6a,
       address = 0x45ef,
@@ -723,15 +1153,65 @@ return {
       address = 0x46dc,
       offset = 0x1a86dc,
     },
+    ["VioletKylesHousePokefanMText"] = {
+      bank = 0x1a,
+      address = 0x5997,
+      offset = 0x069997,
+    },
+    ["VioletNicknameSpeechHouseBirdText"] = {
+      bank = 0x1a,
+      address = 0x547c,
+      offset = 0x06947c,
+    },
+    ["VioletNicknameSpeechHouseLassText"] = {
+      bank = 0x1a,
+      address = 0x545e,
+      offset = 0x06945e,
+    },
+    ["VioletNicknameSpeechHouseTeacherText"] = {
+      bank = 0x1a,
+      address = 0x53fa,
+      offset = 0x0693fa,
+    },
     ["WooperFrontpic"] = {
       bank = 0x55,
       address = 0x7846,
       offset = 0x157846,
     },
+    ["YoungsterAlbertAfterText"] = {
+      bank = 0x64,
+      address = 0x4e82,
+      offset = 0x190e82,
+    },
+    ["YoungsterGordonAfterText"] = {
+      bank = 0x64,
+      address = 0x4f49,
+      offset = 0x190f49,
+    },
+    ["YoungsterJoey1AfterText"] = {
+      bank = 0x68,
+      address = 0x58c2,
+      offset = 0x1a18c2,
+    },
+    ["YoungsterMikeyAfterText"] = {
+      bank = 0x68,
+      address = 0x597d,
+      offset = 0x1a197d,
+    },
     ["_AreYouABoyOrAreYouAGirlText"] = {
       bank = 0x70,
       address = 0x4ca3,
       offset = 0x1c0ca3,
+    },
+    ["_NPCTradeCableText"] = {
+      bank = 0x6f,
+      address = 0x5407,
+      offset = 0x1bd407,
+    },
+    ["_NothingHereText"] = {
+      bank = 0x6f,
+      address = 0x4055,
+      offset = 0x1bc055,
     },
     ["_OakText1"] = {
       bank = 0x70,
@@ -817,6 +1297,16 @@ return {
       bank = 0x6f,
       address = 0x4336,
       offset = 0x1bc336,
+    },
+    ["_ObtainedFruitText"] = {
+      bank = 0x6f,
+      address = 0x402d,
+      offset = 0x1bc02d,
+    },
+    ["_PlayerFoundItemText"] = {
+      bank = 0x6f,
+      address = 0x5321,
+      offset = 0x1bd321,
     },
   },
 }

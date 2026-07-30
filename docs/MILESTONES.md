@@ -147,7 +147,7 @@ Completed checkpoints:
 - [x] M5-015 decoded Crystal font and exact gender prompt/menu geometry.
 - [x] M5-016 faithful clock, professor, naming, and shrink presentation.
 - [x] M5-017 explicit verified object/background-event bindings.
-- [ ] M5-018 complete live-slice ROM dialogue with no semantic fallbacks.
+- [x] M5-018 complete live-slice ROM dialogue with no semantic fallbacks.
 - [ ] M5-019 compact ROM audio-program extraction.
 - [ ] M5-020 native channel synthesis and exact audio routing.
 - [ ] M5-021 visible clean-save fidelity acceptance route.

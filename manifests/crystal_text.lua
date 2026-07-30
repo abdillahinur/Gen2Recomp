@@ -249,5 +249,210 @@ return {
       { symbol = "VioletGymGuideText" },
     ["crystal.text.violet_gym.guide_after"] =
       { symbol = "VioletGymGuideWinText" },
+
+    ["crystal.text.common.fruit_tree_empty"] =
+      { symbol = "_NothingHereText" },
+    ["crystal.text.common.fruit_tree_picked"] = {
+      symbol = "_ObtainedFruitText",
+      ramKeys = { "item" },
+    },
+    ["crystal.text.common.item_received"] = {
+      symbol = "_PlayerFoundItemText",
+      ramKeys = { "item" },
+    },
+    ["crystal.text.common.mart_sign"] = { symbol = "MartSignText" },
+    ["crystal.text.common.pokecenter_sign"] =
+      { symbol = "PokecenterSignText" },
+
+    ["crystal.text.cherrygrove.city_sign"] =
+      { symbol = "CherrygroveCitySignText" },
+    ["crystal.text.cherrygrove.guide_house_sign"] =
+      { symbol = "GuideGentsHouseSignText" },
+    ["crystal.text.cherrygrove.teacher_has_map"] =
+      { symbol = "CherrygroveTeacherText_HaveMapCard" },
+    ["crystal.text.cherrygrove.teacher_needs_map"] =
+      { symbol = "CherrygroveTeacherText_NoMapCard" },
+    ["crystal.text.cherrygrove.youngster_has_pokedex"] =
+      { symbol = "CherrygroveYoungsterText_HavePokedex" },
+    ["crystal.text.cherrygrove.youngster_no_pokedex"] =
+      { symbol = "CherrygroveYoungsterText_NoPokedex" },
+    ["crystal.text.cherrygrove.fisher"] =
+      { symbol = "MysticWaterGuyTextBefore" },
+
+    ["crystal.text.cherrygrove_evolution_house.lass"] =
+      { symbol = "CherrygroveEvolutionSpeechHouseLassText" },
+    ["crystal.text.cherrygrove_evolution_house.youngster"] =
+      { symbol = "CherrygroveEvolutionSpeechHouseYoungsterText" },
+    ["crystal.text.cherrygrove_gym_house.bug_catcher"] =
+      { symbol = "CherrygroveGymSpeechHouseBugCatcherText" },
+    ["crystal.text.cherrygrove_gym_house.pokefan"] =
+      { symbol = "CherrygroveGymSpeechHousePokefanMText" },
+    ["crystal.text.guide_house.guide"] =
+      { symbol = "GuideGentsHouseGuideGentText" },
+
+    ["crystal.text.earls_academy.blackboard"] =
+      { symbol = "AcademyBlackboardText" },
+    ["crystal.text.earls_academy.earl"] =
+      { symbol = "AcademyEarlIntroText" },
+    ["crystal.text.earls_academy.gameboy_kid_left"] =
+      { symbol = "EarlsPokemonAcademyGameboyKid1Text" },
+    ["crystal.text.earls_academy.gameboy_kid_right"] =
+      { symbol = "EarlsPokemonAcademyGameboyKid2Text" },
+    ["crystal.text.earls_academy.notebook"] =
+      { symbol = "AcademyNotebookText" },
+    ["crystal.text.earls_academy.youngster_berry"] =
+      { symbol = "EarlsPokemonAcademyYoungster2Text" },
+    ["crystal.text.earls_academy.youngster_notes"] =
+      { symbol = "EarlsPokemonAcademyYoungster1Text" },
+
+    ["crystal.text.mr_pokemon.computer"] =
+      { symbol = "MrPokemonsHouse_BrokenComputerText" },
+    ["crystal.text.mr_pokemon.magazines"] =
+      { symbol = "MrPokemonsHouse_ForeignMagazinesText" },
+
+    ["crystal.text.route_29.fisher"] = { symbol = "Route29FisherText" },
+    ["crystal.text.route_29.sign"] = { symbol = "Route29Sign1Text" },
+    ["crystal.text.route_29.teacher"] = { symbol = "Route29TeacherText" },
+    ["crystal.text.route_29.tuscany_after"] =
+      { symbol = "TuscanyGaveGiftText" },
+    ["crystal.text.route_29.tuscany_gift"] =
+      { symbol = "TuscanyGivesGiftText" },
+    ["crystal.text.route_29.tuscany_intro"] =
+      { symbol = "MeetTuscanyText" },
+    ["crystal.text.route_29.tutorial_debrief"] =
+      { symbol = "CatchingTutorialDebriefText" },
+    ["crystal.text.route_29.tutorial_declined"] =
+      { symbol = "CatchingTutorialDeclinedText" },
+    ["crystal.text.route_29.tutorial_intro"] =
+      { symbol = "CatchingTutorialIntroText" },
+    ["crystal.text.route_29.waiting_for_morning"] =
+      { symbol = "Route29CooltrainerMText_WaitingForMorning" },
+    ["crystal.text.route_29.waiting_for_night"] =
+      { symbol = "Route29CooltrainerMText_WaitingForNight" },
+    ["crystal.text.route_29.youngster"] =
+      { symbol = "Route29YoungsterText" },
+    ["crystal.text.route_29_gate.officer"] =
+      { symbol = "Route29Route46GateOfficerText" },
+    ["crystal.text.route_29_gate.youngster"] =
+      { symbol = "Route29Route46GateYoungsterText" },
+
+    ["crystal.text.route_30.battle_mon"] = { symbol = "Text_UseTackle" },
+    ["crystal.text.route_30.big_battle"] =
+      { symbol = "Text_ThisIsABigBattle" },
+    ["crystal.text.route_30.cooltrainer"] =
+      { symbol = "Route30CooltrainerFText" },
+    ["crystal.text.route_30.don_after"] =
+      { symbol = "BugCatcherDonAfterText" },
+    ["crystal.text.route_30.joey_after"] =
+      { symbol = "YoungsterJoey1AfterText" },
+    ["crystal.text.route_30.mikey_after"] =
+      { symbol = "YoungsterMikeyAfterText" },
+    ["crystal.text.route_30_berry_house.after"] =
+      { symbol = "Route30BerrySpeechHouseCheckTreesText" },
+    ["crystal.text.route_30_berry_house.gift"] =
+      { symbol = "Route30BerrySpeechHouseMonEatBerriesText" },
+
+    ["crystal.text.route_31.cooltrainer"] =
+      { symbol = "Route31CooltrainerMText" },
+    ["crystal.text.route_31.mail_recipient"] =
+      { symbol = "Text_Route31SleepyMan" },
+    ["crystal.text.route_31.wade_after"] =
+      { symbol = "BugCatcherWade1AfterText" },
+    ["crystal.text.route_31_gate.cooltrainer"] =
+      { symbol = "Route31VioletGateCooltrainerFText" },
+    ["crystal.text.route_31_gate.officer"] =
+      { symbol = "Route31VioletGateOfficerText" },
+
+    ["crystal.text.route_32.albert_after"] =
+      { symbol = "YoungsterAlbertAfterText" },
+    ["crystal.text.route_32.frieda_after"] =
+      { symbol = "FriedaGaveGiftText" },
+    ["crystal.text.route_32.frieda_intro"] =
+      { symbol = "MeetFriedaText" },
+    ["crystal.text.route_32.gordon_after"] =
+      { symbol = "YoungsterGordonAfterText" },
+    ["crystal.text.route_32.guard_after_badge"] =
+      { symbol = "Route32CooltrainerMText_ExperiencesShouldBeUseful" },
+    ["crystal.text.route_32.guard_before_badge"] =
+      { symbol = "Route32CooltrainerMText_WhatsTheHurry" },
+    ["crystal.text.route_32.henry_after"] =
+      { symbol = "FisherHenryAfterText" },
+    ["crystal.text.route_32.justin_after"] =
+      { symbol = "FisherJustinAfterText" },
+    ["crystal.text.route_32.liz_after"] =
+      { symbol = "PicnickerLiz1AfterText" },
+    ["crystal.text.route_32.peter_after"] =
+      { symbol = "BirdKeeperPeterAfterText" },
+    ["crystal.text.route_32.ralph_after"] =
+      { symbol = "FisherRalphAfterText" },
+    ["crystal.text.route_32.roar_intro"] = { symbol = "Text_RoarIntro" },
+    ["crystal.text.route_32.roar_outro"] = { symbol = "Text_RoarOutro" },
+    ["crystal.text.route_32.roland_after"] =
+      { symbol = "CamperRolandAfterText" },
+    ["crystal.text.route_32.route_sign"] =
+      { symbol = "Route32SignText" },
+    ["crystal.text.route_32.ruins_sign"] =
+      { symbol = "Route32RuinsSignText" },
+    ["crystal.text.route_32.slowpoke_tail_offer"] =
+      { symbol = "Text_MillionDollarSlowpokeTail" },
+    ["crystal.text.route_32.slowpoke_tail_refused"] =
+      { symbol = "Text_RefusedToBuySlowpokeTail" },
+    ["crystal.text.route_32.slowpoke_tail_too_expensive"] =
+      { symbol = "Text_ThoughtKidsWereLoaded" },
+    ["crystal.text.route_32.union_cave_sign"] =
+      { symbol = "Route32UnionCaveSignText" },
+
+    ["crystal.text.route_36.alan_after"] =
+      { symbol = "SchoolboyAlanBooksText" },
+    ["crystal.text.route_36.arthur_after"] =
+      { symbol = "ArthurGaveGiftText" },
+    ["crystal.text.route_36.arthur_intro"] =
+      { symbol = "MeetArthurText" },
+    ["crystal.text.route_36.floria"] = { symbol = "FloriaText1" },
+    ["crystal.text.route_36.lass"] = { symbol = "Route36LassText" },
+    ["crystal.text.route_36.mark_after"] =
+      { symbol = "PsychicMarkAfterBattleText" },
+    ["crystal.text.route_36.rock_smash_guy"] =
+      { symbol = "RockSmashGuyText1" },
+    ["crystal.text.route_36.route_sign"] =
+      { symbol = "Route36SignText" },
+    ["crystal.text.route_36.ruins_sign"] =
+      { symbol = "RuinsOfAlphNorthSignText" },
+    ["crystal.text.route_36.sudowoodo_attacks"] =
+      { symbol = "SudowoodoAttackedText" },
+    ["crystal.text.route_36.trainer_tips_dig"] =
+      { symbol = "Route36TrainerTips2Text" },
+    ["crystal.text.route_36.trainer_tips_stats"] =
+      { symbol = "Route36TrainerTips1Text" },
+    ["crystal.text.route_36.use_squirt_bottle"] =
+      { symbol = "UseSquirtbottleText" },
+    ["crystal.text.route_36.weird_tree"] =
+      { symbol = "UsedSquirtbottleText" },
+
+    ["crystal.text.violet.earl_asks_about_falkner"] =
+      { symbol = "Text_EarlAsksIfYouBeatFalkner" },
+    ["crystal.text.violet.earl_at_academy"] =
+      { symbol = "Text_HereTeacherIAm" },
+    ["crystal.text.violet.earl_follow"] = { symbol = "Text_FollowEarl" },
+    ["crystal.text.violet.earl_very_nice"] =
+      { symbol = "Text_VeryNiceIndeed" },
+    ["crystal.text.violet_gym.statue"] = {
+      symbol = "GymStatue_CityGymText",
+      ramKeys = { "city" },
+    },
+    ["crystal.text.violet_gym.statue_champion"] = {
+      symbol = "GymStatue_WinningTrainersText",
+      ramKeys = { "leader", "player" },
+    },
+    ["crystal.text.violet_kyle_house.kyle"] =
+      { symbol = "_NPCTradeCableText" },
+    ["crystal.text.violet_kyle_house.pokefan"] =
+      { symbol = "VioletKylesHousePokefanMText" },
+    ["crystal.text.violet_nickname_house.bird"] =
+      { symbol = "VioletNicknameSpeechHouseBirdText" },
+    ["crystal.text.violet_nickname_house.lass"] =
+      { symbol = "VioletNicknameSpeechHouseLassText" },
+    ["crystal.text.violet_nickname_house.teacher"] =
+      { symbol = "VioletNicknameSpeechHouseTeacherText" },
   },
 }

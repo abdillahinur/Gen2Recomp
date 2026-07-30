@@ -8,8 +8,6 @@ local Rom = require("src.import.Rom")
 local RomIdentifier = require("src.import.RomIdentifier")
 local RomTextProvider = require("src.ui.RomTextProvider")
 local ScriptState = require("src.script.ScriptState")
-local SemanticTextProvider =
-  require("src.ui.SemanticTextProvider")
 
 local function readRom(path)
   local file, message = io.open(path, "rb")
@@ -55,7 +53,7 @@ local function main()
 
   local expected = 0
   for _ in pairs(identity.profile.text.entries) do expected = expected + 1 end
-  requireValue(catalog.count == expected and catalog.count == 119,
+  requireValue(catalog.count == expected and catalog.count == 217,
     "catalog entry count is incomplete")
   for id, entry in pairs(catalog.entries) do
     requireValue(type(id) == "string" and #entry.tokens > 0
@@ -77,7 +75,6 @@ local function main()
   local state = ScriptState.new()
   state:setVariable("player.name", "NOVA")
   local provider = RomTextProvider.forState(catalog, state)
-  local fallback = SemanticTextProvider.new()
   for id in pairs(catalog.entries) do
     local pages = provider:resolvePages(id, {
       species = "crystal.species.cyndaquil",
@@ -91,11 +88,12 @@ local function main()
       requireValue(lineCount <= 2,
         id .. " exceeded the two-line dialogue viewport")
     end
-    if id ~= "crystal.text.introduction.oak_3" then
-      requireValue(provider:resolve(id) ~= fallback:resolve(id),
-        id .. " fell back to a semantic label")
-    end
   end
+  local missingOk = pcall(function()
+    provider:resolve("crystal.text.not_extracted")
+  end)
+  requireValue(not missingOk,
+    "missing ROM dialogue did not fail closed")
 
   local dialogue = DialogueService.new()
   local presentation = PresentationController.new(
@@ -117,7 +115,7 @@ local function main()
 
   print("Crystal M5-002 ROM-text verification passed.")
   print("Profile: " .. identity.profile.id)
-  print("Catalog: 119 ROM-owned semantic mappings decoded")
+  print("Catalog: 217 ROM-owned semantic mappings decoded")
   print("Presentation: two-line pagination and substitutions verified")
   print("Retention: normalized catalog contains no raw ROM ranges")
   return 0
