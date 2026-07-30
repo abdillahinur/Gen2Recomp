@@ -60,6 +60,8 @@ Backlog IDs are stable planning references, not issue tracker numbers.
 - [x] `M3-008` Create map/scene/callback/interaction coverage reports.
 - [x] `M3-009` Complete introduction and naming flow.
 - [x] `M3-010` Complete Elm and starter sequence.
+- [x] `M3-011` Wire dialogue, choices, naming, and clock presentation into
+  the visible LÖVE preview.
 
 ## M4 — Pokémon and battles
 

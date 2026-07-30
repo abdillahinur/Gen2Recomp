@@ -40,6 +40,8 @@ currently contains:
   registration, and the aide's Potion handoff;
 - party, inventory, phone, clock, naming, dialogue, and coverage-report
   services for the M3 behavior slice;
+- visible dialogue boxes, choices, clock setup, preset/custom naming, New Bark
+  interactions, and Elm's Lab scene presentation driven by those M3 services;
 - normalized battle records and Gen 2 Pokémon instances with integer stats,
   DVs, gender, shiny state, Hidden Power, and growth curves;
 - deterministic battle turns, switching and forced replacements, damage,
@@ -51,13 +53,16 @@ currently contains:
 - headless unit tests and CI;
 - architecture, milestone, and backlog documentation.
 
-There is no first-launch ROM picker or application importer screen yet. The
-developer preview remains a traversable world slice: M3 behavior is verified
-headlessly but its dialogue, choices, clock, and naming presentation are not
-yet wired into visible LÖVE UI. M4's battle simulation is likewise verified
-headlessly; the visible battle scene and command menus are not yet wired into
-the LÖVE preview. Saves, audio playback, broader move-effect coverage, broader
-story progression, and most maps remain future milestones.
+There is no first-launch ROM picker or application importer screen yet. With a
+ROM path, the developer preview now visibly runs M3's introduction, gender
+choice, clock setup, dialogue requests, and on-screen naming before entering
+the world. New Bark NPC/sign interactions and Elm's Lab scene use the same
+visible presentation controller. Text currently uses semantic labels rather
+than bundled dialogue; exact wording must later be decoded from the supplied
+ROM. M4's battle simulation is still headless, and its visible battle scene
+and command menus are not yet wired into the LÖVE preview. Saves, audio
+playback, broader move-effect coverage, broader story progression, and most
+maps remain future milestones.
 
 ## Final deliverable
 
@@ -90,7 +95,9 @@ ROM into memory and run the New Bark developer preview:
 ```
 
 Use the arrow keys to move. The preview does not write the ROM or decoded
-content into the repository.
+content into the repository. Use Z, Enter, or Space to confirm; X or Backspace
+returns from custom naming to the name choices. Face an NPC, object, or sign
+and press Confirm to run its available M3 interaction.
 
 ## Testing
 
@@ -152,7 +159,8 @@ acceptance route against canonical English Crystal v1.1:
 ```
 
 This executes the source-controlled Lua behavior against decoded real map and
-object data without writing the ROM or extracted content into the repository.
+object data, and verifies visible presentation models for dialogue, choices,
+clock setup, and naming, without writing ROM content into the repository.
 
 To run M4's deterministic first-rival and ordinary wild-battle gates:
 

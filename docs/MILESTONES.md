@@ -70,7 +70,9 @@ Deliver:
   interactions for the vertical slice;
 - coroutine runner for native Lua commands;
 - reusable dialogue, flag, scene, battle, movement, and object commands;
-- text boxes, choices, naming, flags, and movement commands.
+- text boxes, choices, naming, flags, and movement commands;
+- visible presentation for dialogue requests, choices, clock setup, and
+  on-screen naming.
 
 Exit gate:
 
@@ -78,7 +80,12 @@ Exit gate:
   branches, Elm's phone registration, and the aide's Potion handoff execute
   entirely through source-controlled Lua behavior with reference citations.
   Canonical English Crystal v1.1 was verified through
-  `./scripts/verify-crystal-events.ps1 -RomPath "<path>"`.
+  `./scripts/verify-crystal-events.ps1 -RomPath "<path>"`. The same gate now
+  verifies presentation models for text, choices, clock setup, and naming.
+
+The ROM preview starts with the visible introduction, carries its script state
+into the world, opens New Bark NPC/sign interactions with Confirm, and starts
+Elm's meeting scene on entering the lab.
 
 ## M4 — Battle slice
 

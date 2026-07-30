@@ -188,6 +188,15 @@ following, emotes, map/object changes, battle requests, audio events, party
 grants, inventory grants, and phone contacts. Coverage reports compare these
 definitions with decoded static map interactions.
 
+The pre-M5 presentation closure adds a reusable controller over those service
+requests. It draws dialogue boxes, selectable choices, a clock editor, preset
+names, and a custom on-screen keyboard without coupling script behavior to
+LÖVE. The visible ROM preview runs the introduction before entering the world
+and carries its `ScriptState` forward. A map presentation adapter dispatches
+New Bark and Elm's Lab object/sign interactions and begins Elm's scene when
+the lab is entered. Semantic labels are used until exact text is decoded from
+the supplied ROM; the repository does not embed original dialogue.
+
 M4 adds normalized species, move, item, and trainer records; Gen 2 integer
 stats, DVs, gender, shiny state, and Hidden Power; deterministic battle state,
 action ordering, switching, damage, status, effect dispatch, AI, catching,
@@ -199,11 +208,10 @@ player-ROM-gated M4 route completes deterministic first-rival and Route 29
 wild fixtures with terminal outcomes and experience awards.
 
 The project does not yet contain the first-launch file picker or
-importer-screen wiring. M3's text, choice, clock, and naming requests have
-headless presentation services, but they are not yet connected to visible
-LÖVE UI in the New Bark developer preview. The M4 battle simulation is also
-headless: a visible battle scene, command menus, broader move-effect coverage,
-held items, weather, saves, rendered dialogue, audio playback, and campaign
-progression remain future work. Import, world, event, and battle acceptance
-are exercised through headless fixtures and local player-ROM-gated
-verification commands.
+importer-screen wiring. M3's text, choice, clock, and naming services are now
+connected to visible LÖVE UI, but exact ROM dialogue extraction is still
+pending. The M4 battle simulation remains headless: a visible battle scene,
+command menus, broader move-effect coverage, held items, weather, saves, audio
+playback, and campaign progression remain future work. Import, world, event,
+presentation, and battle acceptance are exercised through fixtures and local
+player-ROM-gated verification commands.
