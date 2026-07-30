@@ -15,6 +15,12 @@ local OBJECT_EVENT_SIZE = 13
 local SPRITE_HEADER_SIZE = 6
 local ROOF_TILE_COUNT = 9
 local ROOF_COUNT = 5
+local LAST_OVERWORLD_SPRITE = 0x66
+local FIRST_POKEMON_SPRITE = 0x80
+local LAST_POKEMON_SPRITE = 0xa2
+local FIRST_DAY_CARE_SPRITE = 0xe0
+local LAST_DAY_CARE_SPRITE = 0xe1
+local VARIABLE_SPRITE_BASE = 0xf0
 
 local DIRECTIONS = {
   { name = "north", mask = 0x08 },
@@ -35,7 +41,13 @@ local TILESET_NAMES = {
   [1] = "johto",
   [5] = "house",
   [6] = "players_house",
+  [7] = "pokecenter",
+  [8] = "gate",
   [10] = "lab",
+  [11] = "facility",
+  [12] = "mart",
+  [15] = "elite_four_room",
+  [16] = "traditional_house",
 }
 
 local function requireSymbol(profile, name)
@@ -59,6 +71,42 @@ end
 
 local function mapId(group, map)
   return ("%d:%d"):format(group, map)
+end
+
+local function spriteKind(id)
+  if id == 0 then
+    return "none"
+  elseif id <= LAST_OVERWORLD_SPRITE then
+    return "graphic"
+  elseif id >= FIRST_POKEMON_SPRITE
+      and id <= LAST_POKEMON_SPRITE then
+    return "pokemon"
+  elseif id >= FIRST_DAY_CARE_SPRITE
+      and id <= LAST_DAY_CARE_SPRITE then
+    return "day_care"
+  elseif id >= VARIABLE_SPRITE_BASE then
+    return "variable"
+  end
+  return "special"
+end
+
+local function findGroup(groups, id)
+  for _, group in ipairs(groups) do
+    if group.id == id then
+      return group
+    end
+  end
+end
+
+local function findMap(group, id)
+  if not group then
+    return nil
+  end
+  for _, map in ipairs(group.maps) do
+    if map.id == id then
+      return map
+    end
+  end
 end
 
 local function byteList(rom, offset, count)
@@ -136,9 +184,11 @@ local function decodeEvents(rom, bank, address)
     local radius = rom:readByte(cursor + 4)
     local typePalette = rom:readByte(cursor + 7)
     local eventFlag = rom:readWord(cursor + 11)
+    local spriteId = rom:readByte(cursor)
     objects[index] = {
       id = index,
-      spriteId = rom:readByte(cursor),
+      spriteId = spriteId,
+      spriteKind = spriteKind(spriteId),
       y = rom:readByte(cursor + 1) - 4,
       x = rom:readByte(cursor + 2) - 4,
       movementId = rom:readByte(cursor + 3),
@@ -432,29 +482,31 @@ local function decodeSprites(rom, profile, spriteIds)
   table.sort(sorted)
 
   for _, id in ipairs(sorted) do
-    if id < 1 or id > 255 then
+    if id < 0 or id > 255 then
       error("Crystal overworld sprite id is out of range", 3)
     end
-    local offset = tableStart.offset + (id - 1) * SPRITE_HEADER_SIZE
-    local address = rom:readWord(offset)
-    local byteCount = rom:readByte(offset + 2)
-    local tileCount = byteCount / 16
-    local bank = rom:readByte(offset + 3)
-    local kind = rom:readByte(offset + 4)
-    local paletteId = rom:readByte(offset + 5)
-    if tileCount ~= 4 and tileCount ~= 12 then
-      error(("Crystal sprite %d has invalid byte count %d")
-        :format(id, byteCount), 3)
+    if id >= 1 and id <= LAST_OVERWORLD_SPRITE then
+      local offset = tableStart.offset + (id - 1) * SPRITE_HEADER_SIZE
+      local address = rom:readWord(offset)
+      local byteCount = rom:readByte(offset + 2)
+      local tileCount = byteCount / 16
+      local bank = rom:readByte(offset + 3)
+      local kind = rom:readByte(offset + 4)
+      local paletteId = rom:readByte(offset + 5)
+      if tileCount ~= 4 and tileCount ~= 12 then
+        error(("Crystal sprite %d has invalid byte count %d")
+          :format(id, byteCount), 3)
+      end
+      local data = rom:string(bank, address, tileCount * 16)
+      sprites[#sprites + 1] = {
+        id = id,
+        name = SPRITE_NAMES[id] or ("sprite_%d"):format(id),
+        tileCount = tileCount,
+        kind = kind,
+        defaultPaletteId = paletteId,
+        tiles = TileDecoder.decode2bpp(data),
+      }
     end
-    local data = rom:string(bank, address, tileCount * 16)
-    sprites[#sprites + 1] = {
-      id = id,
-      name = SPRITE_NAMES[id] or ("sprite_%d"):format(id),
-      tileCount = tileCount,
-      kind = kind,
-      defaultPaletteId = paletteId,
-      tiles = TileDecoder.decode2bpp(data),
-    }
   end
   return sprites
 end
@@ -491,7 +543,7 @@ function CrystalWorldData.extract(rom, profile)
   local tilesetSpecs = Json.array({})
   for id, maximumBlock in pairs(tilesetIds) do
     if not TILESET_NAMES[id] then
-      error(("M2 world profile references unsupported tileset %d")
+      error(("Crystal world profile references unsupported tileset %d")
         :format(id), 2)
     end
     tilesetSpecs[#tilesetSpecs + 1] = {
@@ -508,11 +560,12 @@ function CrystalWorldData.extract(rom, profile)
     requireSymbol(profile, "NewBarkTown_MapAttributes")
   local expectedBlocks = requireSymbol(profile, "NewBarkTown_Blocks")
   local expectedEvents = requireSymbol(profile, "NewBarkTown_MapEvents")
-  local newBark = groups[1] and groups[1].maps[4]
+  local newBarkGroup = findGroup(groups, 24)
+  local newBark = findMap(newBarkGroup, "24:4")
   if not newBark or newBark.id ~= "24:4" then
     error("Crystal New Bark extraction catalog is inconsistent", 2)
   end
-  local header = groups[1].headers[4]
+  local header = newBarkGroup.headers[4]
   if rom:offset(header.attributesBank, header.attributesAddress, 1)
       ~= expectedAttributes.offset then
     error("Crystal New Bark map attribute pointer does not match symbols", 2)

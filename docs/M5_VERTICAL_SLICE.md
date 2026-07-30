@@ -10,7 +10,7 @@ Falkner's Gym, and the first badge.
 2. ROM-owned dialogue catalog. **Complete.**
 3. Visible battle scene and command menus. **Complete.**
 4. World/script-to-battle bridge. **Complete.**
-5. World extraction through Violet City.
+5. World extraction through Violet City. **Complete.**
 6. Time-based wild encounters.
 7. Trainer sight and trainer battles.
 8. Route, Cherrygrove, and Violet event behavior.
@@ -81,6 +81,22 @@ Battle completion writes level, HP, experience, DVs, moves, and PP back to the
 profile-bound `GameSession`; encountered/caught species update its Pokédex
 sets. Those enriched party fields round-trip through the existing detached
 snapshot contract. Route encounters themselves begin in M5-006.
+
+## First-badge world corridor
+
+M5-005 expands the player-ROM-backed catalog to 29 maps and 41 headers across
+the New Bark, Cherrygrove, and Violet groups. The continuous connection chain
+now covers New Bark, Route 29, Cherrygrove, Routes 30 and 31, and Violet City.
+Relevant marts, Pokémon Centers, houses, gates, Elm's Lab, and Violet Gym are
+also extracted with ten normalized tilesets and the referenced ordinary
+overworld sprites.
+
+Crystal's Pokémon, day-care, and variable sprite IDs are preserved as semantic
+object metadata and are not mistaken for entries in the ordinary sprite
+graphics table. The M5-008 event layer will resolve those script-selected
+appearances. Sprout Tower is the one explicit external Violet City warp
+boundary; it is not required by the first-badge route currently defined for
+M5.
 
 ## Exit gate
 

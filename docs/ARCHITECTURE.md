@@ -226,6 +226,14 @@ the scene on the application stack, commits HP/EXP/DV/move/PP and Pokédex
 changes, pops back to the world, then resolves the original coroutine wait.
 `MapPresentationRuntime` dispatches each active `BattleService` request once.
 
+M5-005 broadens the ROM-backed `CrystalWorldData` manifest from the original
+New Bark slice to 29 selected maps in the New Bark, Cherrygrove, and Violet
+groups. The same generic map, tileset, roof, sprite, connection, and warp
+decoders now cover the continuous first-badge corridor. Crystal's Pokémon,
+day-care, and variable object sprite values remain semantic map metadata until
+Lua event behavior resolves them; they are never indexed as ordinary sprite
+graphics.
+
 M4 adds normalized species, move, item, and trainer records; Gen 2 integer
 stats, DVs, gender, shiny state, and Hidden Power; deterministic battle state,
 action ordering, switching, damage, status, effect dispatch, AI, catching,

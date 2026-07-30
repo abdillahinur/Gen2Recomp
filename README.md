@@ -12,7 +12,7 @@ normal play. A future first-boot UI will invoke this importer.
 
 ## Current status
 
-The repository has completed **M4: Battle slice** and the first four checkpoints
+The repository has completed **M4: Battle slice** and the first five checkpoints
 of **M5: Violet City vertical slice**, including end-to-end M1–M4 verification
 with canonical English Crystal v1.1. The project currently contains:
 
@@ -31,8 +31,9 @@ with canonical English Crystal v1.1. The project currently contains:
   palettes;
 - a generic map grid, camera, player movement/facing, collision, objects,
   connections, and reciprocal warps;
-- a verified New Bark slice containing eight extracted maps, four tilesets,
-  and sixteen referenced overworld sprites;
+- a ROM-backed first-badge world corridor containing 29 maps across New Bark,
+  Cherrygrove, Routes 29-32/36, and Violet City, with ten referenced
+  tilesets and 32 ordinary overworld sprites;
 - a native coroutine script runner with flags, scenes, variables, text,
   choices, actor movement, objects, maps, battle requests, and audio events;
 - provenance-cited Crystal Lua behavior for the introduction, naming,
@@ -68,8 +69,9 @@ the world. New Bark NPC/sign interactions and Elm's Lab scene use the same
 visible, paginated presentation controller. Semantic labels remain only as a
 fallback for dialogue outside the current 55-record extraction manifest. The
 M4 simulation now has a standalone visible battle preview, and M5-004 connects
-world/script requests to it. Route encounter selection begins in M5-006 after
-the M5-005 map expansion. Saves, audio playback, broader move-effect coverage,
+world/script requests to it. M5-005 expands the traversable ROM-backed world
+from New Bark through Cherrygrove and Violet City. Route encounter selection
+begins in M5-006. Saves, audio playback, broader move-effect coverage,
 broader story progression, and most maps remain future milestones.
 
 ## Final deliverable
@@ -206,6 +208,17 @@ To verify M5-004's world-stack bridge and persistent battle result:
 ```powershell
 ./scripts/verify-crystal-battle-bridge.ps1 -RomPath "D:\path\to\your\ROM"
 ```
+
+To verify M5-005's ROM-backed New Bark-to-Violet world corridor:
+
+```powershell
+./scripts/verify-crystal-violet-world.ps1 -RomPath "D:\path\to\your\ROM"
+```
+
+This checks all 29 selected maps and ten tilesets, the bidirectional route
+connections, reciprocal city-building warps, and every rendered tile
+reference. Sprout Tower remains an explicit outbound boundary for a later
+world expansion.
 
 ## Project direction
 

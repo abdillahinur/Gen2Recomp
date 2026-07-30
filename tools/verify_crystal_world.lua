@@ -177,17 +177,21 @@ local function main()
     CrystalWorldData.extract(Rom.new(data), identity.profile)
   data = nil
 
-  requireValue(#worldData.groups == 1, "expected one extracted group")
-  requireValue(#worldData.groups[1].headers == 13,
+  local newBarkGroup
+  for _, group in ipairs(worldData.groups) do
+    if group.id == 24 then newBarkGroup = group end
+  end
+  requireValue(newBarkGroup ~= nil, "New Bark group is not extracted")
+  requireValue(#newBarkGroup.headers == 13,
     "New Bark group must expose 13 headers")
-  requireValue(#worldData.groups[1].maps == 8,
-    "New Bark slice must extract eight maps")
-  requireValue(#worldData.tilesets == 4,
-    "New Bark slice must extract four tilesets")
+  requireValue(#newBarkGroup.maps >= 8,
+    "New Bark slice must retain its original eight maps")
+  requireValue(#worldData.tilesets >= 4,
+    "New Bark slice must retain its original four tilesets")
   requireValue(#worldData.collisionPermissions == 256,
     "collision permission table must contain 256 records")
-  requireValue(#worldData.sprites == 16,
-    "New Bark slice must extract 16 referenced sprites")
+  requireValue(#worldData.sprites >= 16,
+    "New Bark slice must retain its 16 referenced sprites")
   verifyWarps(worldData)
   verifyWorldTransitions(worldData)
 
@@ -219,8 +223,9 @@ local function main()
 
   print("Crystal M2 world verification passed.")
   print("Profile: " .. identity.profile.id)
-  print("Maps/headers: 8/13")
-  print("Tilesets/sprites: 4/16")
+  print(("New Bark maps/headers: %d/13"):format(#newBarkGroup.maps))
+  print(("World tilesets/sprites: %d/%d")
+    :format(#worldData.tilesets, #worldData.sprites))
   print("Warps/connections: 4/2")
   print("Connection paths: west=traversed east=terrain-blocked")
   print("Tile references checked: " .. tileReferences)

@@ -198,6 +198,8 @@ require("tests.crystal_species_tests")(test, equal, truthy, raises)
 require("tests.crystal_battle_data_tests")(test, equal, truthy, raises)
 require("tests.crystal_lz_tests")(test, equal, truthy, raises)
 require("tests.crystal_tileset_tests")(test, equal, truthy, raises)
+require("tests.crystal_world_manifest_tests")(
+  test, equal, truthy, raises)
 require("tests.raw_retention_audit_tests")(test, equal, truthy, raises)
 require("tests.crystal_importer_tests")(test, equal, truthy, raises)
 
