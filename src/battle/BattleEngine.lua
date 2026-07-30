@@ -22,10 +22,28 @@ function BattleEngine.new(state, registry, options)
   if type(registry) ~= "table" or type(registry.get) ~= "function" then
     error("battle engine: data registry is required", 2)
   end
+  local moveExecutor = options.moveExecutor
+  if not moveExecutor and options.effectRegistry then
+    moveExecutor = function(
+      currentState,
+      sideId,
+      actor,
+      target,
+      move
+    )
+      return options.effectRegistry:execute(
+        currentState,
+        sideId,
+        actor,
+        target,
+        move
+      )
+    end
+  end
   return setmetatable({
     state = state,
     registry = registry,
-    moveExecutor = options.moveExecutor,
+    moveExecutor = moveExecutor,
     statusSystem = options.statusSystem or StatusSystem,
   }, BattleEngine)
 end

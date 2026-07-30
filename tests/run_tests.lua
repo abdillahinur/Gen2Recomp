@@ -172,6 +172,7 @@ require("tests.battle_state_tests")(test, equal, truthy, raises)
 require("tests.battle_action_tests")(test, equal, truthy, raises)
 require("tests.damage_tests")(test, equal, truthy, raises)
 require("tests.status_tests")(test, equal, truthy, raises)
+require("tests.effect_registry_tests")(test, equal, truthy, raises)
 require("tests.crystal_introduction_script_tests")(
   test, equal, truthy, raises)
 require("tests.crystal_map_script_tests")(

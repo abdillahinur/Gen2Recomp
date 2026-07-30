@@ -50,8 +50,10 @@ end
 
 function DamageResolver.calculate(state, actor, target, move)
   if move.power == 0 then
+    local hit = move.accuracy == 255
+      or state.rng:nextByte() < move.accuracy
     return {
-      hit = true,
+      hit = hit,
       damage = 0,
       critical = false,
       effectiveness = 1,
