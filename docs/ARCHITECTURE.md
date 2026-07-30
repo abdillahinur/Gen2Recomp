@@ -252,8 +252,9 @@ M5-008 expands the hand-written behavior catalog to 19 map definitions across
 Routes 29–32/36, Cherrygrove, Violet, route gates, and supporting houses.
 Native callbacks and coordinate gates now drive the Map Card, Mystery Egg,
 Pokédex, Cherrygrove rival, item/fruit, city, and pre-badge Route 32 state.
-Forty-one additional direct symbols expand visible ROM-owned dialogue to 96
-records; semantic fallbacks remain explicit for secondary interactions.
+Forty-one additional direct symbols expanded visible ROM-owned dialogue to 96
+records at M5-008; semantic fallbacks remain explicit for secondary
+interactions outside the required route.
 
 M5-009 adds a transparent field-menu state above the world and a pure
 presentation controller over `GameSession`. Start opens Pack, party, and
@@ -289,6 +290,13 @@ the sight controller; Falkner is an interaction script that suspends on the
 same visible battle bridge and commits badge/TM progression only after a win.
 The Zephyr flag is shared directly with Route 32's source-controlled guard.
 
+M5-014 adds `VerticalSliceRoute`, a ROM-gated orchestration of the actual
+introduction and map-script services through the first badge. Its dialogue
+audit records each request and rejects semantic fallback on the required path.
+Twelve player-ROM-decoded Violet Gym records bring the catalog to 108. The
+acceptance gate also validates native leader construction and save/reload of
+the completed profile.
+
 M4 adds normalized species, move, item, and trainer records; Gen 2 integer
 stats, DVs, gender, shiny state, and Hidden Power; deterministic battle state,
 action ordering, switching, damage, status, effect dispatch, AI, catching,
@@ -301,9 +309,9 @@ wild fixtures with terminal outcomes and experience awards.
 
 The project does not yet contain the first-launch file picker or
 importer-screen wiring. M3's text, choice, clock, and naming services are
-connected to visible LÖVE UI, and the current 96-record slice now uses exact
+connected to visible LÖVE UI, and the current 108-record slice now uses exact
 ROM-owned dialogue. The battle simulation now has a visible standalone scene,
-but broader move-effect coverage, held-item behavior, weather, saves,
-audio playback, and campaign progression remain future work. Import, world,
+but broader move-effect coverage, held-item behavior, exact cartridge audio,
+weather, and campaign progression remain future work. Import, world,
 event, presentation, and battle acceptance are exercised through fixtures and
 local player-ROM-gated verification commands.

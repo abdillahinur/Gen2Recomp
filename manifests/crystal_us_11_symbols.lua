@@ -28,6 +28,26 @@ return {
       address = 0x7d84,
       offset = 0x053d84,
     },
+    ["BirdKeeperAbeAfterBattleText"] = {
+      bank = 0x1a,
+      address = 0x48c7,
+      offset = 0x0688c7,
+    },
+    ["BirdKeeperAbeSeenText"] = {
+      bank = 0x1a,
+      address = 0x487f,
+      offset = 0x06887f,
+    },
+    ["BirdKeeperRodAfterBattleText"] = {
+      bank = 0x1a,
+      address = 0x4837,
+      offset = 0x068837,
+    },
+    ["BirdKeeperRodSeenText"] = {
+      bank = 0x1a,
+      address = 0x47cd,
+      offset = 0x0687cd,
+    },
     ["CherrygroveRivalText_Seen"] = {
       bank = 0x67,
       address = 0x44e2,
@@ -192,6 +212,31 @@ return {
       bank = 0x1e,
       address = 0x6231,
       offset = 0x07a231,
+    },
+    ["FalknerFightDoneText"] = {
+      bank = 0x1a,
+      address = 0x4735,
+      offset = 0x068735,
+    },
+    ["FalknerIntroText"] = {
+      bank = 0x1a,
+      address = 0x4473,
+      offset = 0x068473,
+    },
+    ["FalknerTMMudSlapText"] = {
+      bank = 0x1a,
+      address = 0x4648,
+      offset = 0x068648,
+    },
+    ["FalknerWinLossText"] = {
+      bank = 0x1a,
+      address = 0x454a,
+      offset = 0x06854a,
+    },
+    ["FalknerZephyrBadgeText"] = {
+      bank = 0x1a,
+      address = 0x45c8,
+      offset = 0x0685c8,
     },
     ["Font"] = {
       bank = 0x3e,
@@ -428,6 +473,11 @@ return {
       address = 0x54ad,
       offset = 0x0794ad,
     },
+    ["ReceivedZephyrBadgeText"] = {
+      bank = 0x1a,
+      address = 0x45af,
+      offset = 0x0685af,
+    },
     ["RoofPals"] = {
       bank = 0x02,
       address = 0x7569,
@@ -597,6 +647,16 @@ return {
       bank = 0x6a,
       address = 0x4665,
       offset = 0x1a8665,
+    },
+    ["VioletGymGuideText"] = {
+      bank = 0x1a,
+      address = 0x48f9,
+      offset = 0x0688f9,
+    },
+    ["VioletGymGuideWinText"] = {
+      bank = 0x1a,
+      address = 0x49c8,
+      offset = 0x0689c8,
     },
     ["VioletGymSignText"] = {
       bank = 0x6a,

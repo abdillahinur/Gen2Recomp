@@ -66,8 +66,8 @@ translated. This M3 behavior slice is complete and verified locally against
 canonical English Crystal v1.1 map and object data. Presentation wiring for
 the developer preview is complete for dialogue, choices, clock setup, and
 on-screen naming. M5-002 began with 55 exact dialogue records from the
-verified player ROM; M5-008 expands that catalog to 96 while preserving
-pagination and the no-bundled-wording boundary.
+verified player ROM; M5-008 expands that catalog to 96 and M5-014 to 108 while
+preserving pagination and the no-bundled-wording boundary.
 
 ### Pokémon and battle vertical slice
 
@@ -146,7 +146,7 @@ documentation, and optional cartridge-save interoperability.
 | Game | SHA-1 | Plan |
 | --- | --- | --- |
 | Crystal US/EU v1.0 | `f4cd194bdee0d04ca4eac29e09b8e4e9d818c133` | M1 profile; primary behavior target |
-| Crystal US/EU v1.1 | `f2f52230b536214ef7c9924f483392993e226cfb` | M1–M4 profile; ROM-gated import, world, event, and battle slices verified |
+| Crystal US/EU v1.1 | `f2f52230b536214ef7c9924f483392993e226cfb` | M1–M5 profile; ROM-gated import through first-badge slice verified |
 | Gold US/EU | `d8b8a3600a465308c9953dfa04f0081c05bdcb94` | After Crystal |
 | Silver US/EU | `49b163f7e57702bc939d642a18f591de55d92dae` | With Gold |
 

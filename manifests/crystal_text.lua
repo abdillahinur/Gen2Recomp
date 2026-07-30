@@ -200,5 +200,30 @@ return {
       { symbol = "SproutTowerSignText" },
     ["crystal.text.violet.academy_sign"] =
       { symbol = "EarlsPokemonAcademySignText" },
+
+    ["crystal.text.violet_gym.falkner_intro"] =
+      { symbol = "FalknerIntroText" },
+    ["crystal.text.violet_gym.falkner_win"] =
+      { symbol = "FalknerWinLossText" },
+    ["crystal.text.violet_gym.got_zephyr_badge"] =
+      { symbol = "ReceivedZephyrBadgeText" },
+    ["crystal.text.violet_gym.zephyr_badge"] =
+      { symbol = "FalknerZephyrBadgeText" },
+    ["crystal.text.violet_gym.tm31"] =
+      { symbol = "FalknerTMMudSlapText" },
+    ["crystal.text.violet_gym.after"] =
+      { symbol = "FalknerFightDoneText" },
+    ["crystal.text.violet_gym.rod_seen"] =
+      { symbol = "BirdKeeperRodSeenText" },
+    ["crystal.text.violet_gym.rod_after"] =
+      { symbol = "BirdKeeperRodAfterBattleText" },
+    ["crystal.text.violet_gym.abe_seen"] =
+      { symbol = "BirdKeeperAbeSeenText" },
+    ["crystal.text.violet_gym.abe_after"] =
+      { symbol = "BirdKeeperAbeAfterBattleText" },
+    ["crystal.text.violet_gym.guide_before"] =
+      { symbol = "VioletGymGuideText" },
+    ["crystal.text.violet_gym.guide_after"] =
+      { symbol = "VioletGymGuideWinText" },
   },
 }

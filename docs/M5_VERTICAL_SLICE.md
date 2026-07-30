@@ -19,7 +19,7 @@ Falkner's Gym, and the first badge.
 11. Save/load and RTC persistence. **Complete.**
 12. Music, SFX, and cries. **Complete.**
 13. Falkner Gym and badge progression. **Complete.**
-14. Automated introduction-to-first-badge acceptance route.
+14. Automated introduction-to-first-badge acceptance route. **Complete.**
 
 Each checkpoint is one local commit. M5 is complete only when the final route
 is playable through visible application states and passes its ROM-gated
@@ -231,3 +231,17 @@ The route must preserve progress across a real save/load cycle, select
 encounters from the injected clock period, resolve required trainer and wild
 battles through the native engine, and contain no bundled or retained ROM
 content.
+
+## Acceptance result
+
+M5-014 supplies a canonical player-ROM-gated route driver over the real
+introduction and map-script services. It completes Elm's request and starter,
+Mr. Pokémon and Oak, the Cherrygrove rival, Falkner, Zephyr Badge, TM31, and a
+native save/reload. It also verifies the continuous ten-map route catalog and
+constructs Falkner's native ROM-backed battle session.
+
+The driver records every dialogue request it encounters and fails immediately
+if the exact entry is absent from the player-ROM catalog. Adding twelve Violet
+Gym records brings that catalog to 108 and closes all 37 distinct dialogue
+requests exercised by the acceptance path. Source control retains only stable
+IDs and pinned symbol offsets.

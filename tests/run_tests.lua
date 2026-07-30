@@ -198,6 +198,8 @@ require("tests.crystal_violet_route_script_tests")(
   test, equal, truthy, raises)
 require("tests.violet_gym_script_tests")(
   test, equal, truthy, raises)
+require("tests.vertical_slice_acceptance_tests")(
+  test, equal, truthy, raises)
 require("tests.script_coverage_tests")(test, equal, truthy, raises)
 require("tests.profile_flow_tests")(test, equal, truthy, raises)
 require("tests.game_session_tests")(test, equal, truthy, raises)

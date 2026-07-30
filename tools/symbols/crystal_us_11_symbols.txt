@@ -137,3 +137,15 @@ ElmsLabTravelTip4Text
 ElmsLabTrashcanText
 ElmsLabPCText
 DifficultBookshelfText
+FalknerIntroText
+FalknerWinLossText
+ReceivedZephyrBadgeText
+FalknerZephyrBadgeText
+FalknerTMMudSlapText
+FalknerFightDoneText
+BirdKeeperRodSeenText
+BirdKeeperRodAfterBattleText
+BirdKeeperAbeSeenText
+BirdKeeperAbeAfterBattleText
+VioletGymGuideText
+VioletGymGuideWinText

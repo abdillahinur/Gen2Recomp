@@ -104,6 +104,7 @@ species, levels, held items, and explicit moves are decoded at runtime from the
 player's ROM.
 
 M5-008 adds 41 direct dialogue labels for the Cherrygrove guide, Mr. Pokémon
-and Oak meeting, first rival gate, Routes 30/31, and Violet City. This expands
-the verified runtime catalog to 96 ROM-owned records. The semantic manifest
-still contains only IDs, symbol names, and substitution metadata.
+and Oak meeting, first rival gate, Routes 30/31, and Violet City. That expanded
+the runtime catalog to 96 records; M5-014 adds twelve Violet Gym records for a
+current total of 108. The semantic manifest still contains only IDs, symbol
+names, and substitution metadata.

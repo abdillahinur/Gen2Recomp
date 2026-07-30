@@ -92,7 +92,7 @@ Backlog IDs are stable planning references, not issue tracker numbers.
 - [x] `M5-011` Add versioned save/load and RTC persistence.
 - [x] `M5-012` Add music, SFX, and cry playback for the slice.
 - [x] `M5-013` Complete Falkner Gym and badge progression.
-- [ ] `M5-014` Complete the introduction-to-first-badge acceptance route.
+- [x] `M5-014` Complete the introduction-to-first-badge acceptance route.
 
 ## Cross-cutting risks
 

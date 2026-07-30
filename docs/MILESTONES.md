@@ -143,6 +143,12 @@ Completed checkpoints:
 - [x] M5-011 versioned atomic saves, backup recovery, and RTC restore.
 - [x] M5-012 native music, SFX, and species-cry playback scheduling.
 - [x] M5-013 Falkner Gym, Zephyr Badge, TM31, and Route 32 unlock.
+- [x] M5-014 ROM-gated introduction-to-first-badge acceptance route.
+
+M5 is complete. The canonical Crystal v1.1 gate executes introduction, Elm and
+starter, Mr. Pokémon and Pokédex, Cherrygrove rival, Violet Gym, Zephyr Badge,
+TM31, and save/reload while rejecting any semantic dialogue fallback on the
+required route.
 
 ## M6 — Johto campaign
 
