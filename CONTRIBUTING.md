@@ -24,7 +24,11 @@ small, testable, and tied to an item in `docs/BACKLOG.md`.
 - Version differences belong in profiles, data, or named rules—not scattered
   string comparisons.
 - A new script command or map-specific behavior requires tests and a source
-  citation to the relevant reference-disassembly behavior.
+  citation created through `data/scripts/Provenance.lua`, naming the pinned
+  reference path, labels, and behavioral purpose.
+- Script definitions must declare stable IDs, maps, and coverage according to
+  `data/scripts/README.md`; ROM addresses and copied game content do not belong
+  in behavior modules.
 - Generated cache schemas and native save schemas must be versioned.
 
 Run `scripts/test.ps1` or `scripts/test.sh` before submitting a change.

@@ -50,7 +50,7 @@ Backlog IDs are stable planning references, not issue tracker numbers.
 
 ## M3 — Events
 
-- [ ] `M3-001` Define `data/scripts/` conventions and provenance requirements.
+- [x] `M3-001` Define `data/scripts/` conventions and provenance requirements.
 - [ ] `M3-002` Implement coroutine runner for hand-written Lua commands.
 - [ ] `M3-003` Implement flags, scenes, variables, text, and choices.
 - [ ] `M3-004` Implement movement, facing, following, and emotes.

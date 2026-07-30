@@ -53,10 +53,12 @@ be copied.
 
 ## Automated safeguards
 
-Planned safeguards include:
+Current safeguards include:
 
 - broad ignore rules for ROM, save, cache, and RGBDS output formats;
-- a pre-commit content scanner;
+- a repository content scanner used by tests and CI;
 - CI checks for forbidden extensions and suspicious large binary files;
 - cache-retention tests that search for large unprocessed ROM regions;
-- review requirements for changes to ROM profiles and extraction metadata.
+- review requirements for changes to ROM profiles and extraction metadata;
+- validated stable IDs, coverage declarations, and exact pinned provenance for
+  every game-specific Lua behavior definition.
