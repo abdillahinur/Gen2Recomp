@@ -75,6 +75,11 @@ The structural report records only the accepted profile, ROM fingerprint and
 header summary, warnings, decoded section counts, and expected payload paths.
 It does not contain the ROM path, ROM bytes, or executable behavior.
 
+Before serialization, the importer walks the decoded object graph and rejects
+large strings that match the player ROM. It checks whole strings and overlapping
+4 KiB windows at 1 KiB intervals, records the passing audit in the structural
+report, and releases the temporary ROM comparison string before cache staging.
+
 ## Lifecycle
 
 An import uses a sibling temporary directory that cannot be mistaken for a

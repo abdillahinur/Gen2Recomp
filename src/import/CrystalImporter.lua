@@ -2,6 +2,7 @@ local CrystalFont = require("src.import.CrystalFont")
 local CrystalSpecies = require("src.import.CrystalSpecies")
 local CrystalTileset = require("src.import.CrystalTileset")
 local Json = require("src.core.Json")
+local RawRetentionAudit = require("src.import.RawRetentionAudit")
 local Rom = require("src.import.Rom")
 local RomIdentifier = require("src.import.RomIdentifier")
 
@@ -210,11 +211,16 @@ function CrystalImporter.run(data, cacheStore, options)
     emit(options.onProgress, 0.60, "tileset", "Decoding Johto tileset")
     checkCancellation(cancellationToken)
     extracted.tileset = extractors.tileset(rom, identity.profile)
+
+    emit(options.onProgress, 0.75, "audit", "Auditing decoded data")
+    checkCancellation(cancellationToken)
+    local retentionAudit = RawRetentionAudit.inspect(rom, extracted)
     rom = nil
 
     emit(options.onProgress, 0.80, "serialize", "Serializing cache data")
     checkCancellation(cancellationToken)
     local report = structuralReport(identity, extracted)
+    report.rawRetentionAudit = retentionAudit
     local encoded = {}
     for _, payload in ipairs(PAYLOADS) do
       encoded[payload.id] = Json.encode(extracted[payload.id])

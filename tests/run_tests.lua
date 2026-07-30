@@ -141,6 +141,7 @@ require("tests.crystal_font_tests")(test, equal, truthy, raises)
 require("tests.crystal_species_tests")(test, equal, truthy, raises)
 require("tests.crystal_lz_tests")(test, equal, truthy, raises)
 require("tests.crystal_tileset_tests")(test, equal, truthy, raises)
+require("tests.raw_retention_audit_tests")(test, equal, truthy, raises)
 require("tests.crystal_importer_tests")(test, equal, truthy, raises)
 
 local failures = 0

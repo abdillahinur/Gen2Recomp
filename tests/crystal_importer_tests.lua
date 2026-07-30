@@ -112,6 +112,7 @@ return function(test, equal, truthy, raises)
     equal(result.report.sections[3].graphicTileCount, 3)
     equal(result.report.sections[3].tileSlotCount, 4)
     equal(result.report.warnings[1], "synthetic fixture")
+    equal(result.report.rawRetentionAudit.status, "passed")
 
     equal(progress[1].fraction, 0)
     equal(progress[#progress].fraction, 1)
@@ -203,5 +204,38 @@ return function(test, equal, truthy, raises)
           .. "/schema-1"
       local items = filesystem:list(parent)
       equal(#items, 0)
+    end)
+
+  test("CrystalImporter rejects an extractor retaining raw ROM data",
+    function()
+      local filesystem = MemoryFilesystem.new()
+      local data = {}
+      for index = 1, 8192 do
+        data[index] = string.char((index * 37) % 256)
+      end
+      data = table.concat(data)
+      local unsafeExtractors = {
+        font = function(rom)
+          return {
+            schema = 1,
+            sets = {},
+            accidentalRaw = rom:readString(0, rom:size()),
+          }
+        end,
+        species = extractors.species,
+        tileset = extractors.tileset,
+      }
+
+      raises(function()
+        CrystalImporter.run(
+          data,
+          store(filesystem),
+          {
+            identifier = identifier(),
+            extractors = unsafeExtractors,
+          }
+        )
+      end, "retains a 8192%-byte raw ROM range")
+      truthy(not filesystem:info("cache"))
     end)
 end
