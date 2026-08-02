@@ -55,7 +55,12 @@ function love.load()
     local freshPreview =
       os.getenv("GEN2RECOMP_FRESH_PREVIEW") == "1"
     local worldData, profile, textCatalog, battleData, presentationData =
-      CrystalPreview.load(romPath, { battle = true })
+      CrystalPreview.load(romPath, {
+        battle = true,
+        battlePicSpecies = battlePreview
+          and { 16, 152, 155, 158 }
+          or nil,
+      })
     local DataRegistry = require("src.pokemon.DataRegistry")
     local registry = DataRegistry.new(battleData)
     local LoveFilesystem = require("src.core.LoveFilesystem")
@@ -100,6 +105,7 @@ function love.load()
         battleBridge = BattleBridge.new(states, factory, {
           audio = audio,
           audioRuntime = audioRuntime,
+          battlePics = presentationData.battlePics,
         }),
         stateStack = states,
         battleData = battleData,
@@ -120,6 +126,7 @@ function love.load()
       states:push(BattleSceneState.new(session, {
         audio = audio,
         audioRuntime = audioRuntime,
+        battlePics = presentationData.battlePics,
       }))
     else
       local loaded = not freshPreview

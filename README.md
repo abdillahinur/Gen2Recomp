@@ -34,9 +34,9 @@ The project currently contains:
   palettes;
 - a generic map grid, camera, player movement/facing, collision, objects,
   connections, and reciprocal warps;
-- a ROM-backed first-badge world corridor containing 29 maps across New Bark,
-  Cherrygrove, Routes 29-32/36, and Violet City, with ten referenced
-  tilesets and 32 ordinary overworld sprites;
+- a ROM-backed first-badge world corridor containing 41 maps across New Bark,
+  Cherrygrove, Routes 29-32/35-37, Violet City, and in-group houses/gates,
+  with ten referenced tilesets and 32 ordinary overworld sprites;
 - player-ROM-backed morning/day/night grass and water encounter tables for
   eight maps in that corridor, with native slot weights and step cooldown;
 - player-ROM-backed trainer parties, native trainer sight lines, visible shock

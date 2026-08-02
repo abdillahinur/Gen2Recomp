@@ -1,5 +1,6 @@
 local OverworldSpriteAnimator =
   require("src.render.OverworldSpriteAnimator")
+local MapSampler = require("src.world.MapSampler")
 
 local WorldRaster = {}
 
@@ -53,9 +54,6 @@ local function setPixel(frame, x, y, color)
 end
 
 local function drawBackground(frame, world, period)
-  local map = world.currentMap
-  local tileset = world.repository:getTileset(map.tilesetId)
-  local roof = world.repository:getRoof(map.group)
   for screenY = 0, HEIGHT - 1 do
     local worldY = screenY + world.camera.y
     local tileY = math.floor(worldY / 8)
@@ -64,20 +62,20 @@ local function drawBackground(frame, world, period)
       local worldX = screenX + world.camera.x
       local tileX = math.floor(worldX / 8)
       local pixelX = worldX % 8
-      local tileId = world.grid:tileAt(tileX, tileY)
-      if tileId then
-        local slot = tileset.tileSlots[tileId + 1]
-        local pixels = tilePixels(tileset, roof, tileId)
-        local colorId = pixels
-          and pixels[pixelY * 8 + pixelX + 1] or 0
-        setPixel(frame, screenX, screenY, backgroundColor(
-          tileset,
-          roof,
-          period,
-          slot.paletteId,
-          colorId
-        ))
-      end
+      local tileId, tilesetId, map = MapSampler.tileAt(world, tileX, tileY)
+      local tileset = world.repository:getTileset(tilesetId)
+      local roof = world.repository:getRoof(map.group)
+      local slot = tileset.tileSlots[tileId + 1]
+      local pixels = tilePixels(tileset, roof, tileId)
+      local colorId = pixels
+        and pixels[pixelY * 8 + pixelX + 1] or 0
+      setPixel(frame, screenX, screenY, backgroundColor(
+        tileset,
+        roof,
+        period,
+        slot.paletteId,
+        colorId
+      ))
     end
   end
 end

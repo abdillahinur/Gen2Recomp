@@ -51,8 +51,12 @@ testable view models for:
 - party HP, active slot, switching, and disabled choices;
 - catching, wild escape, and rejected trainer escape.
 
-`BattleSceneState` draws those models on the 160×144 native canvas. The current
-scene uses source-authored silhouettes rather than bundled Pokémon pictures.
+`BattleSceneState` draws those models on the 160×144 native canvas using
+`BattleSceneRenderer` and ROM-extracted front/back pics when
+`CrystalBattlePics` data is supplied. Declared Crystal tile anchors live in
+`BattleLayout` (enemy front `hlcoord 12,0`, player back `hlcoord 2,6`, HUD
+boxes from `DrawEnemyHUD` / `DrawPlayerHUD`). Without battle-pic payload the
+scene keeps a structural silhouette fallback.
 
 M5-004's `BattleBridge` now pushes this state for hand-written script requests
 and returns its acknowledged result to the waiting coroutine. Its request

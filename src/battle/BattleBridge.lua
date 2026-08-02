@@ -21,6 +21,8 @@ function BattleBridge.new(stateStack, factory, options)
     items = options.items or {},
     audio = options.audio,
     audioRuntime = options.audioRuntime,
+    battlePics = options.battlePics,
+    gender = options.gender,
     active = nil,
   }, BattleBridge)
 end
@@ -38,6 +40,8 @@ function BattleBridge:start(request, resolve)
     items = self.items,
     audio = self.audio,
     audioRuntime = self.audioRuntime,
+    battlePics = self.battlePics,
+    gender = self.gender,
     onComplete = function()
       local result = bridge.factory:commit(session)
       bridge.active = nil

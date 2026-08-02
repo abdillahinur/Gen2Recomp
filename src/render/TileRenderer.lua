@@ -1,5 +1,6 @@
 local OverworldSpriteAnimator =
   require("src.render.OverworldSpriteAnimator")
+local MapSampler = require("src.world.MapSampler")
 
 local TileRenderer = {}
 TileRenderer.__index = TileRenderer
@@ -151,22 +152,21 @@ function TileRenderer:spriteImage(sprite, paletteId, period)
 end
 
 function TileRenderer:drawMap(world, period)
-  local map = world.currentMap
-  local tileset = self.repository:getTileset(map.tilesetId)
-  local roof = self.repository:getRoof(map.group)
-  local atlas = self:tileAtlas(tileset, roof, period)
   local camera = world.camera
-  local firstX = math.max(0, math.floor(camera.x / 8))
-  local firstY = math.max(0, math.floor(camera.y / 8))
-  local lastX = math.min(world.grid.widthTiles - 1, firstX + 20)
-  local lastY = math.min(world.grid.heightTiles - 1, firstY + 18)
+  local firstX = math.floor(camera.x / 8)
+  local firstY = math.floor(camera.y / 8)
+  local lastX = firstX + 20
+  local lastY = firstY + 18
   love.graphics.setColor(1, 1, 1, 1)
   for y = firstY, lastY do
     for x = firstX, lastX do
-      local id = world.grid:tileAt(x, y)
+      local tileId, tilesetId, map = MapSampler.tileAt(world, x, y)
+      local tileset = self.repository:getTileset(tilesetId)
+      local roof = self.repository:getRoof(map.group)
+      local atlas = self:tileAtlas(tileset, roof, period)
       love.graphics.draw(
         atlas.image,
-        atlas.quads[id],
+        atlas.quads[tileId],
         x * 8 - camera.x,
         y * 8 - camera.y
       )
