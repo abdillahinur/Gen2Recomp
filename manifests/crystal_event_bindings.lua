@@ -31,6 +31,7 @@ return {
       "crystal.elms_lab.object.cyndaquil_ball",
       "crystal.elms_lab.object.totodile_ball",
       "crystal.elms_lab.object.chikorita_ball",
+      "crystal.elms_lab.object.officer",
     }, {
       "crystal.elms_lab.bg.healing_machine",
       "crystal.elms_lab.bg.bookshelf_top_1",

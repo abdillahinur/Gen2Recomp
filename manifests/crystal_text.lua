@@ -137,6 +137,10 @@ return {
     ["crystal.text.elms_lab.trashcan"] =
       { symbol = "ElmsLabTrashcanText" },
     ["crystal.text.elms_lab.pc"] = { symbol = "ElmsLabPCText" },
+    ["crystal.text.elms_lab.officer_intro"] =
+      { symbol = "ElmsLabOfficerText1" },
+    ["crystal.text.elms_lab.officer_named_rival"] =
+      { symbol = "ElmsLabOfficerText2" },
     ["crystal.text.common.difficult_bookshelf"] =
       { symbol = "DifficultBookshelfText" },
 

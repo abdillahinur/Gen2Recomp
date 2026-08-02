@@ -313,6 +313,16 @@ return {
       address = 0x56aa,
       offset = 0x0796aa,
     },
+    ["ElmsLabOfficerText1"] = {
+      bank = 0x1e,
+      address = 0x60f0,
+      offset = 0x07a0f0,
+    },
+    ["ElmsLabOfficerText2"] = {
+      bank = 0x1e,
+      address = 0x61c0,
+      offset = 0x07a1c0,
+    },
     ["ElmsLabPCText"] = {
       bank = 0x1e,
       address = 0x63a6,

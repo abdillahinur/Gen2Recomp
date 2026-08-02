@@ -78,6 +78,7 @@ return function(test, equal, truthy)
     equal(#elmsLab.actors, 6)
     equal(#newBark.coverage.bgEvents, 4)
     equal(#elmsLab.coverage.bgEvents, 16)
+    equal(#elmsLab.coverage.objects, 6)
   end)
 
   test("New Bark callback and teacher branches update native state", function()
@@ -183,5 +184,44 @@ return function(test, equal, truthy)
       equal(granted.level, 5)
       equal(granted.heldItemId, "crystal.item.berry")
     end
+  end)
+
+  test("Elm Lab officer dispatches investigation and exits", function()
+    local runner, state, dialogue, commands = setup()
+    state:setScene(
+      "crystal.map.elms_lab",
+      "crystal.scene.elms_lab.meet_officer"
+    )
+    local task = runner:start(
+      "elm-lab-officer",
+      elmsLab.behavior.objects[
+        "crystal.elms_lab.object.officer"
+      ]
+    )
+    drive(runner, dialogue, task, function()
+      return "common.choice.yes"
+    end)
+    equal(task.state, "completed")
+    equal(
+      state:getScene("crystal.map.elms_lab"),
+      "crystal.scene.elms_lab.noop"
+    )
+    equal(
+      dialogue.transcript[1].id,
+      "crystal.text.elms_lab.officer_intro"
+    )
+    equal(
+      dialogue.transcript[2].id,
+      "crystal.text.elms_lab.officer_named_rival"
+    )
+    local hidOfficer = false
+    for _, command in ipairs(commands) do
+      if command.name == "world.object.hide"
+          and command.arguments.id
+            == "crystal.elms_lab.actor.officer" then
+        hidOfficer = true
+      end
+    end
+    truthy(hidOfficer)
   end)
 end
