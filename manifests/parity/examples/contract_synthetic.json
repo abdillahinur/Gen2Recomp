@@ -1,0 +1,62 @@
+{
+  "schema": 1,
+  "id": "synthetic.parity.contract",
+  "rom": {
+    "profile": "crystal_us_11",
+    "sha1": "f2f52230b536214ef7c9924f483392993e226cfb"
+  },
+  "hardware": {
+    "model": "cgb",
+    "bootRom": false
+  },
+  "rtc": "2000-01-01T10:00:00Z",
+  "initialState": {
+    "kind": "power_on"
+  },
+  "inputs": [
+    {
+      "frame": 0,
+      "buttons": []
+    },
+    {
+      "frame": 1,
+      "buttons": [
+        "a"
+      ]
+    }
+  ],
+  "checkpoints": {
+    "frames": {
+      "width": 2,
+      "height": 1,
+      "format": "rgba8888",
+      "origin": "top_left",
+      "at": [
+        0,
+        1
+      ]
+    },
+    "states": [
+      {
+        "frame": 1,
+        "required": [
+          "screen",
+          "selected"
+        ]
+      }
+    ],
+    "audio": {
+      "sampleRate": 48000,
+      "channels": 2,
+      "format": "pcm_s16le",
+      "windows": [
+        {
+          "id": "opening",
+          "startFrame": 0,
+          "endFrame": 2,
+          "sampleCount": 2
+        }
+      ]
+    }
+  }
+}

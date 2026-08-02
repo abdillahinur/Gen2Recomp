@@ -17,6 +17,8 @@ FORBIDDEN_SUFFIXES = {
     ".srm",
     ".rtc",
     ".love",
+    ".pcm16le",
+    ".rgba",
     ".sym",
     ".map",
     ".noi",
