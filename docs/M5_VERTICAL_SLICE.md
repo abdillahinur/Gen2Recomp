@@ -74,9 +74,10 @@ Pokémon, Run, move/PP details, party switching, catching, escaping, failed
 trainer escape, and acknowledged terminal outcomes. The standalone ROM-backed
 battle preview uses normalized species and move names from the supplied ROM.
 
-Species are represented by native silhouettes until battle-picture extraction
-is added, while all battle state and menu behavior already use the real native
-simulation.
+Species use ROM-backed front/back pictures from `PokemonPicPointers` when
+`CrystalBattlePics` is supplied to `BattleSceneState`. Declared layout anchors
+match Crystal `hlcoord` battle placement. Silhouettes remain only as a
+structural fallback when pics are unavailable.
 
 ## Battle dispatch and persistence
 

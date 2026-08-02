@@ -220,6 +220,8 @@ require("tests.crystal_text_data_tests")(test, equal, truthy, raises)
 require("tests.crystal_font_tests")(test, equal, truthy, raises)
 require("tests.crystal_species_tests")(test, equal, truthy, raises)
 require("tests.crystal_battle_data_tests")(test, equal, truthy, raises)
+require("tests.battle_scene_presentation_tests")(
+  test, equal, truthy, raises)
 require("tests.crystal_lz_tests")(test, equal, truthy, raises)
 require("tests.crystal_tileset_tests")(test, equal, truthy, raises)
 require("tests.crystal_encounter_data_tests")(
