@@ -255,4 +255,32 @@ return {
       "crystal.violet_kyle_house.object.event_2",
     }),
   },
+  -- Imported and reachable, but no hand-written behavior yet. Declaring them
+  -- keeps the loader fail-closed: an imported map that is neither bound nor
+  -- listed here is a startup error instead of a silent no-op at the A button.
+  -- Facility counters on these maps still work; they are served by the
+  -- sprite-matched staff path in WorldState, not by event bindings.
+  unimplemented = {
+    ["24:1"] = "route_26 object and sign dialogue not yet authored",
+    ["24:2"] = "route_27 object and sign dialogue not yet authored",
+    ["24:6"] = "players_house_1f dialogue not yet authored",
+    ["24:7"] = "players_house_2f dialogue not yet authored",
+    ["24:8"] = "players_neighbors_house dialogue not yet authored",
+    ["24:9"] = "elms_house dialogue not yet authored",
+    ["24:10"] = "route_26_heal_house dialogue not yet authored",
+    ["24:11"] = "day_of_week_siblings_house dialogue not yet authored",
+    ["24:12"] = "route_27_sandstorm_house dialogue not yet authored",
+    ["26:4"] = "cherrygrove_mart shelf and customer dialogue not authored",
+    ["26:5"] = "cherrygrove_pokecenter_1f trainer dialogue not authored",
+    ["10:2"] = "route_35 object and sign dialogue not yet authored",
+    ["10:4"] = "route_37 object and sign dialogue not yet authored",
+    ["10:6"] = "violet_mart shelf and customer dialogue not authored",
+    ["10:10"] = "violet_pokecenter_1f trainer dialogue not authored",
+    ["10:12"] = "route_32_ruins_of_alph_gate dialogue not yet authored",
+    ["10:13"] = "route_32_pokecenter_1f trainer dialogue not authored",
+    ["10:14"] = "route_35_goldenrod_gate dialogue not yet authored",
+    ["10:15"] = "route_35_national_park_gate dialogue not yet authored",
+    ["10:16"] = "route_36_ruins_of_alph_gate dialogue not yet authored",
+    ["10:17"] = "route_36_national_park_gate dialogue not yet authored",
+  },
 }
