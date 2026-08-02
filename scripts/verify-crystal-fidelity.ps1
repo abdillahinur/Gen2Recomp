@@ -4,25 +4,9 @@ param(
 )
 
 $ErrorActionPreference = "Stop"
-$resolved = (Resolve-Path -LiteralPath $RomPath).Path
-
-$gates = @(
-  "verify-crystal-intro.ps1",
-  "verify-crystal-text.ps1",
-  "verify-crystal-events.ps1",
-  "verify-crystal-violet-events.ps1",
-  "verify-crystal-vertical-slice.ps1",
-  "verify-crystal-save.ps1",
-  "verify-crystal-audio.ps1",
-  "verify-crystal-audio-live.ps1",
-  "verify-crystal-visible.ps1"
+Write-Warning (
+  "verify-crystal-fidelity.ps1 is a legacy alias. " +
+  "These checks prove structure and reachability, not cartridge parity."
 )
-
-foreach ($gate in $gates) {
-  & (Join-Path $PSScriptRoot $gate) -RomPath $resolved
-  if ($LASTEXITCODE -ne 0) {
-    exit $LASTEXITCODE
-  }
-}
-
-Write-Host "Crystal fidelity acceptance passed (9/9 gates)."
+& (Join-Path $PSScriptRoot "verify-crystal-structural.ps1") `
+  -RomPath $RomPath

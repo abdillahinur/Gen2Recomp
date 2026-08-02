@@ -149,13 +149,15 @@ Completed checkpoints:
 - [x] M5-017 explicit verified object/background-event bindings.
 - [x] M5-018 complete live-slice ROM dialogue with no semantic fallbacks.
 - [x] M5-019 compact ROM audio-program extraction.
-- [x] M5-020 native channel synthesis and exact audio routing.
-- [x] M5-021 visible clean-save fidelity acceptance route.
+- [x] M5-020 initial native channel synthesis and audio routing.
+- [x] M5-021 visible clean-save reachability smoke route.
 
 M5 is complete. The canonical Crystal v1.1 gate executes introduction, Elm and
 starter, Mr. Pokémon and Pokédex, Cherrygrove rival, Violet Gym, Zephyr Badge,
-TM31, and save/reload. M5-021 additionally proves seven visible application
-stages, every supported route interaction, and live ROM-derived audio.
+TM31, and save/reload. M5-021 additionally reaches seven visible application
+stages, every supported route interaction, and live ROM-derived audio sources.
+It does not prove cartridge framebuffer, timing, or PCM parity; those claims
+belong to the M5P reference-comparison work.
 
 ## M6 — Johto campaign
 
