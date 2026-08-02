@@ -5,14 +5,15 @@ local BootstrapState = require("src.states.BootstrapState")
 local LogicalCanvas = require("src.render.LogicalCanvas")
 
 local smokeTest = os.getenv("GEN2RECOMP_SMOKE_TEST") == "1"
-local fidelityTest =
-  os.getenv("GEN2RECOMP_FIDELITY_SMOKE_TEST") == "1"
+local visibleSmokeTest =
+  os.getenv("GEN2RECOMP_VISIBLE_SMOKE_TEST") == "1"
+  or os.getenv("GEN2RECOMP_FIDELITY_SMOKE_TEST") == "1"
 
 local input
 local states
 local clock
 local canvas
-local fidelityDriver
+local smokeDriver
 local interpolationAlpha = 0
 
 local function drawCanvas()
@@ -37,10 +38,10 @@ function love.load()
   states = StateStack.new()
   clock = FixedStep.new({ hz = 60, maxSteps = 8 })
   canvas = LogicalCanvas.create(love.graphics)
-  if fidelityTest then
-    local LiveFidelityDriver =
-      require("src.acceptance.LiveFidelityDriver")
-    fidelityDriver = LiveFidelityDriver.new()
+  if visibleSmokeTest then
+    local LiveSmokeDriver =
+      require("src.acceptance.LiveSmokeDriver")
+    smokeDriver = LiveSmokeDriver.new()
   end
 
   local romPath = os.getenv("GEN2RECOMP_ROM_PATH")
@@ -65,7 +66,7 @@ function love.load()
     local LoveAudioSink = require("src.audio.LoveAudioSink")
     local audio = AudioService.new()
     local audioSink
-    if fidelityTest then
+    if visibleSmokeTest then
       audioSink = {
         playMusic = function() end,
         stopMusic = function() end,
@@ -152,8 +153,8 @@ end
 
 function love.update(dt)
   local _, alpha = clock:update(dt, function(step)
-    if fidelityDriver then
-      states:update(step, fidelityDriver:inputFor(states:current()))
+    if smokeDriver then
+      states:update(step, smokeDriver:inputFor(states:current()))
     else
       input:beginStep()
       states:update(step, input)
@@ -173,8 +174,8 @@ function love.draw()
   love.graphics.clear(0.012, 0.016, 0.024, 1)
   drawCanvas()
 
-  if fidelityDriver then
-    fidelityDriver:capture(states:current(), canvas)
+  if smokeDriver then
+    smokeDriver:capture(states:current(), canvas)
   end
   if smokeTest and clock.totalSteps >= 1 then
     print("Gen2Recomp LÖVE smoke test passed.")

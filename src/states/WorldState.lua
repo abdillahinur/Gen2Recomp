@@ -5,6 +5,8 @@ local FieldMenuState = require("src.states.FieldMenuState")
 local MapRepository = require("src.world.MapRepository")
 local MapPresentationRuntime =
   require("src.script.MapPresentationRuntime")
+local OverworldSpriteAnimator =
+  require("src.render.OverworldSpriteAnimator")
 local TileRenderer = require("src.render.TileRenderer")
 local TimeOfDay = require("src.world.TimeOfDay")
 local TrainerController = require("src.world.TrainerController")
@@ -45,11 +47,17 @@ function WorldState.new(worldData, options)
   local timeProvider = createTimeProvider(options)
   local savedPlayer = options.gameSession
     and options.gameSession.player
+  local playerSpriteId = options.playerSpriteId
+  if playerSpriteId == nil and options.gameSession then
+    playerSpriteId = OverworldSpriteAnimator.spriteIdForGender(
+      options.gameSession.state:getVariable("player.gender")
+    )
+  end
   local self = setmetatable({
     opaque = true,
     world = World.new(worldData, {
       repository = repository,
-      playerSpriteId = options.playerSpriteId,
+      playerSpriteId = playerSpriteId,
       initialMap = savedPlayer or worldData.initialMap,
     }),
     renderer = TileRenderer.new(

@@ -25,13 +25,14 @@ Falkner's Gym, and the first badge.
 17. Explicit verified object/background-event bindings. **Complete.**
 18. Complete live-slice ROM dialogue with no semantic fallback. **Complete.**
 19. Compact ROM audio-program extraction. **Complete.**
-20. Native channel synthesis and exact audio routing. **Complete.**
-21. Visible clean-save fidelity acceptance. **Complete.**
+20. Initial native channel synthesis and audio routing. **Complete.**
+21. Visible clean-save reachability smoke route. **Complete.**
 
 Each checkpoint is one local commit. The original functional route exposed
-presentation placeholders during hands-on testing, so M5 was reopened and its
-fidelity pass completed. The route now passes both its ROM-gated functional
-and live-fidelity acceptance drivers.
+presentation placeholders during hands-on testing, so M5 was reopened for a
+visible smoke pass. The route now passes its ROM-gated functional and
+reachability drivers. Reference framebuffer, timing, and PCM parity remain M5P
+work and are not implied by these completed historical checkpoints.
 
 ## Runtime ownership
 
@@ -257,10 +258,12 @@ distinct route dialogue
 requests exercised by the acceptance path. Source control retains only stable
 IDs and pinned symbol offsets.
 
-M5-021 adds a visible LÖVE driver that begins with a clean profile, advances
+M5-021 adds a visible LÖVE smoke driver that begins with a clean profile, advances
 the real introduction presentation, and captures gender, clock, professor,
 Wooper, naming, shrink, and New Bark frames. The capture gate also exposed and
 closed the ROM's column-major intro-tile ordering and Pokémon normal/shiny
 palette layout. The consolidated acceptance script combines those screenshots
 with exact-text, interaction, full-route, save/RTC, extracted-audio, and live
-audio checks for nine required gates.
+audio checks for nine required structural gates. It verifies that the stages
+render and that the route remains live; it does not compare those frames or the
+audio stream to a cartridge reference.

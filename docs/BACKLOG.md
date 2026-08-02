@@ -108,6 +108,28 @@ Backlog IDs are stable planning references, not issue tracker numbers.
 - [x] `M5-021` Pass a clean-save visible fidelity route from gender selection
   through Zephyr Badge with screenshot, audio, interaction, and save gates.
 
+## M5P — Cartridge fidelity parity
+
+M5 is functionally complete, but fidelity is unmeasured: the acceptance gates
+check that screens and audio sources exist, not that they match Crystal. See
+`docs/AUDIO_PARITY.md`.
+
+- [x] `M5P-001` Audit channel-program command operand lengths against the
+  pinned reference engine.
+- [x] `M5P-002` Implement a standalone register-driven Game Boy APU with
+  frame sequencer, duty, envelope, sweep, noise LFSR, wave, and stereo mixing.
+- [ ] `M5P-003` Replace flat event-list synthesis with a frame-stepped channel
+  driver that advances every channel together and writes APU registers.
+- [ ] `M5P-004` Execute pitch sweep, pitch slide, vibrato, master volume, and
+  SFX priority instead of discarding their operands.
+- [ ] `M5P-005` Extract wave samples, drum kits, and the full music and SFX
+  pointer tables, and widen the cached audio program banks.
+- [ ] `M5P-006` Raise the audio cache to a stereo 48 kHz schema and stream
+  playback with real channel loop points.
+- [ ] `M5P-007` Select map and battle music from decoded per-map music ids.
+- [ ] `M5P-008` Define a locally generated, uncommitted reference oracle and
+  replace existence-only fidelity gates with differential tests.
+
 ## Cross-cutting risks
 
 - [ ] `RISK-001` Inventory complex engine routines required by each map and

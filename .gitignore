@@ -14,6 +14,8 @@
 /captures/
 /screenshots/
 *.love
+*.pcm16le
+*.rgba
 
 # Native saves and local options
 /save/

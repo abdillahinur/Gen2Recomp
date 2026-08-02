@@ -1,3 +1,6 @@
+local OverworldSpriteAnimator =
+  require("src.render.OverworldSpriteAnimator")
+
 local WorldRaster = {}
 
 local WIDTH = 160
@@ -79,17 +82,6 @@ local function drawBackground(frame, world, period)
   end
 end
 
-local function facingFrame(facing)
-  if facing == "up" then
-    return 1, false
-  elseif facing == "left" then
-    return 2, false
-  elseif facing == "right" then
-    return 2, true
-  end
-  return 0, false
-end
-
 local function drawSprite(
     frame,
     world,
@@ -98,7 +90,8 @@ local function drawSprite(
     pixelX,
     pixelY,
     facing,
-    overridePalette)
+    overridePalette,
+    anim)
   local sprite = world.repository:getSprite(spriteId)
   if not sprite then
     return
@@ -107,10 +100,15 @@ local function drawSprite(
     and overridePalette - 8 or sprite.defaultPaletteId
   local palette =
     world.repository.data.objectPalettes[period][paletteId + 1]
-  local facingIndex, flip = facingFrame(facing)
-  if sprite.tileCount < 12 then
-    facingIndex = 0
-  end
+  local selection = OverworldSpriteAnimator.select({
+    tileCount = sprite.tileCount,
+    kind = sprite.kind,
+    facing = facing,
+    moving = anim and anim.moving,
+    phase = anim and anim.phase or 0,
+  })
+  local facingIndex = selection.frame
+  local flip = selection.flipX
 
   for y = 0, 15 do
     for x = 0, 15 do
@@ -145,6 +143,8 @@ local function drawObjects(frame, world, period)
         y = object.pixelY,
         facing = object.facing,
         paletteId = object.paletteId,
+        moving = object.moving ~= nil,
+        phase = object.animPhase or 0,
         order = #entries + 1,
       }
     end
@@ -154,6 +154,8 @@ local function drawObjects(frame, world, period)
     x = world.player.pixelX,
     y = world.player.pixelY,
     facing = world.player.facing,
+    moving = world.player.moving ~= nil,
+    phase = world.player.animPhase or 0,
     order = #entries + 1,
   }
   table.sort(entries, function(left, right)
@@ -171,7 +173,8 @@ local function drawObjects(frame, world, period)
       entry.x,
       entry.y,
       entry.facing,
-      entry.paletteId
+      entry.paletteId,
+      { moving = entry.moving, phase = entry.phase }
     )
   end
 end

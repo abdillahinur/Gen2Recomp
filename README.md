@@ -12,9 +12,11 @@ normal play. A future first-boot UI will invoke this importer.
 
 ## Current status
 
-The repository has completed M5's functional and live-fidelity first-badge
-route. Canonical English Crystal v1.1 passes the functional, visible,
-interaction, audio, and save gates from gender selection through Zephyr Badge.
+The repository has completed M5's functional first-badge route. Canonical
+English Crystal v1.1 passes structural, visible-smoke, interaction, audio-source,
+and save gates from gender selection through Zephyr Badge. Cartridge parity is
+not yet established; it requires reference framebuffer, timing, state, and PCM
+comparisons under the M5P backlog.
 The project currently contains:
 
 - a minimal LÖVE 11.x application;
@@ -103,8 +105,9 @@ M5-014 closes the functional slice with a ROM-gated
 introduction-to-Zephyr-Badge route, 217 decoded dialogue records, and verified
 save/reload. M5-015 through M5-020 restore ROM-derived typography, intro
 presentation, explicit event bindings, complete supported text, and native
-channel audio. M5-021 closes the live-fidelity pass with automated screenshots
-of seven visible intro/world stages plus audio, interaction, and save gates.
+channel audio. M5-021 adds a visible reachability smoke route with automated
+screenshots of seven intro/world stages plus structural audio, interaction, and
+save gates. Those captures are not compared with reference output.
 
 ## Final deliverable
 
@@ -349,17 +352,20 @@ rejects semantic fallback for all 37 required dialogue requests, constructs
 the native leader battle, and verifies the completed badge state after a
 versioned save/reload.
 
-To run M5's complete functional and live-fidelity acceptance suite:
+To run M5's complete structural and visible-smoke suite:
 
 ```powershell
-./scripts/verify-crystal-fidelity.ps1 -RomPath "D:\path\to\your\ROM"
+./scripts/verify-crystal-structural.ps1 -RomPath "D:\path\to\your\ROM"
 ```
 
 This runs nine gates: intro assets, exact ROM text, New Bark/Elm interactions,
 Violet interactions, the complete first-badge route, save/RTC restoration,
 ROM audio extraction, live LÖVE audio playback, and a fresh visible LÖVE route.
 The visible gate writes 160×144 captures for gender, clock, professor, Wooper,
-naming, shrink, and New Bark to LÖVE's `gen2recomp` save directory.
+naming, shrink, and New Bark to LÖVE's `gen2recomp` save directory. This proves
+reachability and source creation, not pixel, timing, state, or PCM parity. See
+[the cartridge parity oracle](docs/PARITY_ORACLE.md) for the
+reference-comparison contract.
 
 ## Project direction
 
@@ -371,6 +377,7 @@ naming, shrink, and New Bark to LÖVE's `gen2recomp` save directory.
 - [Reference-data generation](docs/REFERENCE_DATA.md)
 - [Battle engine](docs/BATTLE_ENGINE.md)
 - [M5 Violet City slice](docs/M5_VERTICAL_SLICE.md)
+- [Cartridge parity oracle](docs/PARITY_ORACLE.md)
 - [Content policy](docs/CONTENT_POLICY.md)
 
 ## ROM support

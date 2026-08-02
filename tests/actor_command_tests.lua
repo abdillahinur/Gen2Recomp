@@ -116,11 +116,12 @@ return function(test, equal, truthy)
 
   test("Emotes remain active for their requested duration", function()
     local world, runner = setup()
+    local duration = World.STEP_SECONDS * 2.5
     local task = runner:start("emote", function()
       return Commands.emote(
         "crystal.actor.guide",
         "common.emote.notice",
-        0.5
+        duration
       )
     end)
     pump(world, runner, 2)
