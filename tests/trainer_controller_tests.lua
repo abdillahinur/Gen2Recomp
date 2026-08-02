@@ -1,6 +1,7 @@
 return function(test, equal, truthy)
   local GameSession = require("src.game.GameSession")
   local TrainerController = require("src.world.TrainerController")
+  local World = require("src.world.World")
 
   local function fixture(blocked)
     local object = {
@@ -87,7 +88,7 @@ return function(test, equal, truthy)
     equal(object.emote, "shock")
     truthy(controller:isBusy())
     controller:update(TrainerController.EMOTE_SECONDS)
-    controller:update(0.18)
+    controller:update(World.STEP_SECONDS)
     equal(object.x, 2)
     equal(request.opponentId, "crystal.trainer.22.001")
     equal(request.options.trainer.objectId, 2)

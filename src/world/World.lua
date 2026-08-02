@@ -3,11 +3,15 @@ local ActorSystem = require("src.world.ActorSystem")
 local Collision = require("src.world.Collision")
 local MapGrid = require("src.world.MapGrid")
 local MapRepository = require("src.world.MapRepository")
+local OverworldSpriteAnimator =
+  require("src.render.OverworldSpriteAnimator")
 
 local World = {}
 World.__index = World
 
-local STEP_SECONDS = 0.18
+-- Integer frame step clock. Replaces the old 0.18s wall-clock duration.
+local STEP_FRAMES = OverworldSpriteAnimator.STEP_FRAMES
+local STEP_SECONDS = OverworldSpriteAnimator.STEP_SECONDS
 local VECTORS = {
   up = { x = 0, y = -1 },
   down = { x = 0, y = 1 },
@@ -88,6 +92,7 @@ function World.new(worldData, options)
       facing = "down",
       spriteId = options.playerSpriteId or 1,
       moving = nil,
+      animPhase = 0,
     },
     currentMapId = initial.mapId,
     currentMap = nil,
@@ -98,6 +103,7 @@ function World.new(worldData, options)
     lastTransition = nil,
     stepCount = 0,
   }, World)
+  self.STEP_FRAMES = STEP_FRAMES
   self.STEP_SECONDS = STEP_SECONDS
   self:loadMap(initial.mapId)
   self.actors = ActorSystem.new(self)
@@ -264,6 +270,9 @@ function World:startMove(direction)
   self.player.moving = {
     direction = direction,
     elapsed = 0,
+    framesElapsed = 0,
+    frameAccumulator = 0,
+    animPhase = 0,
     fromMapId = self.currentMapId,
     fromX = self.player.x,
     fromY = self.player.y,
@@ -273,6 +282,7 @@ function World:startMove(direction)
     visualTargetX = self.player.x + VECTORS[direction].x,
     visualTargetY = self.player.y + VECTORS[direction].y,
   }
+  self.player.animPhase = 0
   return true
 end
 
@@ -329,6 +339,7 @@ function World:finishMove()
   self.player.pixelX = move.targetX * 16
   self.player.pixelY = move.targetY * 16
   self.player.moving = nil
+  self.player.animPhase = 0
   self.stepCount = self.stepCount + 1
   self:checkWarp()
 end
@@ -336,16 +347,22 @@ end
 function World:update(dt, input)
   local move = self.player.moving
   if move then
-    move.elapsed = math.min(STEP_SECONDS, move.elapsed + dt)
-    local alpha = move.elapsed / STEP_SECONDS
+    local alpha, done = OverworldSpriteAnimator.advanceMove(
+      move,
+      dt,
+      STEP_FRAMES
+    )
+    move.elapsed = move.framesElapsed * OverworldSpriteAnimator.FRAME_SECONDS
+    self.player.animPhase = move.animPhase
     self.player.pixelX =
       (move.fromX + (move.visualTargetX - move.fromX) * alpha) * 16
     self.player.pixelY =
       (move.fromY + (move.visualTargetY - move.fromY) * alpha) * 16
-    if move.elapsed >= STEP_SECONDS then
+    if done then
       self:finishMove()
     end
   elseif not self.actors:isControlled("common.actor.player") then
+    self.player.animPhase = 0
     for _, direction in ipairs({ "up", "down", "left", "right" }) do
       if input:down(direction) then
         self:startMove(direction)
@@ -364,6 +381,7 @@ function World:update(dt, input)
   )
 end
 
+World.STEP_FRAMES = STEP_FRAMES
 World.STEP_SECONDS = STEP_SECONDS
 
 return World

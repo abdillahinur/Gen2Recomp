@@ -160,11 +160,15 @@ function ActorSystem:_beginStep(id, direction)
   actor.moving = {
     direction = direction,
     elapsed = 0,
+    framesElapsed = 0,
+    frameAccumulator = 0,
+    animPhase = 0,
     fromX = actor.x,
     fromY = actor.y,
     targetX = actor.x + vector.x,
     targetY = actor.y + vector.y,
   }
+  actor.animPhase = 0
   return true
 end
 
@@ -237,19 +241,31 @@ end
 
 function ActorSystem:_updateObject(actor, dt)
   local move = actor.moving
-  if not move then return end
-  move.elapsed = math.min(self.world.STEP_SECONDS, move.elapsed + dt)
-  local alpha = move.elapsed / self.world.STEP_SECONDS
+  if not move then
+    actor.animPhase = 0
+    return
+  end
+  local OverworldSpriteAnimator =
+    require("src.render.OverworldSpriteAnimator")
+  local alpha, done = OverworldSpriteAnimator.advanceMove(
+    move,
+    dt,
+    self.world.STEP_FRAMES or OverworldSpriteAnimator.STEP_FRAMES
+  )
+  move.elapsed = move.framesElapsed
+    * OverworldSpriteAnimator.FRAME_SECONDS
+  actor.animPhase = move.animPhase
   actor.pixelX =
     (move.fromX + (move.targetX - move.fromX) * alpha) * 16
   actor.pixelY =
     (move.fromY + (move.targetY - move.fromY) * alpha) * 16
-  if move.elapsed >= self.world.STEP_SECONDS then
+  if done then
     actor.x = move.targetX
     actor.y = move.targetY
     actor.pixelX = actor.x * 16
     actor.pixelY = actor.y * 16
     actor.moving = nil
+    actor.animPhase = 0
   end
 end
 
