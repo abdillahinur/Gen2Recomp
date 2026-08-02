@@ -83,6 +83,30 @@ return function(test, equal, truthy, raises)
     truthy(declared > 0)
   end)
 
+  test("shipped Elm Lab binding covers the ROM officer object", function()
+    local function events(count)
+      local values = {}
+      for index = 1, count do values[index] = { id = index } end
+      return values
+    end
+    local scene = world({ "24:5" })
+    scene.repository.maps["24:5"] = {
+      id = "24:5",
+      objects = events(6),
+      bgEvents = events(16),
+      coordEvents = events(8),
+    }
+    local bound = CrystalEventBindings.load(
+      scene,
+      require("src.script.ScriptCatalog").load(),
+      require("manifests.crystal_event_bindings")
+    )
+    equal(
+      bound["24:5"].objects[6],
+      "crystal.elms_lab.object.officer"
+    )
+  end)
+
   test("authored maps reject an object with no behavior", function()
     local entry = definition("test.maps.one", "1:1")
     local scene = world({ "1:1" })

@@ -4,6 +4,7 @@ local Provenance = require("data.scripts.Provenance")
 local PLAYER = "common.actor.player"
 local ELM = "crystal.elms_lab.actor.elm"
 local AIDE = "crystal.elms_lab.actor.aide"
+local OFFICER = "crystal.elms_lab.actor.officer"
 
 local YES = "common.choice.yes"
 local BALL_ACTORS = {
@@ -77,6 +78,18 @@ end
 local function aideInteraction()
   Commands.face(AIDE, "down")
   Commands.text("crystal.text.elms_lab.aide_always_busy")
+end
+
+local function officerInteraction()
+  Commands.face(OFFICER, "left")
+  Commands.text("crystal.text.elms_lab.officer_intro")
+  Commands.text("crystal.text.elms_lab.officer_named_rival")
+  Commands.move(OFFICER, { "down", "down", "down", "down", "down" })
+  Commands.hideObject(OFFICER)
+  Commands.setScene(
+    "crystal.map.elms_lab",
+    "crystal.scene.elms_lab.noop"
+  )
 end
 
 local function inspectStarter(species)
@@ -266,8 +279,10 @@ return {
         "AideScript_WalkPotion2",
         "AideScript_GivePotion",
         "ElmsAideScript",
+        "MeetCopScript",
+        "CopScript",
       },
-      "Used to reproduce the initial Elm meeting, exit guard, starter selection, phone registration, Potion handoff, lab actors, and background interactions."
+      "Used to reproduce the initial Elm meeting, exit guard, starter selection, phone registration, Potion handoff, officer investigation, lab actors, and background interactions."
     ),
   },
   coverage = {
@@ -306,6 +321,7 @@ return {
       "crystal.elms_lab.object.cyndaquil_ball",
       "crystal.elms_lab.object.totodile_ball",
       "crystal.elms_lab.object.chikorita_ball",
+      "crystal.elms_lab.object.officer",
     },
   },
   behavior = {
@@ -332,6 +348,7 @@ return {
         function() return inspectStarter("totodile") end,
       ["crystal.elms_lab.object.chikorita_ball"] =
         function() return inspectStarter("chikorita") end,
+      ["crystal.elms_lab.object.officer"] = officerInteraction,
     },
   },
 }

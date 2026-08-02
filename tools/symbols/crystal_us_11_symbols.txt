@@ -136,6 +136,8 @@ ElmsLabTravelTip3Text
 ElmsLabTravelTip4Text
 ElmsLabTrashcanText
 ElmsLabPCText
+ElmsLabOfficerText1
+ElmsLabOfficerText2
 DifficultBookshelfText
 FalknerIntroText
 FalknerWinLossText
