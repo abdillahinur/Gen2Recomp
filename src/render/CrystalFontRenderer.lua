@@ -1,7 +1,7 @@
 local CrystalFontRenderer = {}
 CrystalFontRenderer.__index = CrystalFontRenderer
 
-local CODE_BY_ASCII = {
+local CODE_BY_TEXT = {
   [" "] = 0x7f,
   ["("] = 0x9a,
   [")"] = 0x9b,
@@ -15,16 +15,57 @@ local CODE_BY_ASCII = {
   ["!"] = 0xe7,
   ["."] = 0xe8,
   ["&"] = 0xe9,
+  ["é"] = 0xea,
   ["/"] = 0xf3,
   [","] = 0xf4,
 }
 
 for index = 0, 25 do
-  CODE_BY_ASCII[string.char(string.byte("A") + index)] = 0x80 + index
-  CODE_BY_ASCII[string.char(string.byte("a") + index)] = 0xa0 + index
+  CODE_BY_TEXT[string.char(string.byte("A") + index)] = 0x80 + index
+  CODE_BY_TEXT[string.char(string.byte("a") + index)] = 0xa0 + index
 end
 for index = 0, 9 do
-  CODE_BY_ASCII[tostring(index)] = 0xf6 + index
+  CODE_BY_TEXT[tostring(index)] = 0xf6 + index
+end
+
+local function textCharacters(text)
+  local index = 1
+  return function()
+    if index > #text then return nil end
+    local first = text:byte(index)
+    local length = 1
+    if first >= 0xc2 and first <= 0xdf then
+      length = 2
+    elseif first >= 0xe0 and first <= 0xef then
+      length = 3
+    elseif first >= 0xf0 and first <= 0xf4 then
+      length = 4
+    end
+    if index + length - 1 > #text then
+      length = 1
+    else
+      for offset = 1, length - 1 do
+        local byte = text:byte(index + offset)
+        if byte < 0x80 or byte > 0xbf then
+          length = 1
+          break
+        end
+      end
+      local second = text:byte(index + 1)
+      if length == 3
+          and ((first == 0xe0 and second < 0xa0)
+            or (first == 0xed and second > 0x9f)) then
+        length = 1
+      elseif length == 4
+          and ((first == 0xf0 and second < 0x90)
+            or (first == 0xf4 and second > 0x8f)) then
+        length = 1
+      end
+    end
+    local character = text:sub(index, index + length - 1)
+    index = index + length
+    return character
+  end
 end
 
 local function mainSet(font)
@@ -89,23 +130,28 @@ function CrystalFontRenderer:drawText(text, x, y, options)
   local lineHeight = options.lineHeight or 16
   local maximumColumns = options.maximumColumns
   local column = 0
+  local pendingWrap = false
   self.graphics.setColor(1, 1, 1, 1)
-  for index = 1, #text do
-    local character = text:sub(index, index)
+  for character in textCharacters(text) do
     if character == "\n" then
       x = startX
       y = y + lineHeight
       column = 0
+      pendingWrap = false
     else
-      local code = CODE_BY_ASCII[character] or 0xe6
+      if pendingWrap then
+        x = startX
+        y = y + lineHeight
+        column = 0
+        pendingWrap = false
+      end
+      local code = CODE_BY_TEXT[character] or 0xe6
       local quad = self:_quad(code)
       if quad then self.graphics.draw(self.atlas, quad, x, y) end
       x = x + spacing
       column = column + 1
       if maximumColumns and column >= maximumColumns then
-        x = startX
-        y = y + lineHeight
-        column = 0
+        pendingWrap = true
       end
     end
   end

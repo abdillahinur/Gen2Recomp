@@ -218,6 +218,8 @@ require("tests.map_presentation_runtime_tests")(test, equal, truthy, raises)
 require("tests.charmap_tests")(test, equal, truthy, raises)
 require("tests.crystal_text_data_tests")(test, equal, truthy, raises)
 require("tests.crystal_font_tests")(test, equal, truthy, raises)
+require("tests.crystal_font_renderer_tests")(
+  test, equal, truthy, raises)
 require("tests.crystal_species_tests")(test, equal, truthy, raises)
 require("tests.crystal_battle_data_tests")(test, equal, truthy, raises)
 require("tests.crystal_lz_tests")(test, equal, truthy, raises)
