@@ -53,7 +53,37 @@ function CrystalEventBindings.load(world, catalog, manifest)
       end
     end
   end
-  return result
+  -- Every imported map must be accounted for. Without this an imported map
+  -- with no definition is invisible to the checks above, so pressing A at one
+  -- of its objects returns false and the player sees nothing at all.
+  local unimplemented = manifest.unimplemented or {}
+  for mapId in pairs(world.repository.maps or {}) do
+    if not result[mapId] and not unimplemented[mapId] then
+      fail(mapId .. " is imported but neither bound nor declared"
+        .. " unimplemented", 2)
+    end
+  end
+  -- Authoring a map is a claim that its interactions are covered, so every
+  -- bound map is strict: each imported object and background event must
+  -- dispatch a behavior or carry an explicit non-interactive reason. This
+  -- validates the authored maps against the real decoded repository at
+  -- startup rather than against a separately curated route list.
+  for mapId, binding in pairs(result) do
+    local map = world.repository:getMap(mapId)
+    if map then
+      for _, kind in ipairs({ "objects", "bgEvents" }) do
+        local declared = binding[kind] or {}
+        local inert = (binding.nonInteractive or {})[kind] or {}
+        for index in ipairs(map[kind] or {}) do
+          if declared[index] == nil and not inert[index] then
+            fail(("%s %s %d has no behavior and is not declared"
+              .. " non-interactive"):format(mapId, kind, index), 2)
+          end
+        end
+      end
+    end
+  end
+  return result, unimplemented
 end
 
 return CrystalEventBindings

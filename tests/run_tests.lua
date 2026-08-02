@@ -215,6 +215,7 @@ require("tests.facility_presentation_tests")(
   test, equal, truthy, raises)
 require("tests.presentation_controller_tests")(test, equal, truthy, raises)
 require("tests.map_presentation_runtime_tests")(test, equal, truthy, raises)
+require("tests.interaction_coverage_tests")(test, equal, truthy, raises)
 require("tests.charmap_tests")(test, equal, truthy, raises)
 require("tests.crystal_text_data_tests")(test, equal, truthy, raises)
 require("tests.crystal_font_tests")(test, equal, truthy, raises)

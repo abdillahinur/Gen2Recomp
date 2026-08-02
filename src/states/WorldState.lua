@@ -21,11 +21,27 @@ local MAP_MUSIC = {
   ["10"] = "crystal.music.violet_city_and_routes",
 }
 
+-- Facility staff are matched by overworld sprite rather than by event index.
+-- Crystal does not place the nurse or clerk at a fixed position in a map's
+-- object list, so an index-based match silently fails wherever the staff
+-- member is not the first event.
+local SPRITE_NURSE = 0x37
+local SPRITE_CLERK = 0x39
+
 local FACILITIES = {
-  ["26:4"] = { kind = "mart", catalogId = "cherrygrove" },
-  ["26:5"] = { kind = "center" },
-  ["10:6"] = { kind = "mart", catalogId = "violet" },
-  ["10:10"] = { kind = "center" },
+  ["26:4"] = {
+    kind = "mart",
+    catalogId = "cherrygrove",
+    staffSpriteId = SPRITE_CLERK,
+  },
+  ["26:5"] = { kind = "center", staffSpriteId = SPRITE_NURSE },
+  ["10:6"] = {
+    kind = "mart",
+    catalogId = "violet",
+    staffSpriteId = SPRITE_CLERK,
+  },
+  ["10:10"] = { kind = "center", staffSpriteId = SPRITE_NURSE },
+  ["10:13"] = { kind = "center", staffSpriteId = SPRITE_NURSE },
 }
 
 local function createTimeProvider(options)
@@ -123,6 +139,17 @@ function WorldState.new(worldData, options)
   return self
 end
 
+function WorldState.facilityStaffAt(objects, facility, x, y)
+  if not facility or not facility.staffSpriteId then return nil end
+  for _, object in ipairs(objects or {}) do
+    if object.spriteId == facility.staffSpriteId and object.visible
+        and object.x == x and object.y == y then
+      return object
+    end
+  end
+  return nil
+end
+
 function WorldState:_openFacility()
   local facility = FACILITIES[self.world.currentMapId]
   if not facility or not self.stateStack or not self.gameSession
@@ -137,14 +164,8 @@ function WorldState:_openFacility()
   })[self.world.player.facing]
   local targetX = self.world.player.x + vector.x
   local targetY = self.world.player.y + vector.y
-  local clerk
-  for _, object in ipairs(self.world:currentObjects()) do
-    if object.id == 1 and object.visible
-        and object.x == targetX and object.y == targetY then
-      clerk = object
-      break
-    end
-  end
+  local clerk = WorldState.facilityStaffAt(
+    self.world:currentObjects(), facility, targetX, targetY)
   if not clerk then return false end
   if self.audio then
     self.audio:playSfx("crystal.sfx.menu_open")
