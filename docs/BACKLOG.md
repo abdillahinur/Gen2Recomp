@@ -103,16 +103,16 @@ Backlog IDs are stable planning references, not issue tracker numbers.
   fallbacks throughout the supported first-badge maps.
 - [x] `M5-019` Decode compact music, SFX, wave, and cry channel programs from
   the verified player ROM.
-- [x] `M5-020` Implement native Game Boy channel synthesis, sequencing,
-  looping, fades, stereo routing, SFX priority, and cry modifiers.
-- [x] `M5-021` Pass a clean-save visible fidelity route from gender selection
-  through Zephyr Badge with screenshot, audio, interaction, and save gates.
+- [x] `M5-020` Implement initial native channel synthesis and audio routing.
+- [x] `M5-021` Pass a clean-save visible reachability smoke route from gender
+  selection through Zephyr Badge with screenshot, audio-source, interaction,
+  and save gates.
 
 ## M5P — Cartridge fidelity parity
 
 M5 is functionally complete, but fidelity is unmeasured: the acceptance gates
 check that screens and audio sources exist, not that they match Crystal. See
-`docs/AUDIO_PARITY.md`.
+`docs/AUDIO_PARITY.md` and `docs/PARITY_ORACLE.md`.
 
 - [x] `M5P-001` Audit channel-program command operand lengths against the
   pinned reference engine.
@@ -127,8 +127,10 @@ check that screens and audio sources exist, not that they match Crystal. See
 - [ ] `M5P-006` Raise the audio cache to a stereo 48 kHz schema and stream
   playback with real channel loop points.
 - [ ] `M5P-007` Select map and battle music from decoded per-map music ids.
-- [ ] `M5P-008` Define a locally generated, uncommitted reference oracle and
-  replace existence-only fidelity gates with differential tests.
+- [x] `M5P-008` Define a hash-bound, locally generated, uncommitted reference
+  oracle contract and label the existing gates truthfully.
+- [ ] `M5P-009` Implement native/reference capture adapters and replace the
+  existence-only smoke gates with differential parity tests.
 
 ## Cross-cutting risks
 
