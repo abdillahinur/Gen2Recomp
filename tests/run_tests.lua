@@ -168,6 +168,8 @@ require("tests.encounter_table_tests")(test, equal, truthy, raises)
 require("tests.encounter_controller_tests")(test, equal, truthy, raises)
 require("tests.trainer_controller_tests")(test, equal, truthy, raises)
 require("tests.world_tests")(test, equal, truthy, raises)
+require("tests.overworld_sprite_animator_tests")(
+  test, equal, truthy)
 require("tests.script_definition_tests")(test, equal, truthy, raises)
 require("tests.script_runner_tests")(test, equal, truthy, raises)
 require("tests.script_state_command_tests")(test, equal, truthy, raises)

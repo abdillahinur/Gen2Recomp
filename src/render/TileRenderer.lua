@@ -1,3 +1,6 @@
+local OverworldSpriteAnimator =
+  require("src.render.OverworldSpriteAnimator")
+
 local TileRenderer = {}
 TileRenderer.__index = TileRenderer
 
@@ -171,17 +174,6 @@ function TileRenderer:drawMap(world, period)
   end
 end
 
-local function facingFrame(facing)
-  if facing == "up" then
-    return 1, false
-  elseif facing == "left" then
-    return 2, false
-  elseif facing == "right" then
-    return 2, true
-  end
-  return 0, false
-end
-
 function TileRenderer:drawSprite(
     spriteId,
     x,
@@ -189,7 +181,8 @@ function TileRenderer:drawSprite(
     facing,
     overridePalette,
     period,
-    camera)
+    camera,
+    anim)
   local sprite = self.repository:getSprite(spriteId)
   if not sprite then
     return
@@ -197,10 +190,15 @@ function TileRenderer:drawSprite(
   local paletteId = overridePalette and overridePalette >= 8
     and overridePalette - 8 or sprite.defaultPaletteId
   local image = self:spriteImage(sprite, paletteId, period)
-  local frame, flip = facingFrame(facing)
-  if sprite.tileCount < 12 then
-    frame = 0
-  end
+  local selection = OverworldSpriteAnimator.select({
+    tileCount = sprite.tileCount,
+    kind = sprite.kind,
+    facing = facing,
+    moving = anim and anim.moving,
+    phase = anim and anim.phase or 0,
+  })
+  local frame = selection.frame
+  local flip = selection.flipX
   local quad = love.graphics.newQuad(
     0,
     frame * 16,
@@ -229,6 +227,8 @@ function TileRenderer:drawObjects(world, period)
         facing = object.facing,
         paletteId = object.paletteId,
         player = false,
+        moving = object.moving ~= nil,
+        phase = object.animPhase or 0,
         order = #entries + 1,
       }
     end
@@ -239,6 +239,8 @@ function TileRenderer:drawObjects(world, period)
     y = world.player.pixelY,
     facing = world.player.facing,
     player = true,
+    moving = world.player.moving ~= nil,
+    phase = world.player.animPhase or 0,
     order = #entries + 1,
   }
   table.sort(entries, function(left, right)
@@ -255,7 +257,8 @@ function TileRenderer:drawObjects(world, period)
       entry.facing,
       entry.paletteId,
       period,
-      world.camera
+      world.camera,
+      { moving = entry.moving, phase = entry.phase }
     )
   end
   for _, object in ipairs(world:currentObjects()) do
