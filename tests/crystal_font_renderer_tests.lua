@@ -95,4 +95,16 @@ return function(test, equal)
       equal(draws[6].x, 0)
       equal(draws[6].y, 16)
     end)
+
+  test("Crystal font renderer consumes malformed UTF-8 bytewise",
+    function()
+      local renderer, draws = fixture()
+
+      renderer:drawText(string.char(0xe0, 0x80, 0x80), 0, 0)
+
+      equal(#draws, 3)
+      equal(draws[1].code, 0xe6)
+      equal(draws[2].code, 0xe6)
+      equal(draws[3].code, 0xe6)
+    end)
 end
