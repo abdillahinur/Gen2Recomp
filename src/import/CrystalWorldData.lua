@@ -51,7 +51,12 @@ local TILESET_NAMES = {
   [12] = "mart",
   [15] = "elite_four_room",
   [16] = "traditional_house",
+  [20] = "players_room",
 }
+
+function CrystalWorldData.tilesetName(id)
+  return TILESET_NAMES[id]
+end
 
 local function requireSymbol(profile, name)
   local symbol = profile.symbols and profile.symbols[name]
@@ -579,13 +584,14 @@ function CrystalWorldData.extract(rom, profile)
 
   local tilesetSpecs = Json.array({})
   for id, maximumBlock in pairs(tilesetIds) do
-    if not TILESET_NAMES[id] then
+    local name = CrystalWorldData.tilesetName(id)
+    if not name then
       error(("Crystal world profile references unsupported tileset %d")
         :format(id), 2)
     end
     tilesetSpecs[#tilesetSpecs + 1] = {
       id = id,
-      name = TILESET_NAMES[id],
+      name = name,
       metatileCount = maximumBlock + 1,
     }
   end

@@ -1,5 +1,10 @@
 return function(test, equal, truthy)
   local manifest = require("manifests.crystal_world")
+  local CrystalWorldData = require("src.import.CrystalWorldData")
+
+  test("Crystal world extraction supports the upstairs player tileset", function()
+    equal(CrystalWorldData.tilesetName(20), "players_room")
+  end)
 
   test("Crystal world manifest defines the first-badge route", function()
     local expected = {
