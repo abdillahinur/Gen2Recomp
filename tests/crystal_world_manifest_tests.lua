@@ -25,4 +25,24 @@ return function(test, equal, truthy)
     equal(manifest.initialMap.group, 24)
     equal(manifest.initialMap.map, 4)
   end)
+
+  test("Crystal world manifest keeps named traversal closure indexes", function()
+    local groups = {}
+    for _, group in ipairs(manifest.groups) do groups[group.id] = group end
+    equal(groups[24].maps[6], "players_house_1f")
+    equal(groups[24].maps[7], "players_house_2f")
+    equal(groups[10].maps[12], "route_32_ruins_of_alph_gate")
+    equal(groups[10].maps[13], "route_32_pokecenter_1f")
+
+    local function extracted(group, index)
+      for _, value in ipairs(group.extractMapIndexes) do
+        if value == index then return true end
+      end
+      return false
+    end
+    truthy(extracted(groups[24], 6))
+    truthy(extracted(groups[24], 7))
+    truthy(extracted(groups[10], 12))
+    truthy(extracted(groups[10], 13))
+  end)
 end

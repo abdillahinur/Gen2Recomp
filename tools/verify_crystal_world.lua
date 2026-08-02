@@ -75,6 +75,22 @@ local function verifyWarps(worldData)
     requireValue(reciprocal.targetMapId == "24:4",
       "building warp does not return to New Bark")
   end
+
+  local function requireReciprocal(sourceId, targetId, label)
+    local source = findMap(worldData, sourceId)
+    local target = findMap(worldData, targetId)
+    requireValue(source and target, label .. " maps must be extracted")
+    local outbound
+    for _, warp in ipairs(source.warps or {}) do
+      if warp.targetMapId == targetId then outbound = warp break end
+    end
+    requireValue(outbound, label .. " outbound warp is unavailable")
+    local reciprocal = target.warps[outbound.targetWarp]
+    requireValue(reciprocal and reciprocal.targetMapId == sourceId,
+      label .. " reciprocal warp is unavailable")
+  end
+  requireReciprocal("24:6", "24:7", "Players House stairs")
+  requireReciprocal("10:1", "10:12", "Route 32 Ruins gate")
 end
 
 local function placePlayer(world, x, y)
@@ -109,6 +125,28 @@ local function verifyWarpTransitions(worldData)
         and world.lastTransition.resolved,
       "return warp for " .. warp.id .. " was not resolved")
   end
+
+  local function transitionPair(sourceId, targetId, label)
+    local source = findMap(worldData, sourceId)
+    local outbound
+    for _, warp in ipairs(source.warps or {}) do
+      if warp.targetMapId == targetId then outbound = warp break end
+    end
+    requireValue(outbound, label .. " outbound warp is unavailable")
+    local world = World.new(worldData)
+    world:loadMap(sourceId)
+    placePlayer(world, outbound.x, outbound.y)
+    world.warpCooldown = false
+    world:checkWarp()
+    requireValue(world.currentMapId == targetId,
+      label .. " did not enter " .. targetId)
+    world.warpCooldown = false
+    world:checkWarp()
+    requireValue(world.currentMapId == sourceId,
+      label .. " did not return to " .. sourceId)
+  end
+  transitionPair("24:6", "24:7", "Players House stairs")
+  transitionPair("10:1", "10:12", "Route 32 Ruins gate")
 end
 
 local function verifyConnectionTransition(

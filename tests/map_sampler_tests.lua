@@ -127,6 +127,57 @@ return function(test, equal)
     equal(tileId, 16)
   end)
 
+  test("MapSampler resolves every connection direction with offsets", function()
+    local targets = {
+      west = { id = "west", widthCells = 8, heightCells = 8 },
+      east = { id = "east", widthCells = 8, heightCells = 8 },
+      north = { id = "north", widthCells = 8, heightCells = 8 },
+      south = { id = "south", widthCells = 8, heightCells = 8 },
+    }
+    local current = {
+      id = "current",
+      widthCells = 4,
+      heightCells = 4,
+      connections = {
+        { direction = "west", targetMapId = "west",
+          targetX = 2, targetY = -1 },
+        { direction = "east", targetMapId = "east",
+          targetX = 1, targetY = 2 },
+        { direction = "north", targetMapId = "north",
+          targetX = -1, targetY = 2 },
+        { direction = "south", targetMapId = "south",
+          targetX = 2, targetY = 1 },
+      },
+    }
+    local world = {
+      currentMap = current,
+      repository = {
+        getMap = function(_, id) return targets[id] end,
+      },
+    }
+    local cases = {
+      { -1, 1, "west", 2, 0 },
+      { 4, 1, "east", 1, 3 },
+      { 1, -1, "north", 0, 2 },
+      { 1, 4, "south", 3, 1 },
+    }
+    for _, case in ipairs(cases) do
+      local map, x, y = MapSampler.resolveCell(world, case[1], case[2])
+      equal(map.id, case[3])
+      equal(x, case[4])
+      equal(y, case[5])
+    end
+  end)
+
+  test("MapSampler invalidates connected-map block caches", function()
+    local world = World.new(fixture())
+    local before = MapSampler.tileAt(world, 4, 0)
+    equal(before, 16)
+    world:changeBlock("1:2", 0, 0, 2)
+    local after = MapSampler.tileAt(world, 4, 0)
+    equal(after, 32)
+  end)
+
   test("World camera stays centered at the map edge", function()
     local world = World.new(fixture())
     world.player.pixelX = 0

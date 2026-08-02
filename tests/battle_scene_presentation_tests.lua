@@ -50,6 +50,116 @@ return function(test, equal, truthy, raises)
     equal(CrystalBattlePics.speciesNumber("hero"), nil)
   end)
 
+  test("CrystalBattlePics extracts synthetic ROM pointers and palettes", function()
+    local bytes = {}
+    local blobs = {}
+    local offsetCalls = {}
+    local function put(offset, ...)
+      for index, value in ipairs({ ... }) do
+        bytes[offset + index - 1] = value
+      end
+    end
+    local function putWord(offset, value)
+      put(offset, value % 0x100, math.floor(value / 0x100))
+    end
+    local function tile(value)
+      local low = value % 2 == 1 and 0xff or 0
+      local high = value >= 2 and 0xff or 0
+      return string.rep(string.char(low, high), 8)
+    end
+    local function literalLz(raw)
+      local chunks = {}
+      for first = 1, #raw, 32 do
+        local chunk = raw:sub(first, math.min(first + 31, #raw))
+        chunks[#chunks + 1] = string.char(#chunk - 1)
+        chunks[#chunks + 1] = chunk
+      end
+      chunks[#chunks + 1] = string.char(0xff)
+      return table.concat(chunks)
+    end
+    local function bankOffset(bank, address)
+      return bank * 0x4000 + address - 0x4000
+    end
+
+    local profile = { symbols = {
+      PokemonPicPointers = { offset = 0x0100 },
+      BaseData = { offset = 0x0400 },
+      PokemonPalettes = { offset = 0x0800 },
+      TrainerPalettes = { offset = 0x0c00 },
+      ChrisBackpic = { offset = 0x8000 },
+      KrisBackpic = { offset = 0xc100 },
+    } }
+    put(0x0106, 0x12)
+    putWord(0x0107, 0x4100)
+    put(0x0109, 0x13)
+    putWord(0x010a, 0x4200)
+    put(0x0400 + 32 + 17, 0x22)
+    put(0x0810, 0x1f, 0x00, 0xe0, 0x03,
+      0x00, 0x7c, 0x10, 0x42)
+    put(0x0c00, 0x1f, 0x00, 0xe0, 0x03)
+    put(0x0c04, 0x00, 0x7c, 0x10, 0x42)
+    blobs[bankOffset(0x48, 0x4100)] =
+      literalLz(tile(0) .. tile(1) .. tile(2) .. tile(3))
+    blobs[bankOffset(0x49, 0x4200)] =
+      literalLz(string.rep(tile(1), 36))
+    blobs[0x8000] = literalLz(string.rep(tile(2), 36))
+    blobs[0xc100] = literalLz(string.rep(tile(3), 36))
+
+    local rom = {}
+    function rom:readByte(offset)
+      local value = bytes[offset]
+      if value == nil then error("unexpected synthetic ROM byte read") end
+      return value
+    end
+    function rom:readWord(offset)
+      return self:readByte(offset) + self:readByte(offset + 1) * 0x100
+    end
+    function rom:readString(offset, length)
+      local blob = blobs[offset]
+      if blob then
+        equal(length, 0x4000 - offset % 0x4000)
+        return blob .. string.rep("\0", length - #blob)
+      end
+      local result = {}
+      for index = 0, length - 1 do
+        result[index + 1] = string.char(self:readByte(offset + index))
+      end
+      return table.concat(result)
+    end
+    function rom:offset(bank, address, length)
+      offsetCalls[#offsetCalls + 1] = { bank, address, length }
+      return bankOffset(bank, address)
+    end
+
+    local got = CrystalBattlePics.extract(rom, profile, { species = { 2 } })
+    equal(got.schema, 1)
+    equal(got.layout, "crystal.battle.layout.v1")
+    equal(got.count, 251)
+    equal(got.species[1], nil)
+    equal(got.species[2].number, 2)
+    local front = got.species[2].front
+    equal(front.widthTiles, 2)
+    equal(front.heightTiles, 2)
+    equal(#front.tiles, 4)
+    equal(front.tiles[1][1], 0)
+    equal(front.tiles[2][1], 2)
+    equal(front.tiles[3][1], 1)
+    equal(front.tiles[4][64], 3)
+    equal(got.species[2].back.tiles[36][64], 1)
+    equal(got.player.male.tiles[36][64], 2)
+    equal(got.player.female.tiles[36][64], 3)
+    equal(front.palette.colors[2].bgr15, 0x001f)
+    equal(front.palette.colors[3].bgr15, 0x03e0)
+    equal(front.shinyPalette.colors[2].bgr15, 0x7c00)
+    equal(front.shinyPalette.colors[3].bgr15, 0x4210)
+    equal(got.player.male.palette.colors[2].bgr15, 0x001f)
+    equal(got.player.female.palette.colors[2].bgr15, 0x7c00)
+    equal(offsetCalls[1][1], 0x48)
+    equal(offsetCalls[1][2], 0x4100)
+    equal(offsetCalls[2][1], 0x49)
+    equal(offsetCalls[2][2], 0x4200)
+  end)
+
   local function blankTile()
     local pixels = {}
     for index = 1, 64 do pixels[index] = 0 end
