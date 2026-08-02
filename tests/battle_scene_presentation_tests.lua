@@ -103,7 +103,7 @@ return function(test, equal, truthy, raises)
     blobs[bankOffset(0x49, 0x4200)] =
       literalLz(string.rep(tile(1), 36))
     blobs[0x8000] = literalLz(string.rep(tile(2), 36))
-    blobs[0xc100] = literalLz(string.rep(tile(3), 36))
+    blobs[0xc100] = string.rep(tile(3), 36)
 
     local rom = {}
     function rom:readByte(offset)
@@ -117,6 +117,10 @@ return function(test, equal, truthy, raises)
     function rom:readString(offset, length)
       local blob = blobs[offset]
       if blob then
+        if offset == 0xc100 then
+          equal(length, 36 * 16)
+          return blob
+        end
         equal(length, 0x4000 - offset % 0x4000)
         return blob .. string.rep("\0", length - #blob)
       end

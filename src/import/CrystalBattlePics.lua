@@ -140,9 +140,28 @@ local function extractSpeciesPic(rom, profile, tableOffset, species, face)
   return picture
 end
 
-local function extractPlayerBack(rom, profile, name, classIndex)
+local function extractPlayerBack(rom, profile, name, classIndex, storage)
   local offset = symbol(profile, name).offset
-  local picture = decompressPicture(rom, offset, BACK_TILES, BACK_TILES)
+  local expected = BACK_TILES * BACK_TILES * 16
+  local data
+  if storage == "lz" then
+    local bankRemaining = 0x4000 - (offset % 0x4000)
+    data = CrystalLz.decompress(
+      rom:readString(offset, bankRemaining),
+      { maxOutputSize = MAX_PIC_BYTES }
+    )
+  else
+    data = rom:readString(offset, expected)
+  end
+  if #data < expected then
+    error(("Crystal player back pic at 0x%X decoded to %d bytes; expected >= %d")
+      :format(offset, #data, expected), 3)
+  end
+  local picture = {
+    widthTiles = BACK_TILES,
+    heightTiles = BACK_TILES,
+    tiles = TileDecoder.decode2bpp(data:sub(1, expected)),
+  }
   picture.palette = trainerPalette(rom, profile, classIndex)
   return picture
 end
@@ -179,8 +198,9 @@ function CrystalBattlePics.extract(rom, profile, options)
     count = SPECIES_COUNT,
     species = records,
     player = {
-      male = extractPlayerBack(rom, profile, "ChrisBackpic", 0),
-      female = extractPlayerBack(rom, profile, "KrisBackpic", 1),
+      -- Pinned pokecrystal stores Chris as .2bpp.lz and Kris as raw .2bpp.
+      male = extractPlayerBack(rom, profile, "ChrisBackpic", 0, "lz"),
+      female = extractPlayerBack(rom, profile, "KrisBackpic", 1, "raw"),
     },
   }
 end
