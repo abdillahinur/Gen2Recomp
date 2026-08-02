@@ -7,7 +7,9 @@ return {
     {
       id = 24,
       name = "new_bark",
-      extractMapIndexes = { 1, 2, 3, 4, 5, 6, 8, 9, 13 },
+      -- Full header closure: every named map is a live warp/connection target
+      -- within the group (e.g. players_house_1f → players_house_2f at index 7).
+      extractMapIndexes = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 },
       maps = {
         "route_26",
         "route_27",
@@ -45,7 +47,10 @@ return {
     {
       id = 10,
       name = "violet",
-      extractMapIndexes = { 1, 3, 5, 6, 7, 8, 9, 10, 11 },
+      -- Full header closure within the violet group (routes, city, gates).
+      extractMapIndexes = {
+        1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17,
+      },
       maps = {
         "route_32",
         "route_35",

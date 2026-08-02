@@ -206,9 +206,7 @@ local function main()
   local world = World.new(worldData)
   world.camera:follow(
     world.player.pixelX + 8,
-    world.player.pixelY + 8,
-    world.grid.widthTiles * 8,
-    world.grid.heightTiles * 8
+    world.player.pixelY + 8
   )
   local tileReferences = verifyMapGraphics(world)
   local hashes = {}

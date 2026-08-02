@@ -10,13 +10,11 @@ function Camera.new(width, height)
   }, Camera)
 end
 
-function Camera:follow(x, y, worldWidth, worldHeight)
-  local maximumX = math.max(0, worldWidth - self.width)
-  local maximumY = math.max(0, worldHeight - self.height)
-  self.x = math.max(0, math.min(maximumX,
-    math.floor(x - self.width / 2)))
-  self.y = math.max(0, math.min(maximumY,
-    math.floor(y - self.height / 2)))
+-- Crystal keeps the player centered; past-edge fill comes from map
+-- connections or the map's borderBlock, not from clamping the camera.
+function Camera:follow(x, y)
+  self.x = math.floor(x - self.width / 2)
+  self.y = math.floor(y - self.height / 2)
 end
 
 return Camera

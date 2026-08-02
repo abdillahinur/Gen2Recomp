@@ -36,10 +36,20 @@ function CrystalPreview.load(path, options)
       require("src.import.CrystalBattleData")
     battle = CrystalBattleData.extract(rom, identity.profile)
   end
+  local battlePics
+  if options.battlePics ~= false and options.battle then
+    local CrystalBattlePics =
+      require("src.import.CrystalBattlePics")
+    battlePics = CrystalBattlePics.extract(
+      rom, identity.profile, {
+        species = options.battlePicSpecies,
+      })
+  end
   local presentation = {
     font = CrystalFont.extract(rom, identity.profile),
     intro = CrystalIntroData.extract(rom, identity.profile),
     audio = CrystalAudioData.extract(rom, identity.profile, battle),
+    battlePics = battlePics,
   }
   rom = nil
   return world, identity.profile, text, battle, presentation

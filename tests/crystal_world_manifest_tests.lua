@@ -3,9 +3,9 @@ return function(test, equal, truthy)
 
   test("Crystal world manifest defines the first-badge route", function()
     local expected = {
-      [24] = { name = "new_bark", headers = 13, extracted = 9 },
+      [24] = { name = "new_bark", headers = 13, extracted = 13 },
       [26] = { name = "cherrygrove", headers = 11, extracted = 11 },
-      [10] = { name = "violet", headers = 17, extracted = 9 },
+      [10] = { name = "violet", headers = 17, extracted = 17 },
     }
     local seen = {}
     for _, group in ipairs(manifest.groups) do

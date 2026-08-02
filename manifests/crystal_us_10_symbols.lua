@@ -173,6 +173,11 @@ return {
       address = 0x48a9,
       offset = 0x0888a9,
     },
+    ["ChrisBackpic"] = {
+      bank = 0x0a,
+      address = 0x7a1a,
+      offset = 0x02ba1a,
+    },
     ["ChrisSpriteGFX"] = {
       bank = 0x30,
       address = 0x4000,
@@ -508,6 +513,11 @@ return {
       address = 0x4bb9,
       offset = 0x088bb9,
     },
+    ["KrisBackpic"] = {
+      bank = 0x22,
+      address = 0x4ed6,
+      offset = 0x088ed6,
+    },
     ["KrisSpriteGFX"] = {
       bank = 0x31,
       address = 0x7a40,
@@ -762,6 +772,11 @@ return {
       bank = 0x02,
       address = 0x68ce,
       offset = 0x00a8ce,
+    },
+    ["PokemonPicPointers"] = {
+      bank = 0x48,
+      address = 0x4000,
+      offset = 0x120000,
     },
     ["PokemonProfPic"] = {
       bank = 0x56,

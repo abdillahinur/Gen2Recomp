@@ -74,9 +74,10 @@ Pokémon, Run, move/PP details, party switching, catching, escaping, failed
 trainer escape, and acknowledged terminal outcomes. The standalone ROM-backed
 battle preview uses normalized species and move names from the supplied ROM.
 
-Species are represented by native silhouettes until battle-picture extraction
-is added, while all battle state and menu behavior already use the real native
-simulation.
+Species use ROM-backed front/back pictures from `PokemonPicPointers` when
+`CrystalBattlePics` is supplied to `BattleSceneState`. Declared layout anchors
+match Crystal `hlcoord` battle placement. Silhouettes remain only as a
+structural fallback when pics are unavailable.
 
 ## Battle dispatch and persistence
 
@@ -93,8 +94,8 @@ snapshot contract. Route encounters themselves begin in M5-006.
 
 ## First-badge world corridor
 
-M5-005 expands the player-ROM-backed catalog to 29 maps and 41 headers across
-the New Bark, Cherrygrove, and Violet groups. The continuous connection chain
+M5-005 expands the player-ROM-backed catalog to 41 maps and 41 headers across
+the New Bark, Cherrygrove, and Violet groups (full in-group header closure). The continuous connection chain
 now covers New Bark, Route 29, Cherrygrove, Routes 30 and 31, and Violet City.
 Relevant marts, Pokémon Centers, houses, gates, Elm's Lab, and Violet Gym are
 also extracted with ten normalized tilesets and the referenced ordinary

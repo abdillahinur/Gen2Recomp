@@ -159,6 +159,9 @@ ChrisSpriteGFX
 KrisSpriteGFX
 PokemonProfPic
 WooperFrontpic
+ChrisBackpic
+KrisBackpic
+PokemonPicPointers
 Shrink1Pic
 Shrink2Pic
 PokemonPalettes
