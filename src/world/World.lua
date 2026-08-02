@@ -3,6 +3,7 @@ local ActorSystem = require("src.world.ActorSystem")
 local Collision = require("src.world.Collision")
 local MapGrid = require("src.world.MapGrid")
 local MapRepository = require("src.world.MapRepository")
+local MapSampler = require("src.world.MapSampler")
 local OverworldSpriteAnimator =
   require("src.render.OverworldSpriteAnimator")
 
@@ -134,6 +135,7 @@ function World:loadMap(id)
   for key, value in pairs(map) do runtimeMap[key] = value end
   runtimeMap.blocks = blocks
   self.grid = MapGrid.new(runtimeMap, tileset)
+  MapSampler.clearCache(self)
 end
 
 function World:relocate(mapId, x, y, facing, kind)
@@ -185,6 +187,7 @@ function World:changeBlock(mapId, blockX, blockY, blockId)
   self.blockOverrides[mapId] = self.blockOverrides[mapId] or {}
   self.blockOverrides[mapId][index] = blockId
   if self.currentMapId == mapId then self:loadMap(mapId) end
+  MapSampler.clearCache(self)
 end
 
 function World:getObject(mapId, objectId)
@@ -375,9 +378,7 @@ function World:update(dt, input)
 
   self.camera:follow(
     self.player.pixelX + 8,
-    self.player.pixelY + 8,
-    self.grid.widthTiles * 8,
-    self.grid.heightTiles * 8
+    self.player.pixelY + 8
   )
 end
 
