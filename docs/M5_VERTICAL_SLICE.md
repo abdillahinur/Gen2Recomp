@@ -93,8 +93,8 @@ snapshot contract. Route encounters themselves begin in M5-006.
 
 ## First-badge world corridor
 
-M5-005 expands the player-ROM-backed catalog to 29 maps and 41 headers across
-the New Bark, Cherrygrove, and Violet groups. The continuous connection chain
+M5-005 expands the player-ROM-backed catalog to 41 maps and 41 headers across
+the New Bark, Cherrygrove, and Violet groups (full in-group header closure). The continuous connection chain
 now covers New Bark, Route 29, Cherrygrove, Routes 30 and 31, and Violet City.
 Relevant marts, Pokémon Centers, houses, gates, Elm's Lab, and Violet Gym are
 also extracted with ten normalized tilesets and the referenced ordinary
